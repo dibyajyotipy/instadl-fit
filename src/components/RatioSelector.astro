@@ -1,0 +1,450 @@
+---
+import { RATIOS } from "../lib/aspectRatio";
+
+// Group categories for rendering
+const categories = ["Instagram", "TikTok", "YouTube", "Social", "Wallpaper"] as const;
+---
+
+<div class="relative w-full" id="ratio-selector-container">
+  
+  <!-- Quick Access Row (Popular Sizes) -->
+  <div class="flex items-center gap-1.5 mb-3 flex-wrap">
+    <span class="text-[9px] font-mono uppercase tracking-wider text-mute mr-1 select-none">Quick Access:</span>
+    <button
+      type="button"
+      data-quick-id="instagram-post-1-1"
+      class="quick-ratio-chip px-2.5 py-1 text-[10px] font-mono font-medium rounded-full bg-canvas-soft-2/50 border border-hairline hover:border-hairline-strong text-body hover:text-ink cursor-pointer select-none transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
+    >
+      1:1
+    </button>
+    <button
+      type="button"
+      data-quick-id="instagram-portrait-4-5"
+      class="quick-ratio-chip px-2.5 py-1 text-[10px] font-mono font-medium rounded-full bg-canvas-soft-2/50 border border-hairline hover:border-hairline-strong text-body hover:text-ink cursor-pointer select-none transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
+    >
+      4:5
+    </button>
+    <button
+      type="button"
+      data-quick-id="instagram-story-9-16"
+      class="quick-ratio-chip px-2.5 py-1 text-[10px] font-mono font-medium rounded-full bg-canvas-soft-2/50 border border-hairline hover:border-hairline-strong text-body hover:text-ink cursor-pointer select-none transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
+    >
+      9:16
+    </button>
+    <button
+      type="button"
+      data-quick-id="youtube-thumbnail-16-9"
+      class="quick-ratio-chip px-2.5 py-1 text-[10px] font-mono font-medium rounded-full bg-canvas-soft-2/50 border border-hairline hover:border-hairline-strong text-body hover:text-ink cursor-pointer select-none transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
+    >
+      16:9
+    </button>
+  </div>
+
+  <!-- Recently Used Row (hidden if empty) -->
+  <div id="recent-ratios-container" class="flex items-center gap-1.5 mb-3 px-0.5 flex-wrap hidden">
+    <span class="text-[9px] font-mono uppercase tracking-wider text-mute mr-1 select-none">Recent:</span>
+    <div id="recent-ratios-group" class="flex items-center gap-1.5 flex-wrap"></div>
+  </div>
+
+
+  <!-- Dropdown Trigger Button -->
+  <button
+    type="button"
+    id="ratio-dropdown-trigger"
+    class="w-full flex items-center justify-between p-3 rounded-xl border border-hairline bg-canvas hover:bg-canvas-soft/80 hover:border-hairline-strong/30 transition-all duration-150 cursor-pointer select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 group shadow-[0_1px_2px_rgba(0,0,0,0.02)]"
+  >
+    <div class="flex items-center gap-3 min-w-0">
+      <span class="flex h-5 w-5 shrink-0 items-center justify-center text-mute transition-colors group-hover:text-ink" id="active-preset-icon">
+        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+      </span>
+      <div class="text-left min-w-0">
+        <div class="text-xs font-semibold text-ink leading-none truncate" id="active-preset-name">
+          Instagram Post
+        </div>
+        <div class="text-[10px] text-mute leading-none mt-1.5" id="active-preset-details">
+          1080 × 1080 px
+        </div>
+      </div>
+    </div>
+    
+    <div class="flex items-center gap-2 shrink-0 ml-2">
+      <span class="text-[9px] font-mono font-semibold opacity-90 px-2 py-0.5 rounded bg-canvas-soft-2 border border-hairline text-ink select-none tabular-nums" id="active-preset-ratio-badge">
+        1:1
+      </span>
+      <svg class="h-4 w-4 text-mute transition-transform duration-200 group-hover:text-ink" id="dropdown-chevron" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+      </svg>
+    </div>
+  </button>
+
+  <!-- Dropdown Floating Menu -->
+  <div
+    id="ratio-dropdown-menu"
+    class="hidden absolute left-0 right-0 mt-2 z-50 rounded-xl border border-hairline bg-canvas-soft backdrop-blur-md shadow-level4 flex flex-col p-2 max-h-[360px] overflow-hidden transition-all duration-150 scale-95 opacity-0 origin-top"
+  >
+    <!-- Search Field -->
+    <div class="relative w-full mb-2">
+      <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-mute">
+        <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+      </span>
+      <input
+        type="text"
+        id="dropdown-search-input"
+        placeholder="Search preset sizes (e.g. reels, 4:5)..."
+        class="w-full text-xs py-2 pl-9 pr-4 rounded-lg border border-hairline bg-canvas-soft-2 text-ink placeholder:text-mute focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:border-hairline-strong transition-all"
+      />
+    </div>
+
+    <!-- Scrollable presets list grouped by Category -->
+    <div class="flex-1 overflow-y-auto pr-0.5 scrollbar-thin space-y-3" id="dropdown-presets-list">
+      {categories.map(cat => {
+        const catPresets = RATIOS.filter(r => r.category === cat);
+        return (
+          <div class="preset-category-group" data-category-name={cat}>
+            <div class="text-[9px] font-mono text-mute uppercase tracking-widest px-2 py-1.5 border-b border-hairline/10 mb-1 select-none">
+              {cat}
+            </div>
+            <div class="space-y-0.5">
+              {catPresets.map(ratio => (
+                <button
+                  type="button"
+                  data-ratio-id={ratio.id}
+                  data-ratio-name={ratio.name}
+                  data-ratio-val={ratio.ratioText}
+                  class="ratio-preset-btn w-full flex items-center justify-between p-2 rounded-lg text-left transition-colors cursor-pointer select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 hover:bg-ink/[0.02] dark:hover:bg-white/[0.02] text-body hover:text-ink dark:hover:text-white"
+                >
+                  <div class="flex items-center gap-2.5 min-w-0">
+                    <span class="flex h-5 w-5 shrink-0 items-center justify-center text-mute" set:html={ratio.icon}></span>
+                    <div class="truncate">
+                      <div class="text-xs font-semibold text-ink leading-tight flex items-center gap-1.5">
+                        <span>{ratio.name}</span>
+                        <!-- Suggested Dot indicator -->
+                        <span class="ratio-recommend-dot hidden h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                      </div>
+                      <div class="text-[9px] text-mute leading-none mt-0.5">
+                        {ratio.width} × {ratio.height} px
+                      </div>
+                    </div>
+                  </div>
+                  <span class="ratio-badge text-[9px] font-mono font-medium opacity-80 px-1.5 py-0.5 rounded bg-canvas-soft border border-hairline text-ink select-none tabular-nums">
+                    {ratio.ratioText}
+                  </span>
+                  <span class="ratio-active-check hidden text-primary shrink-0 ml-2">
+                    <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+                    </svg>
+                  </span>
+                </button>
+              ))}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+</div>
+
+<script>
+  import { RATIOS } from "../lib/aspectRatio";
+
+  const ratioDefs = RATIOS;
+
+  // DOM Elements
+  const container = document.getElementById("ratio-selector-container");
+  const trigger = document.getElementById("ratio-dropdown-trigger");
+  const menu = document.getElementById("ratio-dropdown-menu");
+  const chevron = document.getElementById("dropdown-chevron");
+  const searchInput = document.getElementById("dropdown-search-input") as HTMLInputElement;
+  const presetButtons = document.querySelectorAll(".ratio-preset-btn");
+  const categoryGroups = document.querySelectorAll(".preset-category-group");
+  const chips = document.querySelectorAll(".quick-ratio-chip");
+
+  let isDropdownOpen = false;
+
+  // 1. Dropdown Toggle Handlers
+  if (trigger && menu && chevron) {
+    trigger.addEventListener("click", (e) => {
+      e.stopPropagation();
+      if (isDropdownOpen) {
+        closeDropdown();
+      } else {
+        openDropdown();
+      }
+    });
+  }
+
+  function openDropdown() {
+    if (!menu || !chevron || !searchInput) return;
+    
+    isDropdownOpen = true;
+    menu.classList.remove("hidden");
+    
+    // Smooth fade + scale animation
+    requestAnimationFrame(() => {
+      menu.classList.remove("scale-95", "opacity-0");
+      menu.classList.add("scale-100", "opacity-100");
+      chevron.classList.add("rotate-180");
+      searchInput.focus();
+    });
+  }
+
+  function closeDropdown() {
+    if (!menu || !chevron) return;
+    
+    isDropdownOpen = false;
+    menu.classList.remove("scale-100", "opacity-100");
+    menu.classList.add("scale-95", "opacity-0");
+    chevron.classList.remove("rotate-180");
+    
+    // Hide after animation finishes
+    setTimeout(() => {
+      if (!isDropdownOpen) {
+        menu.classList.add("hidden");
+        // Clear search on close
+        if (searchInput) {
+          searchInput.value = "";
+          filterPresets("");
+        }
+      }
+    }, 150);
+  }
+
+  // Close when clicking outside
+  document.addEventListener("click", (e) => {
+    if (isDropdownOpen && container && !container.contains(e.target as Node)) {
+      closeDropdown();
+    }
+  });
+
+  // Close when pressing Escape key
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && isDropdownOpen) {
+      closeDropdown();
+    }
+  });
+
+  // 2. Preset Selection Sync Displays
+  presetButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const id = btn.getAttribute("data-ratio-id");
+      if (id) {
+        setActivePresetDisplay(id);
+        saveRecentRatio(id);
+        closeDropdown();
+      }
+    });
+  });
+
+  // Recently Used Ratios Logic
+  function saveRecentRatio(id: string) {
+    const defaultChips = ["instagram-post-1-1", "instagram-portrait-4-5", "instagram-story-9-16", "youtube-thumbnail-16-9"];
+    if (defaultChips.includes(id)) return;
+
+    let recents: string[] = [];
+    try {
+      const stored = localStorage.getItem("instadl-recent-ratios");
+      recents = stored ? JSON.parse(stored) : [];
+    } catch (e) {}
+
+    recents = recents.filter(r => r !== id);
+    recents.unshift(id);
+    if (recents.length > 4) recents.pop();
+
+    try {
+      localStorage.setItem("instadl-recent-ratios", JSON.stringify(recents));
+      updateRecentRatiosUI();
+    } catch (e) {}
+  }
+
+  function updateRecentRatiosUI() {
+    const container = document.getElementById("recent-ratios-container");
+    const group = document.getElementById("recent-ratios-group");
+    if (!container || !group) return;
+
+    let recents: string[] = [];
+    try {
+      const stored = localStorage.getItem("instadl-recent-ratios");
+      recents = stored ? JSON.parse(stored) : [];
+    } catch (e) {}
+
+    if (recents.length === 0) {
+      container.classList.add("hidden");
+      return;
+    }
+
+    container.classList.remove("hidden");
+    group.innerHTML = "";
+
+    recents.forEach(id => {
+      const preset = ratioDefs.find(r => r.id === id);
+      if (!preset) return;
+
+      const chip = document.createElement("button");
+      chip.type = "button";
+      chip.className = "recent-ratio-chip px-2.5 py-1 text-[10px] font-mono font-medium rounded-full bg-canvas-soft-2/50 border border-hairline hover:border-hairline-strong text-body hover:text-ink cursor-pointer select-none transition-all duration-200 focus-visible:outline-none";
+      chip.textContent = preset.ratioText;
+      chip.title = preset.name;
+      chip.setAttribute("data-ratio-id", id);
+
+      chip.addEventListener("click", () => {
+        const targetBtn = document.querySelector(`.ratio-preset-btn[data-ratio-id="${id}"]`) as HTMLButtonElement;
+        if (targetBtn) {
+          targetBtn.click();
+        }
+      });
+
+      group.appendChild(chip);
+    });
+  }
+
+  // 3. Quick Access Chips
+  chips.forEach(chip => {
+    chip.addEventListener("click", () => {
+      const targetId = chip.getAttribute("data-quick-id");
+      if (targetId) {
+        const targetBtn = document.querySelector(`.ratio-preset-btn[data-ratio-id="${targetId}"]`) as HTMLButtonElement;
+        if (targetBtn) {
+          targetBtn.click();
+        }
+      }
+    });
+  });
+
+  function setActivePresetDisplay(id: string) {
+    const preset = ratioDefs.find(r => r.id === id);
+    if (!preset) return;
+
+    const activeIcon = document.getElementById("active-preset-icon");
+    const activeName = document.getElementById("active-preset-name");
+    const activeDetails = document.getElementById("active-preset-details");
+    const activeRatioBadge = document.getElementById("active-preset-ratio-badge");
+
+    if (activeIcon) activeIcon.innerHTML = preset.icon;
+    if (activeName) activeName.textContent = preset.name;
+    if (activeDetails) activeDetails.textContent = `${preset.width} × ${preset.height} px`;
+    if (activeRatioBadge) activeRatioBadge.textContent = preset.ratioText;
+
+    // Update Quick-access chips active colors
+    chips.forEach(chip => {
+      const chipId = chip.getAttribute("data-quick-id");
+      if (chipId === id) {
+        chip.className = "quick-ratio-chip px-2.5 py-1 text-[10px] font-mono font-bold rounded-full bg-neutral-950 text-white dark:bg-white dark:text-neutral-950 border-neutral-950 dark:border-white select-none transition-all duration-200";
+      } else {
+        chip.className = "quick-ratio-chip px-2.5 py-1 text-[10px] font-mono font-medium rounded-full bg-canvas-soft-2/50 border border-hairline hover:border-hairline-strong text-body hover:text-ink cursor-pointer select-none transition-all duration-200 focus-visible:outline-none";
+      }
+    });
+
+    // Update Recent ratios active colors
+    const recentChips = document.querySelectorAll(".recent-ratio-chip");
+    recentChips.forEach(chip => {
+      const chipId = chip.getAttribute("data-ratio-id");
+      if (chipId === id) {
+        chip.className = "recent-ratio-chip px-2.5 py-1 text-[10px] font-mono font-bold rounded-full bg-neutral-950 text-white dark:bg-white dark:text-neutral-950 border-neutral-950 dark:border-white select-none transition-all duration-200";
+      } else {
+        chip.className = "recent-ratio-chip px-2.5 py-1 text-[10px] font-mono font-medium rounded-full bg-canvas-soft-2/50 border border-hairline hover:border-hairline-strong text-body hover:text-ink cursor-pointer select-none transition-all duration-200 focus-visible:outline-none";
+      }
+    });
+
+    // Update active state in dropdown button items
+    presetButtons.forEach(btn => {
+      const btnId = btn.getAttribute("data-ratio-id");
+      const check = btn.querySelector(".ratio-active-check");
+      const badge = btn.querySelector(".ratio-badge");
+      
+      if (btnId === id) {
+        btn.classList.add("bg-primary/[0.04]", "text-ink", "dark:text-white", "font-semibold");
+        btn.classList.remove("text-body");
+        if (check) check.classList.remove("hidden");
+        if (badge) badge.classList.add("hidden");
+      } else {
+        btn.classList.remove("bg-primary/[0.04]", "text-ink", "dark:text-white", "font-semibold");
+        btn.classList.add("text-body");
+        if (check) check.classList.add("hidden");
+        if (badge) badge.classList.remove("hidden");
+      }
+    });
+  }
+
+  // Listen for auto-detected ratio changes from parent
+  document.addEventListener("apply-ratio", (e: any) => {
+    const { ratioId } = e.detail;
+    setActivePresetDisplay(ratioId);
+  });
+
+  // Initialize display and recents
+  setActivePresetDisplay("instagram-post-1-1");
+  updateRecentRatiosUI();
+
+  // 4. Search Filtering logic
+  if (searchInput) {
+    searchInput.addEventListener("input", () => {
+      const query = searchInput.value.toLowerCase().trim();
+      filterPresets(query);
+    });
+  }
+
+  function filterPresets(query: string) {
+    categoryGroups.forEach(group => {
+      const groupPresets = group.querySelectorAll(".ratio-preset-btn");
+      let visibleInGroup = 0;
+
+      groupPresets.forEach(btn => {
+        const name = (btn.getAttribute("data-ratio-name") || "").toLowerCase();
+        const val = (btn.getAttribute("data-ratio-val") || "").toLowerCase();
+
+        if (query === "" || name.includes(query) || val.includes(query)) {
+          btn.classList.remove("hidden");
+          visibleInGroup++;
+        } else {
+          btn.classList.add("hidden");
+        }
+      });
+
+      // Hide category header group entirely if no presets match the query inside it
+      if (visibleInGroup > 0) {
+        group.classList.remove("hidden");
+      } else {
+        group.classList.add("hidden");
+      }
+    });
+  }
+
+  // 5. Smart Orientation Suggestion Listener
+  document.addEventListener("image-loaded", (e: any) => {
+    const { width, height } = e.detail;
+    const imgRatio = width / height;
+
+    // Suggest in Dropdown Items
+    presetButtons.forEach(btn => {
+      const ratioId = btn.getAttribute("data-ratio-id");
+      const preset = ratioDefs.find(r => r.id === ratioId);
+      if (preset) {
+        const diff = Math.abs(preset.ratio - imgRatio);
+        const dot = btn.querySelector(".ratio-recommend-dot") as HTMLElement;
+        if (dot) {
+          if (diff < 0.05) {
+            dot.classList.remove("hidden");
+          } else {
+            dot.classList.add("hidden");
+          }
+        }
+      }
+    });
+
+    // Suggest in Quick Access Chips
+    chips.forEach(chip => {
+      const targetId = chip.getAttribute("data-quick-id");
+      const preset = ratioDefs.find(r => r.id === targetId);
+      if (preset) {
+        const diff = Math.abs(preset.ratio - imgRatio);
+        if (diff < 0.05) {
+          chip.classList.add("border-emerald-500/40", "shadow-[0_0_8px_rgba(16,185,129,0.1)]");
+        } else {
+          chip.classList.remove("border-emerald-500/40", "shadow-[0_0_8px_rgba(16,185,129,0.1)]");
+        }
+      }
+    });
+  });
+</script>

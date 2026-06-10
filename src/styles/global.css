@@ -1,0 +1,177 @@
+@import "tailwindcss";
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@theme {
+  /* Colors */
+  --color-canvas: var(--canvas);
+  --color-canvas-soft: var(--canvas-soft);
+  --color-canvas-soft-2: var(--canvas-soft-2);
+  --color-ink: var(--ink);
+  --color-body: var(--body);
+  --color-mute: var(--mute);
+  --color-hairline: var(--hairline);
+  --color-hairline-strong: var(--hairline-strong);
+  --color-primary: var(--primary);
+  --color-on-primary: var(--on-primary);
+  --color-link: #0070f3;
+  --color-success: #0070f3;
+  --color-error: #ff3333;
+  --color-warning: #f5a623;
+
+  /* Accent Gradients */
+  --color-gradient-develop-start: #007cf0;
+  --color-gradient-develop-end: #00dfd8;
+  --color-gradient-preview-start: #7928ca;
+  --color-gradient-preview-end: #ff0080;
+  --color-gradient-ship-start: #ff4d4d;
+  --color-gradient-ship-end: #f9cb28;
+
+  /* Typography */
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  /* Border Radius */
+  --radius-xs: 6px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-pill-sm: 64px;
+  --radius-pill: 100px;
+
+  /* Stacked Shadows */
+  --shadow-level1: var(--shadow-1);
+  --shadow-level2: var(--shadow-2);
+  --shadow-level3: var(--shadow-3);
+  --shadow-level4: var(--shadow-4);
+  --shadow-level5: var(--shadow-5);
+}
+
+/* Base Styles */
+@layer base {
+  :root {
+    /* Premium Creator Theme (Linear / Vercel Visual Style) */
+    --canvas: #f6f6f8; /* Crisp page backdrop */
+    --canvas-soft: #ffffff; /* Workspace container white card surface */
+    --canvas-soft-2: #f1f1f3; /* Inputs & nested selector background */
+    --ink: #09090b; /* True contrast black for prominent titles */
+    --body: #27272a; /* Readable dark grey for body copy & labels */
+    --mute: #52525b; /* Non-washed medium grey for helper micro-text */
+    --hairline: #e4e4e7; /* Crisp hairline borders */
+    --hairline-strong: #71717a; /* Highly visible active borders */
+    
+    --primary: #09090b; /* Solid dark primary actions */
+    --on-primary: #ffffff;
+    
+    /* Elegant Multi-Layered Elevation Shadows (Standard, NOT inset) */
+    --shadow-1: 0 1px 2px 0 rgba(0, 0, 0, 0.04);
+    --shadow-2: 0 4px 12px -2px rgba(9, 9, 11, 0.05), 0 2px 4px -1px rgba(9, 9, 11, 0.02);
+    --shadow-3: 0 12px 28px -4px rgba(9, 9, 11, 0.08), 0 4px 12px -2px rgba(9, 9, 11, 0.03);
+    --shadow-4: 0 20px 48px -10px rgba(9, 9, 11, 0.12), 0 6px 18px -3px rgba(9, 9, 11, 0.04);
+    --shadow-5: 0 32px 72px -16px rgba(9, 9, 11, 0.16), 0 12px 28px -6px rgba(9, 9, 11, 0.06);
+
+    --hero-glow-1: rgba(124, 58, 237, 0.05);
+    --hero-glow-2: rgba(59, 130, 246, 0.04);
+    
+    --grid-dot: rgba(9, 9, 11, 0.07);
+    --canvas-glow: rgba(0, 0, 0, 0.015);
+  }
+
+
+  body {
+    background-color: var(--color-canvas);
+    color: var(--color-body);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--color-ink);
+    letter-spacing: -0.025em;
+  }
+
+  /* Transition properties on core layouts to switch themes smoothly */
+  body, header, footer, section, details, summary, button, input, canvas, div.border {
+    transition-property: background-color, border-color, color, fill, stroke, box-shadow;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 200ms;
+  }
+
+  /* Focus rings for keyboard navigation */
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+}
+
+/* Custom Utilities */
+@utility text-balance {
+  text-wrap: balance;
+}
+
+@utility text-pretty {
+  text-wrap: pretty;
+}
+
+/* Premium Gradients & Animations */
+.hero-glow {
+  background: radial-gradient(
+    circle at 50% -20%,
+    var(--hero-glow-1) 0%,
+    var(--hero-glow-2) 40%,
+    transparent 70%
+  );
+}
+
+.mesh-glow {
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(0, 223, 216, 0.05) 0%,
+    rgba(255, 0, 128, 0.05) 50%,
+    transparent 100%
+  );
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.01);
+  border: 1px solid var(--color-hairline);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-level3);
+}
+
+.glass-card-hover {
+  transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.glass-card-hover:hover {
+  border-color: var(--color-hairline-strong);
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+/* Smooth custom transitions */
+.transition-all-custom {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+/* Tabular numbers for clean aspect ratios */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.scrollbar-none {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+

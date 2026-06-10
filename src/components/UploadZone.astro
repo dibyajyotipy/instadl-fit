@@ -1,0 +1,81 @@
+---
+---
+<div
+  id="dropzone"
+  role="button"
+  tabindex="0"
+  aria-label="Drag and drop or browse to upload your image"
+  class="relative w-full border-2 border-dashed border-hairline hover:border-hairline-strong bg-canvas-soft/40 backdrop-blur-sm rounded-xl p-8 sm:p-12 text-center cursor-pointer transition-all duration-300 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 select-none overflow-hidden"
+>
+  <!-- Active Drag Glow Effect -->
+  <div class="absolute inset-0 bg-primary/[0.01] opacity-0 group-data-[drag-active=true]:opacity-100 transition-opacity pointer-events-none"></div>
+
+  <!-- Content Stack -->
+  <div class="flex flex-col items-center justify-center gap-4 relative z-10 pointer-events-none">
+    <!-- Icon Container -->
+    <div class="flex h-12 w-12 items-center justify-center rounded-lg border border-hairline bg-canvas-soft-2 text-ink group-hover:scale-110 group-data-[drag-active=true]:scale-110 transition-transform duration-300">
+      <svg class="h-6 w-6 text-mute group-hover:text-ink transition-colors duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+        <polyline points="17 8 12 3 7 8" />
+        <line x1="12" x2="12" y1="3" y2="15" />
+      </svg>
+    </div>
+
+    <!-- Instructions -->
+    <div class="space-y-1">
+      <p class="text-sm font-medium text-ink">
+        Drag & drop your photo here or <span class="text-ink underline decoration-mute hover:decoration-ink transition-colors">browse</span>
+      </p>
+      <p class="text-xs text-mute">
+        Supports JPEG, PNG, WebP (Max 25&nbsp;MB)
+      </p>
+    </div>
+  </div>
+
+  <!-- Invisible file input for trigger -->
+  <input
+    type="file"
+    id="file-input"
+    class="hidden"
+    accept="image/png, image/jpeg, image/webp"
+  />
+</div>
+
+<script>
+  // Quick drag & drop behavior setup
+  const dropzone = document.getElementById("dropzone");
+  const fileInput = document.getElementById("file-input") as HTMLInputElement;
+
+  if (dropzone && fileInput) {
+    const triggerUpload = () => {
+      fileInput.click();
+    };
+
+    dropzone.addEventListener("click", triggerUpload);
+
+    // Keyboard support
+    dropzone.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        triggerUpload();
+      }
+    });
+
+    // Handle drag state animations via dataset
+    ["dragenter", "dragover"].forEach((eventName) => {
+      dropzone.addEventListener(eventName, (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        dropzone.setAttribute("data-drag-active", "true");
+      }, false);
+    });
+
+    ["dragleave", "drop"].forEach((eventName) => {
+      dropzone.addEventListener(eventName, (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        dropzone.removeAttribute("data-drag-active");
+      }, false);
+    });
+  }
+</script>

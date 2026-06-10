@@ -1,0 +1,84 @@
+---
+const features = [
+  {
+    title: "Privacy first.",
+    description: "Your photos never leave your device. All calculations, blurring, and image exports happen 100% locally inside your browser.",
+    icon: `<svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.57-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z" />
+    </svg>`
+  },
+  {
+    title: "Instant rendering.",
+    description: "Powered by browser-native Canvas filter APIs. Tweak margins, backgrounds, and sizes with zero lag and real-time previews.",
+    icon: `<svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z" />
+    </svg>`
+  },
+  {
+    title: "Smart blur backgrounds.",
+    description: "Color profiles are sampled directly from the photo to generate a blurred cinematic background, keeping the original image sharp on top.",
+    icon: `<svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M12 9.75v6.75m0 0-3-3m3 3 3-3m-8.25 6a9 9 0 1 1 18 0 9 9 0 0 1-18 0Z" />
+    </svg>`
+  },
+  {
+    title: "Creator optimized.",
+    description: "Export images directly at the exact, pixel-perfect dimensions recommended by platforms like Instagram, TikTok, Reels, and YouTube.",
+    icon: `<svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M6 13.5V3.75m0 9.75a1.5 1.5 0 0 1 0 3m0-3a1.5 1.5 0 0 0 0 3m0 3v-3m0 3a1.5 1.5 0 0 0 0-3m12 3v-3m0 0a1.5 1.5 0 0 0 0-3m0 3a1.5 1.5 0 0 1 0-3m0-9.75v9.75M12 3.75v3m0 0a1.5 1.5 0 0 0 0 3m0-3a1.5 1.5 0 0 1 0 3m0 9.75V9.75m0 9.75a1.5 1.5 0 0 1 0-3m0 3a1.5 1.5 0 0 0 0-3" />
+    </svg>`
+  },
+  {
+    title: "Zero server uploads.",
+    description: "No signup, account, or subscription needed. Since it processes locally, it runs even with weak or offline internet with zero server uploads.",
+    icon: `<svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15a4.5 4.5 0 0 0 4.5 4.5H18a3.75 3.75 0 0 0 1.332-7.257 3 3 0 0 0-3.758-3.848 5.25 5.25 0 0 0-10.233 2.33A4.502 4.502 0 0 0 2.25 15Z" />
+    </svg>`
+  },
+  {
+    title: "Mobile friendly.",
+    description: "The entire utility dashboard is responsive, allowing creators to fit and export photos on-the-go directly from their mobile phones.",
+    icon: `<svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 0 0 6 3.75v16.5a2.25 2.25 0 0 0 2.25 2.25h7.5A2.25 2.25 0 0 0 18 20.25V3.75a2.25 2.25 0 0 0-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" />
+    </svg>`
+  }
+];
+---
+
+<section id="features" class="py-24 border-t border-hairline bg-canvas relative overflow-hidden">
+  <div class="mx-auto max-w-7xl px-6">
+    <!-- Section Eyebrow -->
+    <div class="text-center max-w-2xl mx-auto mb-16">
+      <p class="text-xs font-mono font-medium tracking-widest text-mute uppercase mb-3">Designed for Creators</p>
+      <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-ink mb-4">
+        Built for Speed. Guarded for Privacy.
+      </h2>
+      <p class="text-sm text-body text-balance">
+        InstaDL Fit combines modern browser performance with client-only privacy, delivering a professional experience with zero server cost.
+      </p>
+    </div>
+
+    <!-- Features Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {features.map((feat) => (
+        <div class="glass-card glass-card-hover rounded-xl p-6 flex flex-col gap-4 shadow-level3">
+          <!-- Icon -->
+          <div class="flex h-10 w-10 items-center justify-center rounded-lg border border-hairline bg-canvas-soft text-ink">
+            <span set:html={feat.icon}></span>
+          </div>
+          <!-- Info -->
+          <div>
+            <h3 class="text-sm font-semibold text-ink mb-2">{feat.title}</h3>
+            <p class="text-xs text-body leading-relaxed">{feat.description}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+
+  </div>
+
+  <!-- Decorative Glow -->
+  <div class="absolute bottom-0 right-0 z-0 pointer-events-none opacity-20 translate-y-1/2 translate-x-1/3">
+    <div class="w-[500px] h-[500px] rounded-full blur-[150px] bg-gradient-to-tr from-cyan/25 to-violet/25"></div>
+  </div>
+</section>

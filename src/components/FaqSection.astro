@@ -1,0 +1,521 @@
+---
+/**
+ * FAQ Section Component for InstaDL Fit
+ * Includes interactive accordions and JSON-LD structured data for SEO.
+ */
+---
+
+<section id="faq" class="py-24 border-t border-hairline bg-canvas relative overflow-hidden">
+  <div class="mx-auto max-w-7xl px-6 relative z-10">
+    
+    <!-- Header Area -->
+    <div class="max-w-3xl mb-16">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-hairline bg-canvas-soft-2 text-[10px] font-mono text-ink mb-4">
+        <span class="flex h-1.5 w-1.5 rounded-full bg-gradient-preview-end animate-pulse"></span>
+        FAQ & Sizing Guide
+      </div>
+      <h2 class="text-3xl md:text-5xl font-bold tracking-tight text-ink mb-6 text-balance">
+        Frequently Asked Questions.
+      </h2>
+      <p class="text-sm md:text-base text-body leading-relaxed max-w-2xl text-pretty">
+        Got questions about aspect ratios, image quality, or privacy? Find quick answers below about resizing and styling your photos for social media.
+      </p>
+    </div>
+
+    <!-- Layout: Category Side-Nav & Accordions -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+      
+      <!-- Sticky Sidebar Navigation (Desktop only) -->
+      <aside class="hidden lg:block lg:col-span-3 sticky top-24 space-y-2">
+        <p class="text-[10px] font-mono uppercase tracking-wider text-mute mb-4 px-3">Categories</p>
+        <nav class="flex flex-col gap-1">
+          <a href="#category-sizing" class="faq-nav-link active px-3 py-2 text-xs font-medium rounded-md text-left transition-all hover:text-ink text-body">
+            Platform Sizing
+          </a>
+          <a href="#category-editing" class="faq-nav-link px-3 py-2 text-xs font-medium rounded-md text-left transition-all hover:text-ink text-body">
+            Editing & Customization
+          </a>
+          <a href="#category-privacy" class="faq-nav-link px-3 py-2 text-xs font-medium rounded-md text-left transition-all hover:text-ink text-body">
+            Quality & Privacy
+          </a>
+        </nav>
+      </aside>
+
+      <!-- Accordion Grid/Lists -->
+      <div class="lg:col-span-9 space-y-16">
+        
+        <!-- Category 1: Platform & Aspect Ratios -->
+        <div id="category-sizing" class="space-y-6 scroll-mt-24">
+          <h3 class="text-lg font-bold text-ink flex items-center gap-3 border-b border-hairline pb-3">
+            <span class="text-xs font-mono text-mute">01</span>
+            Platform & Aspect Ratios
+          </h3>
+          <div class="space-y-4">
+            
+            <!-- Q1 -->
+            <details class="faq-item group glass-card rounded-lg overflow-hidden border border-hairline transition-all">
+              <summary class="flex items-center justify-between p-5 text-sm font-semibold text-ink cursor-pointer select-none list-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:outline-none rounded-md">
+                <span>Why do Instagram and TikTok crop my photos automatically?</span>
+                <svg class="h-4 w-4 text-mute transition-transform duration-300 group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m6 9 6 6 6-6"/>
+                </svg>
+              </summary>
+              <div class="px-5 pb-5 pt-1 text-xs md:text-sm text-body leading-relaxed border-t border-hairline/30 bg-canvas-soft/30">
+                <p>
+                  Social media platforms crop photos because their user interfaces are designed around fixed container ratios to maintain visual consistency in the feed. When an uploaded photo doesn't fit these predetermined aspect ratios (like a 3:2 landscape photo in a 4:5 feed container), the platform automatically crops the edges to fit the layout. Using a tool like InstaDL Fit allows you to pad the margins and retain the whole photo.
+                </p>
+              </div>
+            </details>
+
+            <!-- Q2 -->
+            <details class="faq-item group glass-card rounded-lg overflow-hidden border border-hairline transition-all">
+              <summary class="flex items-center justify-between p-5 text-sm font-semibold text-ink cursor-pointer select-none list-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:outline-none rounded-md">
+                <span>What aspect ratios are supported by InstaDL Fit?</span>
+                <svg class="h-4 w-4 text-mute transition-transform duration-300 group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m6 9 6 6 6-6"/>
+                </svg>
+              </summary>
+              <div class="px-5 pb-5 pt-1 text-xs md:text-sm text-body leading-relaxed border-t border-hairline/30 bg-canvas-soft/30">
+                <p>
+                  InstaDL Fit supports all major social media aspect ratios out of the box:
+                </p>
+                <ul class="list-disc pl-5 mt-2 space-y-1">
+                  <li><strong class="text-ink">1:1 (Square Feed):</strong> Standard square format for classic Instagram posts.</li>
+                  <li><strong class="text-ink">4:5 (Portrait Feed):</strong> Optimized vertical format that occupies maximum real estate on the feed.</li>
+                  <li><strong class="text-ink">9:16 (Story, Reels, TikTok):</strong> Full-screen vertical format for stories, reels, shorts, and TikToks.</li>
+                  <li><strong class="text-ink">16:9 (Landscape Feed):</strong> Standard widescreen format for covers, video previews, and YouTube thumbnails.</li>
+                </ul>
+              </div>
+            </details>
+
+            <!-- Q3 -->
+            <details class="faq-item group glass-card rounded-lg overflow-hidden border border-hairline transition-all">
+              <summary class="flex items-center justify-between p-5 text-sm font-semibold text-ink cursor-pointer select-none list-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:outline-none rounded-md">
+                <span>What is the best Instagram aspect ratio for portrait photos?</span>
+                <svg class="h-4 w-4 text-mute transition-transform duration-300 group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m6 9 6 6 6-6"/>
+                </svg>
+              </summary>
+              <div class="px-5 pb-5 pt-1 text-xs md:text-sm text-body leading-relaxed border-t border-hairline/30 bg-canvas-soft/30">
+                <p>
+                  The best aspect ratio for portrait photos on Instagram is <strong class="text-ink">4:5</strong> (with a resolution of 1080x1350 pixels). This ratio takes up the maximum vertical screen space in the Instagram home feed, making your posts look larger, more engaging, and more professional compared to standard square or landscape posts.
+                </p>
+              </div>
+            </details>
+
+            <!-- Q4 -->
+            <details class="faq-item group glass-card rounded-lg overflow-hidden border border-hairline transition-all">
+              <summary class="flex items-center justify-between p-5 text-sm font-semibold text-ink cursor-pointer select-none list-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:outline-none rounded-md">
+                <span>What size should Instagram Story images be?</span>
+                <svg class="h-4 w-4 text-mute transition-transform duration-300 group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m6 9 6 6 6-6"/>
+                </svg>
+              </summary>
+              <div class="px-5 pb-5 pt-1 text-xs md:text-sm text-body leading-relaxed border-t border-hairline/30 bg-canvas-soft/30">
+                <p>
+                  Instagram Story images should have an aspect ratio of <strong class="text-ink">9:16</strong> and a recommended resolution of <strong class="text-ink">1080x1920 pixels</strong>. This same vertical size is also perfect for Instagram Reels, TikTok videos, and YouTube Shorts.
+                </p>
+              </div>
+            </details>
+
+            <!-- Q5 -->
+            <details class="faq-item group glass-card rounded-lg overflow-hidden border border-hairline transition-all">
+              <summary class="flex items-center justify-between p-5 text-sm font-semibold text-ink cursor-pointer select-none list-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:outline-none rounded-md">
+                <span>Can I resize photos for social media directly in my browser?</span>
+                <svg class="h-4 w-4 text-mute transition-transform duration-300 group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m6 9 6 6 6-6"/>
+                </svg>
+              </summary>
+              <div class="px-5 pb-5 pt-1 text-xs md:text-sm text-body leading-relaxed border-t border-hairline/30 bg-canvas-soft/30">
+                <p>
+                  Yes, InstaDL Fit is a fully browser-based web application that runs on all modern desktop, tablet, and mobile browsers. There's no need to download mobile apps or install software extensions. Simply visit the site, drop your photo, choose your aspect ratio, edit, and download the resized file instantly.
+                </p>
+              </div>
+            </details>
+
+          </div>
+        </div>
+
+        <!-- Category 2: Editing & Customization -->
+        <div id="category-editing" class="space-y-6 scroll-mt-24">
+          <h3 class="text-lg font-bold text-ink flex items-center gap-3 border-b border-hairline pb-3">
+            <span class="text-xs font-mono text-mute">02</span>
+            Editing & Customization
+          </h3>
+          <div class="space-y-4">
+
+            <!-- Q6 -->
+            <details class="faq-item group glass-card rounded-lg overflow-hidden border border-hairline transition-all">
+              <summary class="flex items-center justify-between p-5 text-sm font-semibold text-ink cursor-pointer select-none list-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:outline-none rounded-md">
+                <span>How can I resize a photo for Instagram without cropping?</span>
+                <svg class="h-4 w-4 text-mute transition-transform duration-300 group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m6 9 6 6 6-6"/>
+                </svg>
+              </summary>
+              <div class="px-5 pb-5 pt-1 text-xs md:text-sm text-body leading-relaxed border-t border-hairline/30 bg-canvas-soft/30">
+                <p>
+                  You can resize any photo for Instagram without cropping by using a padding tool like InstaDL Fit. Our tool adds standard white borders, black margins, or a beautiful smart blur background around your image to fit Instagram's required aspect ratios (like 1:1 square, 4:5 portrait, or 9:16 Story/Reels) without cutting out any part of the original photo.
+                </p>
+              </div>
+            </details>
+
+            <!-- Q7 -->
+            <details class="faq-item group glass-card rounded-lg overflow-hidden border border-hairline transition-all">
+              <summary class="flex items-center justify-between p-5 text-sm font-semibold text-ink cursor-pointer select-none list-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:outline-none rounded-md">
+                <span>Can I add a blur background to my Instagram photos online?</span>
+                <svg class="h-4 w-4 text-mute transition-transform duration-300 group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m6 9 6 6 6-6"/>
+                </svg>
+              </summary>
+              <div class="px-5 pb-5 pt-1 text-xs md:text-sm text-body leading-relaxed border-t border-hairline/30 bg-canvas-soft/30">
+                <p>
+                  Yes! InstaDL Fit features a native Smart Blur background option. It analyzes the colors of your uploaded photo, generates a smooth, matching blurred backdrop, and fills the empty margins to fit the target aspect ratio perfectly. This online process is 100% free and runs entirely in your browser.
+                </p>
+              </div>
+            </details>
+
+            <!-- Q8 -->
+            <details class="faq-item group glass-card rounded-lg overflow-hidden border border-hairline transition-all">
+              <summary class="flex items-center justify-between p-5 text-sm font-semibold text-ink cursor-pointer select-none list-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:outline-none rounded-md">
+                <span>How does Smart Blur background technology work?</span>
+                <svg class="h-4 w-4 text-mute transition-transform duration-300 group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m6 9 6 6 6-6"/>
+                </svg>
+              </summary>
+              <div class="px-5 pb-5 pt-1 text-xs md:text-sm text-body leading-relaxed border-t border-hairline/30 bg-canvas-soft/30">
+                <p>
+                  Our Smart Blur technology takes your original image, scales and mirrors it to fill the entire target canvas dimensions, applies a customizable Gaussian-like blur filter, and overlays the original high-resolution image in the center. You can control both the blur radius and the background opacity to achieve the perfect depth-of-field effect.
+                </p>
+              </div>
+            </details>
+
+            <!-- Q9 -->
+            <details class="faq-item group glass-card rounded-lg overflow-hidden border border-hairline transition-all">
+              <summary class="flex items-center justify-between p-5 text-sm font-semibold text-ink cursor-pointer select-none list-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:outline-none rounded-md">
+                <span>Can I add white or black borders to Instagram photos?</span>
+                <svg class="h-4 w-4 text-mute transition-transform duration-300 group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m6 9 6 6 6-6"/>
+                </svg>
+              </summary>
+              <div class="px-5 pb-5 pt-1 text-xs md:text-sm text-body leading-relaxed border-t border-hairline/30 bg-canvas-soft/30">
+                <p>
+                  Yes. With InstaDL Fit, you can easily toggle between a Smart Blur background, solid white borders, or solid black borders. You can also customize the thickness of the borders using the margin/padding slider, creating a minimalist, gallery-like layout for your Instagram grid.
+                </p>
+              </div>
+            </details>
+
+            <!-- Q10 -->
+            <details class="faq-item group glass-card rounded-lg overflow-hidden border border-hairline transition-all">
+              <summary class="flex items-center justify-between p-5 text-sm font-semibold text-ink cursor-pointer select-none list-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:outline-none rounded-md">
+                <span>How do I convert landscape photos to Instagram portrait format?</span>
+                <svg class="h-4 w-4 text-mute transition-transform duration-300 group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m6 9 6 6 6-6"/>
+                </svg>
+              </summary>
+              <div class="px-5 pb-5 pt-1 text-xs md:text-sm text-body leading-relaxed border-t border-hairline/30 bg-canvas-soft/30">
+                <p>
+                  Simply upload your landscape photo to InstaDL Fit, select the 4:5 (Portrait Feed) or 9:16 (Story/Reels) aspect ratio, and choose your preferred background styling (like Smart Blur or solid borders). The tool will expand the vertical dimensions and pad the sides, turning your landscape photo into a gorgeous portrait-compliant post without cropping.
+                </p>
+              </div>
+            </details>
+
+            <!-- Q11 -->
+            <details class="faq-item group glass-card rounded-lg overflow-hidden border border-hairline transition-all">
+              <summary class="flex items-center justify-between p-5 text-sm font-semibold text-ink cursor-pointer select-none list-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:outline-none rounded-md">
+                <span>How can I resize images for TikTok and Instagram Reels?</span>
+                <svg class="h-4 w-4 text-mute transition-transform duration-300 group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m6 9 6 6 6-6"/>
+                </svg>
+              </summary>
+              <div class="px-5 pb-5 pt-1 text-xs md:text-sm text-body leading-relaxed border-t border-hairline/30 bg-canvas-soft/30">
+                <p>
+                  Select the 9:16 aspect ratio in our editor, upload your photo, and use the margin slider to fit it. You can style the background using our blurred preview or solid colors to make your static images look ready for vertical-video platforms like TikTok, Reels, and YouTube Shorts.
+                </p>
+              </div>
+            </details>
+
+          </div>
+        </div>
+
+        <!-- Category 3: Quality & Privacy -->
+        <div id="category-privacy" class="space-y-6 scroll-mt-24">
+          <h3 class="text-lg font-bold text-ink flex items-center gap-3 border-b border-hairline pb-3">
+            <span class="text-xs font-mono text-mute">03</span>
+            Quality & Privacy
+          </h3>
+          <div class="space-y-4">
+
+            <!-- Q12 -->
+            <details class="faq-item group glass-card rounded-lg overflow-hidden border border-hairline transition-all">
+              <summary class="flex items-center justify-between p-5 text-sm font-semibold text-ink cursor-pointer select-none list-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:outline-none rounded-md">
+                <span>How do I fit a full picture on Instagram without losing quality?</span>
+                <svg class="h-4 w-4 text-mute transition-transform duration-300 group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m6 9 6 6 6-6"/>
+                </svg>
+              </summary>
+              <div class="px-5 pb-5 pt-1 text-xs md:text-sm text-body leading-relaxed border-t border-hairline/30 bg-canvas-soft/30">
+                <p>
+                  To fit a full picture on Instagram without quality loss, use InstaDL Fit to pad your image to the correct ratio (e.g., 4:5 or 1:1) before uploading. This prevents Instagram's compression algorithms from aggressively cropping and rescaling your photo. Our tool exports high-resolution images in JPEG or PNG formats, preserving original clarity.
+                </p>
+              </div>
+            </details>
+
+            <!-- Q13 -->
+            <details class="faq-item group glass-card rounded-lg overflow-hidden border border-hairline transition-all">
+              <summary class="flex items-center justify-between p-5 text-sm font-semibold text-ink cursor-pointer select-none list-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:outline-none rounded-md">
+                <span>Does this Instagram no crop tool reduce image quality?</span>
+                <svg class="h-4 w-4 text-mute transition-transform duration-300 group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m6 9 6 6 6-6"/>
+                </svg>
+              </summary>
+              <div class="px-5 pb-5 pt-1 text-xs md:text-sm text-body leading-relaxed border-t border-hairline/30 bg-canvas-soft/30">
+                <p>
+                  No. InstaDL Fit processes and renders your images using HTML5 Canvas APIs directly in your browser, maintaining pixel-perfect fidelity. When exporting, you can adjust the JPEG quality slider up to 100% or export as a lossless PNG to ensure your photos remain sharp and professional.
+                </p>
+              </div>
+            </details>
+
+            <!-- Q14 -->
+            <details class="faq-item group glass-card rounded-lg overflow-hidden border border-hairline transition-all">
+              <summary class="flex items-center justify-between p-5 text-sm font-semibold text-ink cursor-pointer select-none list-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:outline-none rounded-md">
+                <span>Is this online image resizer safe and private to use?</span>
+                <svg class="h-4 w-4 text-mute transition-transform duration-300 group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m6 9 6 6 6-6"/>
+                </svg>
+              </summary>
+              <div class="px-5 pb-5 pt-1 text-xs md:text-sm text-body leading-relaxed border-t border-hairline/30 bg-canvas-soft/30">
+                <p>
+                  Absolutely. InstaDL Fit is built with privacy-first principles. All image processing, blurring, padding, and rendering are done locally in your browser using JavaScript. No image files are ever uploaded, saved, or sent to our servers, making it completely private and secure.
+                </p>
+              </div>
+            </details>
+
+            <!-- Q15 -->
+            <details class="faq-item group glass-card rounded-lg overflow-hidden border border-hairline transition-all">
+              <summary class="flex items-center justify-between p-5 text-sm font-semibold text-ink cursor-pointer select-none list-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:outline-none rounded-md">
+                <span>What is the best no crop photo editor for Instagram?</span>
+                <svg class="h-4 w-4 text-mute transition-transform duration-300 group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m6 9 6 6 6-6"/>
+                </svg>
+              </summary>
+              <div class="px-5 pb-5 pt-1 text-xs md:text-sm text-body leading-relaxed border-t border-hairline/30 bg-canvas-soft/30">
+                <p>
+                  InstaDL Fit is one of the best no crop photo editors because it is free, requires no sign-ups or installation, and offers premium features like Smart Blur backgrounds, adjustable padding, and custom dropshadows. Furthermore, it operates 100% client-side, ensuring your photos are never sent to external servers.
+                </p>
+              </div>
+            </details>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Decorative Glow -->
+  <div class="absolute bottom-0 right-0 z-0 pointer-events-none opacity-10 translate-y-1/3 translate-x-1/4">
+    <div class="w-[600px] h-[600px] rounded-full blur-[150px] bg-gradient-to-tr from-cyan/20 to-indigo/35"></div>
+  </div>
+</section>
+
+<!-- JSON-LD SEO Structured Data for FAQ -->
+<script type="application/ld+json" is:inline>
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How can I resize a photo for Instagram without cropping?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "<p>You can resize any photo for Instagram without cropping by using a padding tool like InstaDL Fit. Our tool adds standard white borders, black margins, or a beautiful smart blur background around your image to fit Instagram's required aspect ratios (like 1:1 square, 4:5 portrait, or 9:16 Story/Reels) without cutting out any part of the original photo.</p>"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best Instagram aspect ratio for portrait photos?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "<p>The best Instagram aspect ratio for portrait photos is 4:5 (with a recommended resolution of 1080x1350 pixels). This ratio takes up the maximum vertical screen space in the Instagram home feed, making your posts look larger, more engaging, and more professional compared to standard square or landscape posts.</p>"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I fit a full picture on Instagram without losing quality?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "<p>To fit a full picture on Instagram without quality loss, use InstaDL Fit to pad your image to the correct ratio (e.g., 4:5 or 1:1) before uploading. This prevents Instagram's compression algorithms from aggressively cropping and rescaling your photo. Our tool exports high-resolution images in JPEG or PNG formats, preserving original clarity.</p>"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I add a blur background to my Instagram photos online?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "<p>Yes! InstaDL Fit features a native Smart Blur background option. It analyzes the colors of your uploaded photo, generates a smooth, matching blurred backdrop, and fills the empty margins to fit the target aspect ratio perfectly. This online process is 100% free and runs entirely in your browser.</p>"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What size should Instagram Story images be?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "<p>Instagram Story images should have an aspect ratio of 9:16 and a recommended resolution of 1080x1920 pixels. This same vertical sizing is also ideal for Instagram Reels, TikTok videos, and YouTube Shorts. InstaDL Fit provides a one-click 9:16 template to instantly format your images.</p>"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I convert landscape photos to Instagram portrait format?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "<p>Simply upload your landscape photo to InstaDL Fit, select the 4:5 (Portrait Feed) or 9:16 (Story/Reels) aspect ratio, and choose your preferred background styling (like Smart Blur or solid borders). The tool will expand the vertical dimensions and pad the sides, turning your landscape photo into a gorgeous portrait-compliant post without cropping.</p>"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does this Instagram no crop tool reduce image quality?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "<p>No. InstaDL Fit processes and renders your images using HTML5 Canvas APIs directly in your browser, maintaining pixel-perfect fidelity. When exporting, you can adjust the JPEG quality slider up to 100% or export as a lossless PNG to ensure your photos remain sharp and professional.</p>"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How can I resize images for TikTok and Instagram Reels?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "<p>Select the 9:16 aspect ratio in our editor, upload your photo, and use the margin slider to fit it. You can style the background using our blurred preview or solid colors to make your static images look ready for vertical-video platforms like TikTok, Reels, and YouTube Shorts.</p>"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best no crop photo editor for Instagram?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "<p>InstaDL Fit is one of the best no crop photo editors because it is free, requires no sign-ups or installation, and offers premium features like Smart Blur backgrounds, adjustable padding, and custom dropshadows. Furthermore, it operates 100% client-side, ensuring your photos are never sent to external servers.</p>"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I add white or black borders to Instagram photos?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "<p>Yes. With InstaDL Fit, you can easily toggle between a Smart Blur background, solid white borders, or solid black borders. You can also customize the thickness of the borders using the margin/padding slider, creating a minimalist, gallery-like layout for your Instagram grid.</p>"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is this online image resizer safe and private to use?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "<p>Absolutely. InstaDL Fit is built with privacy-first principles. All image processing, blurring, padding, and rendering are done locally in your browser using JavaScript. No image files are ever uploaded, saved, or sent to our servers, making it completely private and secure.</p>"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does Smart Blur background technology work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "<p>Our Smart Blur technology takes your original image, scales and mirrors it to fill the entire target canvas dimensions, applies a customizable Gaussian-like blur filter, and overlays the original high-resolution image in the center. You can control both the blur radius and the background opacity to achieve the perfect depth-of-field effect.</p>"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I resize photos for social media directly in my browser?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "<p>Yes. InstaDL Fit is a fully browser-based web application that runs on desktop, tablet, and mobile browsers. There's no need to download mobile apps or install software extensions. Simply visit the site, drop your photo, edit, and download the resized file instantly.</p>"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What aspect ratios are supported by InstaDL Fit?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "<p>InstaDL Fit supports all major social media aspect ratios: 1:1 (Square Feed), 4:5 (Portrait Feed), 9:16 (Story, Reels, TikTok), and 16:9 (Landscape Feed, YouTube Cover).</p>"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why do Instagram and TikTok crop my photos automatically?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "<p>Social media platforms crop photos because their user interfaces are designed around fixed container ratios to maintain visual consistency in the feed. When an uploaded photo doesn't fit these predetermined aspect ratios (like a 3:2 landscape photo in a 4:5 feed container), the platform automatically crops the edges to fit the layout.</p>"
+      }
+    }
+  ]
+}
+</script>
+
+<style>
+  /* Remove list-style from details summary to hide the native arrow */
+  details > summary::-webkit-details-marker {
+    display: none;
+  }
+  details > summary {
+    list-style: none;
+  }
+
+  /* Sticky sidebar link highlight transition */
+  .faq-nav-link.active {
+    background-color: var(--color-canvas-soft-2);
+    color: var(--color-ink);
+    box-shadow: inset 0 0 0 1px var(--color-hairline);
+  }
+
+  /* Smooth details open/close support */
+  .faq-item[open] {
+    border-color: var(--color-hairline-strong);
+    background-color: var(--color-canvas-soft-2);
+    box-shadow: var(--shadow-level3);
+  }
+</style>
+
+<script>
+  // Dynamic Sidebar Active State on scroll
+  const sections = document.querySelectorAll('.scroll-mt-24');
+  const navLinks = document.querySelectorAll('.faq-nav-link');
+
+  function updateActiveLink() {
+    let currentId = '';
+    
+    sections.forEach(section => {
+      const rect = section.getBoundingClientRect();
+      // If the top of the section is near the header (120px from top)
+      if (rect.top <= 120) {
+        currentId = section.getAttribute('id') || '';
+      }
+    });
+
+    if (!currentId && sections.length > 0) {
+      currentId = sections[0].getAttribute('id') || '';
+    }
+
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === `#${currentId}`) {
+        link.classList.add('active');
+      }
+    });
+  }
+
+  // Add scroll listener
+  window.addEventListener('scroll', updateActiveLink);
+  // Run on mount
+  updateActiveLink();
+
+  // Smooth scroll to anchors
+  navLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const targetId = link.getAttribute('href');
+      if (targetId) {
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          targetElement.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    });
+  });
+</script>

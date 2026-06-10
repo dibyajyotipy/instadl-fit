@@ -1,0 +1,140 @@
+---
+---
+<div class="space-y-4">
+  <!-- Format Segment Selector -->
+  <div class="space-y-2">
+    <span class="text-xs text-mute font-medium block">File Format</span>
+    <div class="flex p-1 rounded-lg border border-hairline bg-canvas-soft-2/50 backdrop-blur-sm" id="export-format-segmented">
+      <button
+        type="button"
+        data-format="png"
+        class="flex-1 text-center py-1.5 px-3 text-xs font-medium rounded-md cursor-pointer text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white border border-transparent transition-all select-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:outline-none"
+      >
+        PNG (Lossless)
+      </button>
+      <button
+        type="button"
+        data-format="jpeg"
+        class="flex-1 text-center py-1.5 px-3 text-xs font-bold rounded-md cursor-pointer transition-all select-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:outline-none bg-neutral-950 text-white dark:bg-white dark:text-neutral-950 shadow-md"
+      >
+        JPG (Optimized)
+      </button>
+    </div>
+  </div>
+
+  <!-- Quality Slider (only displays for JPEG) -->
+  <div id="quality-slider-wrapper" class="space-y-2">
+    <div class="flex items-center justify-between text-xs">
+      <span class="text-mute font-medium">JPEG Compression Quality</span>
+      <span id="quality-val" class="font-mono text-ink font-semibold tabular-nums">90%</span>
+    </div>
+    <input
+      type="range"
+      id="quality-slider"
+      min="50"
+      max="100"
+      value="90"
+      class="w-full h-1 bg-hairline rounded-lg appearance-none cursor-pointer accent-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
+    />
+  </div>
+
+  <!-- One-Click Quick Export Presets -->
+  <div class="space-y-2">
+    <span class="text-xs text-mute font-medium block">One-Click Quick Presets</span>
+    <div class="grid grid-cols-3 gap-2">
+      <button
+        type="button"
+        id="preset-jpg-high"
+        class="py-2 px-1 text-[10px] font-mono font-medium rounded-lg bg-canvas-soft-2/50 border border-hairline hover:border-hairline-strong text-body hover:text-ink cursor-pointer transition-all duration-200 select-none text-center focus-visible:outline-none active:scale-[0.97]"
+        title="Export JPG at 95% quality"
+      >
+        JPG Pro (95%)
+      </button>
+      <button
+        type="button"
+        id="preset-jpg-web"
+        class="py-2 px-1 text-[10px] font-mono font-medium rounded-lg bg-canvas-soft-2/50 border border-hairline hover:border-hairline-strong text-body hover:text-ink cursor-pointer transition-all duration-200 select-none text-center focus-visible:outline-none active:scale-[0.97]"
+        title="Export JPG at 80% quality"
+      >
+        JPG Web (80%)
+      </button>
+      <button
+        type="button"
+        id="preset-png"
+        class="py-2 px-1 text-[10px] font-mono font-medium rounded-lg bg-canvas-soft-2/50 border border-hairline hover:border-hairline-strong text-body hover:text-ink cursor-pointer transition-all duration-200 select-none text-center focus-visible:outline-none active:scale-[0.97]"
+        title="Export Lossless PNG"
+      >
+        PNG Lossless
+      </button>
+    </div>
+  </div>
+
+  <!-- Filename Input -->
+  <div class="space-y-2 pb-1">
+    <label for="filename-input" class="text-xs text-mute font-medium block cursor-pointer">Filename Prefix</label>
+    <div class="relative">
+      <input
+        type="text"
+        id="filename-input"
+        value="instadl_fit"
+        placeholder="e.g., travel_photo…"
+        spellcheck="false"
+        autocomplete="off"
+        class="w-full h-9 bg-canvas text-ink text-xs border border-hairline focus:border-hairline-strong rounded-md px-3 font-mono focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 transition-all"
+      />
+    </div>
+  </div>
+
+  <!-- Metadata & Resolution Info Display -->
+  <div class="rounded-xl border border-hairline bg-canvas-soft-2/40 p-3.5 space-y-2">
+    <span class="text-[9px] font-bold text-ink uppercase tracking-widest font-sans select-none">Export Details</span>
+    <div class="grid grid-cols-2 gap-y-2.5 gap-x-4 text-xs font-mono">
+      <div class="flex flex-col gap-0.5">
+        <span class="text-[9px] text-mute uppercase font-sans font-medium">Dimensions</span>
+        <span class="text-ink font-semibold" id="meta-dimensions">1080 × 1080 px</span>
+      </div>
+      <div class="flex flex-col gap-0.5">
+        <span class="text-[9px] text-mute uppercase font-sans font-medium">Est. File Size</span>
+        <span class="text-ink font-semibold" id="meta-file-size">~120 KB</span>
+      </div>
+      <div class="flex flex-col gap-0.5">
+        <span class="text-[9px] text-mute uppercase font-sans font-medium">Format</span>
+        <span class="text-ink font-semibold" id="meta-format">JPEG (Optimized)</span>
+      </div>
+      <div class="flex flex-col gap-0.5">
+        <span class="text-[9px] text-mute uppercase font-sans font-medium">Location</span>
+        <span class="text-ink font-semibold">Local (100% Private)</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Export Action Button Wrapper (sticky at bottom of screen on mobile) -->
+  <div class="max-md:fixed max-md:bottom-0 max-md:left-0 max-md:right-0 max-md:z-40 max-md:p-4 max-md:bg-canvas/90 max-md:backdrop-blur-md max-md:border-t max-md:border-hairline max-md:shadow-lg flex gap-3">
+    <!-- Copy to Clipboard Button -->
+    <button
+      id="copy-clipboard-btn"
+      disabled
+      type="button"
+      class="flex-1 inline-flex items-center justify-center gap-2 bg-canvas hover:bg-canvas-soft border border-hairline text-ink disabled:bg-canvas-soft-2 disabled:text-mute/30 font-semibold px-4 py-3 rounded-pill transition-all cursor-pointer disabled:cursor-not-allowed shadow-level1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 active:scale-[0.98] select-none"
+      title="Copy processed image directly to clipboard"
+    >
+      <svg class="h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+      </svg>
+      <span class="max-xs:hidden">Copy</span>
+      <span class="xs:inline max-md:inline hidden">Copy Image</span>
+    </button>
+
+    <!-- Download/Export Button -->
+    <button
+      id="export-btn"
+      disabled
+      class="flex-[1.5] inline-flex items-center justify-center gap-2 bg-primary text-on-primary disabled:bg-canvas-soft-2 disabled:text-mute/30 hover:opacity-90 font-semibold px-4 py-3 rounded-pill transition-all cursor-pointer disabled:cursor-not-allowed shadow-level3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary active:scale-[0.98] select-none"
+    >
+      <svg class="h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+      </svg>
+      <span id="export-btn-text">Export Image</span>
+    </button>
+  </div>
+</div>
