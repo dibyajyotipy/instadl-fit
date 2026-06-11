@@ -69,48 +69,6 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site || "https://instadl.
       "description": "Instantly add smart blurred backgrounds or solid borders to fit any photo into Instagram, Reels, TikTok, and YouTube aspect ratios. 100% private, local browser processing."
     }
     </script>
-
-    <!-- JSON-LD FAQ Schema for Search Rich Snippets -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "How can I fit a full picture on Instagram without cropping?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "You can fit a full picture on Instagram without cropping by adding a padded border or blurred background to make the photo conform to Instagram's standard aspect ratios (like 1:1 square or 4:5 portrait) using our free browser-based Instagram No Crop Tool."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What is the best aspect ratio for Instagram portrait photos?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "The best aspect ratio for Instagram portrait posts is 4:5 (1080 x 1350 pixels). This ratio occupies the maximum vertical screen space in the feed, giving your content the highest visibility."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Is my data safe when uploading photos to this tool?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Yes, your photos are 100% safe. All image resizing, padding, and blur processing are performed entirely client-side inside your local browser. No images are uploaded to any servers, ensuring absolute privacy."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Does adding blurred margins reduce the quality of my photo?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "No. Our tool processes and exports your photos at their native high resolution (e.g. 1080x1080 for square posts or 1080x1920 for stories) using sharp HTML5 canvas rendering, preserving the original quality of your image."
-          }
-        }
-      ]
-    }
-    </script>
   </head>
   <body class="bg-canvas text-body font-sans relative antialiased selection:bg-ink selection:text-canvas">
     <!-- Header -->
