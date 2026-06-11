@@ -1,0 +1,57 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+import FeatureGrid from "../components/FeatureGrid.astro";
+import FaqSection from "../components/FaqSection.astro";
+import EditorApp from "../components/EditorApp.astro";
+---
+
+<Layout
+  title="Convert Landscape Photos to Portrait Online | InstaDL"
+  description="Convert landscape photos to portrait online without cropping. Turn 16:9 horizontal widescreen images into 4:5 vertical feeds or 9:16 vertical stories."
+>
+  <EditorApp />
+  
+  <Hero
+    title="Convert Landscape Photos to Portrait Online"
+    description="Easily turn horizontal landscape images into vertical portrait formats. Convert 16:9 widescreen captures to 4:5 feed posts or 9:16 vertical stories with beautiful paddings and blurred margins."
+  />
+
+  <FeatureGrid />
+
+  <section class="py-16 md:py-24 lg:py-32 border-t border-hairline bg-canvas">
+    <div class="mx-auto max-w-5xl px-6">
+      <div class="flex flex-col items-center text-center max-w-3xl mx-auto mb-16">
+        <h2 class="text-3xl md:text-5xl font-bold tracking-tight text-ink mb-6">
+          Turn Horizontal Shots into Vertical Layouts
+        </h2>
+        <p class="text-base md:text-lg text-body leading-relaxed">
+          Widescreen landscape images shot on DSLRs or mobile cameras often look extremely small on mobile platforms. Since mobile feeds prioritize vertical real estate, horizontal photos get swallowed by vertical portrait content. Our converter allows you to transform these landscape files into portrait layouts with no quality loss.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start border-t border-hairline pt-12">
+        <div>
+          <h3 class="text-xl font-bold text-ink mb-4">Converting 16:9 Widescreen to Vertical 4:5</h3>
+          <p class="text-sm md:text-base text-body leading-relaxed mb-4">
+            If you attempt to post a widescreen 16:9 photo directly in a vertical post, you are forced to crop the sides, removing standard scene details. Placing horizontal images inside a portrait frame is the ideal solution to retain the full view.
+          </p>
+          <p class="text-sm md:text-base text-body leading-relaxed">
+            By applying a top and bottom padding, you fit the entire wide image inside a 4:5 portrait post. Customize the borders with clean colors or a soft blurred background to blend the margins seamlessly with your image content.
+          </p>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold text-ink mb-4">Preparing Landscape Photos for Stories & Reels</h3>
+          <p class="text-sm md:text-base text-body leading-relaxed mb-4">
+            Sharing landscape shots on vertical platforms like Instagram Stories, Reels, or TikTok requires a 9:16 aspect ratio. Standard cropping results in zooming in so far that the image becomes pixelated and loses context.
+          </p>
+          <p class="text-sm md:text-base text-body leading-relaxed">
+            Our tool pads the top and bottom of widescreen landscape pictures to format them for vertical 9:16 dimensions. You can rotate, mirror, or shift the image alignment dynamically inside the frame before saving your file.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <FaqSection />
+</Layout>

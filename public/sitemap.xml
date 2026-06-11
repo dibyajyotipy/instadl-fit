@@ -2,8 +2,26 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://instadl.online/</loc>
-    <lastmod>2026-06-10</lastmod>
+    <lastmod>2026-06-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://instadl.online/fit-full-photo-instagram</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://instadl.online/convert-landscape-to-portrait</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://instadl.online/no-crop-square-blur</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
 </urlset>

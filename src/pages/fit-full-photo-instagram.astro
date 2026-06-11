@@ -1,0 +1,57 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+import FeatureGrid from "../components/FeatureGrid.astro";
+import FaqSection from "../components/FaqSection.astro";
+import EditorApp from "../components/EditorApp.astro";
+---
+
+<Layout
+  title="Fit Full Photo on Instagram Without Cropping | InstaDL"
+  description="Fit your full photo on Instagram without cropping. Easily resize landscape and vertical photos to Instagram aspect ratios using borders and blur backgrounds."
+>
+  <EditorApp />
+  
+  <Hero
+    title="Fit Full Photos on Instagram Without Cropping"
+    description="Prevent Instagram from auto-cropping your portrait or landscape images. Add sleek borders or smart blurred margins to preserve your complete photo in the feed."
+  />
+
+  <FeatureGrid />
+
+  <section class="py-16 md:py-24 lg:py-32 border-t border-hairline bg-canvas">
+    <div class="mx-auto max-w-5xl px-6">
+      <div class="flex flex-col items-center text-center max-w-3xl mx-auto mb-16">
+        <h2 class="text-3xl md:text-5xl font-bold tracking-tight text-ink mb-6">
+          Resolving Instagram's Vertical Cropping Limits
+        </h2>
+        <p class="text-base md:text-lg text-body leading-relaxed">
+          Instagram enforces strict aspect ratio limits for posts: 1:1 for squares, 4:5 for vertical portraits, and 1.91:1 to 16:9 for horizontal landscapes. If you upload a standard smartphone photo (which is typically 3:4 or 9:16), Instagram forces you to crop the top and bottom, losing vital parts of your composition.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start border-t border-hairline pt-12">
+        <div>
+          <h3 class="text-xl font-bold text-ink mb-4">Why Portrait Photos Get Cut Off</h3>
+          <p class="text-sm md:text-base text-body leading-relaxed mb-4">
+            Vertical photos captured on most modern smartphones are shot in a 4:3 or 16:9 aspect ratio. However, Instagram's feed restricts vertical posts to a maximum height of 4:5. This means any photo taller than 4:5 will be auto-cropped, cutting off heads, feet, or important background details.
+          </p>
+          <p class="text-sm md:text-base text-body leading-relaxed">
+            By padding your tall portrait shots with borders or smart blurred backgrounds using our resizer, you can transform your vertical images into the ideal 4:5 format. This guarantees that your entire photo shows up on your followers' feeds exactly as you shot it.
+          </p>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold text-ink mb-4">How to Post Full Widescreen Photos</h3>
+          <p class="text-sm md:text-base text-body leading-relaxed mb-4">
+            Widescreen landscape images suffer from the opposite problem. While Instagram allows horizontal posts, they often look very small in the feed, getting buried under larger vertical posts. 
+          </p>
+          <p class="text-sm md:text-base text-body leading-relaxed">
+            Fitting horizontal photos into a 1:1 square or 4:5 portrait frame with styled side paddings makes them stand out significantly more. Our tool processes all resizing operations 100% locally in your browser, keeping your images private and preserving high resolution.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <FaqSection />
+</Layout>

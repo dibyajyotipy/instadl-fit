@@ -1,0 +1,57 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+import FeatureGrid from "../components/FeatureGrid.astro";
+import FaqSection from "../components/FaqSection.astro";
+import EditorApp from "../components/EditorApp.astro";
+---
+
+<Layout
+  title="No Crop Square Blur Photo Resizer | InstaDL"
+  description="Resize horizontal or vertical photos into a 1:1 square frame without cropping. Instantly add customizable blurred backgrounds to your images online."
+>
+  <EditorApp />
+  
+  <Hero
+    title="No Crop Square Blur Photo Resizer"
+    description="Instantly resize portrait or landscape images to a 1:1 square ratio with beautiful blurred backgrounds. Fit full photos on social media profiles and feeds without cropping."
+  />
+
+  <FeatureGrid />
+
+  <section class="py-16 md:py-24 lg:py-32 border-t border-hairline bg-canvas">
+    <div class="mx-auto max-w-5xl px-6">
+      <div class="flex flex-col items-center text-center max-w-3xl mx-auto mb-16">
+        <h2 class="text-3xl md:text-5xl font-bold tracking-tight text-ink mb-6">
+          Classic Square Fit with Smart Blurred Backgrounds
+        </h2>
+        <p class="text-base md:text-lg text-body leading-relaxed">
+          The 1:1 square layout is the classic format for feeds, profile grid layouts, and profile pictures. When fitting a horizontal landscape or a tall portrait photo into a square shape, black or white bars can sometimes look stark. A custom blurred background uses the image's own colors to create a soft, aesthetically pleasing frame.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start border-t border-hairline pt-12">
+        <div>
+          <h3 class="text-xl font-bold text-ink mb-4">How the Smart Blur Effect Works</h3>
+          <p class="text-sm md:text-base text-body leading-relaxed mb-4">
+            Our tool takes your original photo, duplicates it in the background, scales it up to fill the 1:1 square aspect ratio, and applies a heavy gaussian blur. This creates a frame matching the color palette and mood of your main photo.
+          </p>
+          <p class="text-sm md:text-base text-body leading-relaxed">
+            You can customize this blur effect to match your preference. Adjust the blur radius from a subtle soft outline to a deep abstract color haze. You can also change the opacity of the blur background to combine it with solid backdrops.
+          </p>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold text-ink mb-4">Customizing the Layout Style</h3>
+          <p class="text-sm md:text-base text-body leading-relaxed mb-4">
+            In addition to adjustable blur settings, you can add a drop shadow to the foreground photo. This separates the sharp foreground image from the blurred background padding, creating a premium 3D depth effect.
+          </p>
+          <p class="text-sm md:text-base text-body leading-relaxed">
+            You can also adjust the foreground scale (zoom), paddings, rotation angle, and alignments to compose the square post exactly how you want. All file renders are computed 100% locally on your computer or phone to protect your privacy.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <FaqSection />
+</Layout>

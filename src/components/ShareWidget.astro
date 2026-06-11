@@ -1,0 +1,237 @@
+<div class="share-widget-container hidden-state" id="share-widget">
+  <div class="share-widget-inner">
+    <p class="share-widget-text">No ads, no tracking. Support this free tool by sharing it with a fellow creator!</p>
+    <button id="share-widget-button" class="share-widget-btn">
+      <span class="btn-content">
+        <svg class="share-icon" id="share-btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="18" cy="5" r="3"></circle>
+          <circle cx="6" cy="12" r="3"></circle>
+          <circle cx="18" cy="19" r="3"></circle>
+          <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+          <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+        </svg>
+        <span id="share-btn-text">Share with a Creator</span>
+      </span>
+    </button>
+  </div>
+</div>
+
+<div class="share-toast" id="share-success-toast">
+  <div class="toast-content">
+    <div class="toast-icon-wrapper">
+      <svg class="toast-check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="20 6 9 17 4 12"></polyline>
+      </svg>
+    </div>
+    <span class="toast-text">Success! Processed 100% locally on your device.</span>
+  </div>
+</div>
+
+<style>
+  .share-widget-container {
+    margin-top: 1rem;
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .share-widget-container.hidden-state {
+    max-height: 0;
+    opacity: 0;
+    transform: translateY(12px);
+    pointer-events: none;
+  }
+
+  .share-widget-container.visible-state {
+    max-height: 180px;
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .share-widget-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1rem;
+    border-radius: 12px;
+    background-color: var(--canvas-soft-2);
+    border: 1px dashed var(--hairline-strong);
+    transition: border-color 0.2s ease;
+  }
+
+  .share-widget-inner:hover {
+    border-color: var(--ink);
+  }
+
+  .share-widget-text {
+    font-size: 0.75rem;
+    line-height: 1.4;
+    color: var(--body);
+    font-weight: 500;
+    text-align: center;
+    margin: 0;
+  }
+
+  .share-widget-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 0.625rem 1rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--on-primary);
+    background-color: var(--primary);
+    border: none;
+    border-radius: 9999px;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: var(--shadow-level1);
+  }
+
+  .share-widget-btn:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-level2);
+  }
+
+  .share-widget-btn:active {
+    transform: translateY(0);
+  }
+
+  .btn-content {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .share-icon {
+    width: 0.875rem;
+    height: 0.875rem;
+    stroke: currentColor;
+    transition: transform 0.2s ease;
+  }
+
+  .share-toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(24px);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+  }
+
+  .share-toast.toast-visible {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .toast-content {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1.25rem;
+    background-color: rgba(9, 9, 11, 0.95);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 9999px;
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.2), var(--shadow-level4);
+  }
+
+  .toast-icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.25rem;
+    height: 1.25rem;
+    background-color: rgba(16, 185, 129, 0.2);
+    border-radius: 50%;
+  }
+
+  .toast-check-icon {
+    width: 0.75rem;
+    height: 0.75rem;
+    stroke: #10b981;
+  }
+
+  .toast-text {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #ffffff;
+    white-space: nowrap;
+  }
+
+  .share-widget-btn.copied {
+    background-color: #10b981;
+    color: white;
+  }
+</style>
+
+<script>
+  const widget = document.getElementById('share-widget');
+  const btn = document.getElementById('share-widget-button');
+  const btnText = document.getElementById('share-btn-text');
+  const btnIcon = document.getElementById('share-btn-icon');
+  const toast = document.getElementById('share-success-toast');
+
+  let toastTimeout: number;
+
+  function handleDownloadSuccess() {
+    if (toast) {
+      toast.classList.remove('toast-visible');
+      void toast.offsetWidth;
+      toast.classList.add('toast-visible');
+      clearTimeout(toastTimeout);
+      toastTimeout = window.setTimeout(() => {
+        toast.classList.remove('toast-visible');
+      }, 4000);
+    }
+
+    if (widget) {
+      widget.classList.remove('hidden-state');
+      widget.classList.add('visible-state');
+    }
+  }
+
+  document.addEventListener('download-success', handleDownloadSuccess);
+
+  if (btn) {
+    btn.addEventListener('click', async () => {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: 'InstaDL Fit',
+            text: 'Fit Photos to Social Ratios without Cropping - 100% private, local browser processing.',
+            url: 'https://instadl.online'
+          });
+        } catch (e) {
+        }
+      } else {
+        try {
+          await navigator.clipboard.writeText('https://instadl.online');
+          btn.classList.add('copied');
+          if (btnText) btnText.textContent = 'Link Copied!';
+          
+          const origIconHTML = btnIcon ? btnIcon.innerHTML : '';
+          if (btnIcon) {
+            btnIcon.setAttribute('viewBox', '0 0 24 24');
+            btnIcon.innerHTML = '<polyline points="20 6 9 17 4 12"></polyline>';
+          }
+
+          setTimeout(() => {
+            btn.classList.remove('copied');
+            if (btnText) btnText.textContent = 'Share with a Creator';
+            if (btnIcon) {
+              btnIcon.setAttribute('viewBox', '0 0 24 24');
+              btnIcon.innerHTML = origIconHTML;
+            }
+          }, 2000);
+        } catch (err) {
+        }
+      }
+    });
+  }
+</script>

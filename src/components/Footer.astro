@@ -1,9 +1,8 @@
 ---
 ---
 <footer class="border-t border-hairline bg-canvas pt-12 pb-28 md:py-16 text-xs text-body relative z-10">
-  <div class="mx-auto max-w-7xl px-6 flex flex-col md:flex-row items-center justify-between gap-6">
-    <!-- Brand Info -->
-    <div class="flex flex-col items-center md:items-start gap-2">
+  <div class="mx-auto max-w-7xl px-6 grid grid-cols-1 md:grid-cols-12 gap-8">
+    <div class="md:col-span-4 flex flex-col items-start gap-4">
       <div class="flex items-center gap-2">
         <svg class="h-4 w-4 text-ink" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <rect width="18" height="18" x="3" y="3" rx="2" />
@@ -14,24 +13,38 @@
           instadl<span class="text-[10px] bg-hairline-strong text-ink px-1.5 py-0.5 rounded-sm font-normal">fit</span>
         </span>
       </div>
-      <p class="text-[10px] text-mute text-center md:text-left mt-1">
+      <p class="text-[10px] text-mute leading-relaxed">
+        Fit photos to social media sizes without cropping. 100% private, local browser processing.
+      </p>
+      <p class="text-[10px] text-mute mt-2">
         © {new Date().getFullYear()} instadl.online. All rights reserved.
       </p>
     </div>
 
-    <!-- Right Links -->
-    <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-2 font-mono text-[10px]">
-      <div class="flex items-center gap-1.5 text-mute">
-        <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
-        All Systems Operational
+    <div class="md:col-span-5 flex flex-col gap-3">
+      <span class="font-mono text-[10px] font-bold text-ink uppercase tracking-wider">Free Social Optimization Tools</span>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[10px] font-mono">
+        <a href="/fit-full-photo-instagram" class="text-mute hover:text-ink transition-colors">Fit Full Photo on Instagram</a>
+        <a href="/convert-landscape-to-portrait" class="text-mute hover:text-ink transition-colors">Convert Landscape to Portrait</a>
+        <a href="/no-crop-square-blur" class="text-mute hover:text-ink transition-colors">No Crop Square Blur Tool</a>
+        <a href="/instagram-3-4-grid-fix" class="text-mute hover:text-ink transition-colors">Fix 3:4 Profile Grid Crop</a>
       </div>
-      <a href="#features" class="hover:text-ink transition-colors">Features</a>
-      <a href="#faq" class="hover:text-ink transition-colors">FAQ</a>
-      <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="hover:text-ink transition-colors flex items-center gap-1">
-        GitHub
-        <svg class="h-2.5 w-2.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6"></path><path d="M10 14 21 3"></path></svg>
-      </a>
+    </div>
+
+    <div class="md:col-span-3 flex flex-col gap-3 md:items-end">
+      <span class="font-mono text-[10px] font-bold text-ink uppercase tracking-wider">Navigation</span>
+      <div class="flex flex-col md:items-end gap-2 text-[10px] font-mono">
+        <div class="flex items-center gap-1.5 text-mute">
+          <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+          All Systems Operational
+        </div>
+        <a href="#features" class="text-mute hover:text-ink transition-colors">Features</a>
+        <a href="#faq" class="text-mute hover:text-ink transition-colors">FAQ</a>
+        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="text-mute hover:text-ink transition-colors flex items-center gap-1">
+          GitHub
+          <svg class="h-2.5 w-2.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6"></path><path d="M10 14 21 3"></path></svg>
+        </a>
+      </div>
     </div>
   </div>
 </footer>
-
