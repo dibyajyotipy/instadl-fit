@@ -15,6 +15,11 @@ export interface RenderOptions {
   imageScale?: number; // Image scale: 0.3 to 1.5
   gradientColors?: string[]; // Array of gradient colors
   customColor?: string; // Custom solid color (hex, rgb, etc.)
+  rotation?: number; // 0, 90, 180, 270 degrees
+  flipH?: boolean;
+  flipV?: boolean;
+  alignX?: "left" | "center" | "right";
+  alignY?: "top" | "center" | "bottom";
 }
 
 export const DEFAULT_RENDER_OPTIONS: RenderOptions = {
@@ -29,6 +34,11 @@ export const DEFAULT_RENDER_OPTIONS: RenderOptions = {
   imageScale: 1.0,
   gradientColors: ["#7928ca", "#ff0080"],
   customColor: "#ffebf0",
+  rotation: 0,
+  flipH: false,
+  flipV: false,
+  alignX: "center",
+  alignY: "center",
 };
 
 /**
@@ -104,33 +114,88 @@ export function renderFitCanvas(
   const activeWidth = canvas.width - paddingPx * 2;
   const activeHeight = canvas.height - paddingPx * 2;
 
-  // Get contained dimensions inside active workspace
+  // Swap dimensions if rotated 90 or 270 degrees
   const imgWidth = img.naturalWidth || img.width;
   const imgHeight = img.naturalHeight || img.height;
-  const contain = getContainDimensions(imgWidth, imgHeight, activeWidth, activeHeight);
+  const rotation = options.rotation || 0;
+  const effImgW = (rotation === 90 || rotation === 270) ? imgHeight : imgWidth;
+  const effImgH = (rotation === 90 || rotation === 270) ? imgWidth : imgHeight;
+
+  // Get contained dimensions inside active workspace
+  const contain = getContainDimensions(effImgW, effImgH, activeWidth, activeHeight);
 
   // Apply scale
   const scale = options.imageScale !== undefined ? options.imageScale : 1.0;
   const scaledWidth = contain.width * scale;
   const scaledHeight = contain.height * scale;
 
-  // Position containing box offset by padding, centered with scale
-  const drawX = contain.x + paddingPx + (contain.width - scaledWidth) / 2;
-  const drawY = contain.y + paddingPx + (contain.height - scaledHeight) / 2;
+  // Calculate alignment coordinates relative to the padded visual area
+  const alignX = options.alignX || "center";
+  const alignY = options.alignY || "center";
+
+  let alignXOffset = (activeWidth - scaledWidth) / 2;
+  if (alignX === "left") alignXOffset = 0;
+  else if (alignX === "right") alignXOffset = activeWidth - scaledWidth;
+
+  let alignYOffset = (activeHeight - scaledHeight) / 2;
+  if (alignY === "top") alignYOffset = 0;
+  else if (alignY === "bottom") alignYOffset = activeHeight - scaledHeight;
+
+  // Position containing box offset by padding
+  const drawX = alignXOffset + paddingPx;
+  const drawY = alignYOffset + paddingPx;
+
+  // Compute visual center for context translation
+  const visualCenterX = drawX + scaledWidth / 2;
+  const visualCenterY = drawY + scaledHeight / 2;
+
+  // Go to center of drawing area to apply rotation/flip correctly
+  ctx.translate(visualCenterX, visualCenterY);
+
+  // Apply rotation
+  if (rotation !== 0) {
+    ctx.rotate((rotation * Math.PI) / 180);
+  }
+
+  // Apply flips
+  const flipH = options.flipH || false;
+  const flipV = options.flipV || false;
+  if (flipH || flipV) {
+    ctx.scale(flipH ? -1 : 1, flipV ? -1 : 1);
+  }
 
   // Draw floating drop shadow for the foreground image
   if (options.shadowEnabled && options.backgroundMode !== "black") {
     const scaleFactor = minDimension / 1080;
+    
+    // Rotate/reflect shadow offset so that it always points DOWN in canvas-space
+    let shadowOffsetX = 0;
+    let shadowOffsetY = 10 * scaleFactor;
+
+    if (rotation !== 0) {
+      const rad = (rotation * Math.PI) / 180;
+      const originalOffsetY = 10 * scaleFactor;
+      shadowOffsetX = originalOffsetY * Math.sin(rad);
+      shadowOffsetY = originalOffsetY * Math.cos(rad);
+    }
+
+    if (flipH) shadowOffsetX = -shadowOffsetX;
+    if (flipV) shadowOffsetY = -shadowOffsetY;
+
     ctx.shadowColor = options.shadowColor;
     ctx.shadowBlur = options.shadowBlur * scaleFactor;
-    ctx.shadowOffsetX = 0;
-    ctx.shadowOffsetY = 10 * scaleFactor;
+    ctx.shadowOffsetX = shadowOffsetX;
+    ctx.shadowOffsetY = shadowOffsetY;
   }
 
-  // Render the source image sharp on top
-  ctx.drawImage(img, drawX, drawY, scaledWidth, scaledHeight);
+  // Determine drawing sizes on rotated context
+  const renderW = (rotation === 90 || rotation === 270) ? scaledHeight : scaledWidth;
+  const renderH = (rotation === 90 || rotation === 270) ? scaledWidth : scaledHeight;
 
-  // Restore context to turn off drop shadow
+  // Render the source image sharp on top (centered at 0, 0)
+  ctx.drawImage(img, -renderW / 2, -renderH / 2, renderW, renderH);
+
+  // Restore context to turn off drop shadow and transformations
   ctx.restore();
 
   // Subtle border outline to separate image from background and prevent blending of similar colors

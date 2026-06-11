@@ -7,7 +7,7 @@
     role="region"
     tabindex="0"
     aria-label="Image preview and upload dropzone"
-    class="relative w-full max-h-full aspect-square border border-hairline/80 hover:border-hairline-strong bg-canvas-soft rounded-2xl overflow-hidden flex items-center justify-center shadow-level4 transition-all duration-300 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 select-none cursor-pointer data-[drag-active=true]:border-primary/40 data-[drag-active=true]:bg-primary/[0.02] data-[drag-active=true]:scale-[1.01]"
+    class="relative w-full max-h-full aspect-square border border-hairline/80 hover:border-hairline-strong bg-canvas-soft rounded-2xl overflow-hidden flex items-center justify-center shadow-level4 transition-[border-color,background-color,transform,box-shadow] duration-300 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 select-none cursor-pointer data-[drag-active=true]:border-primary/40 data-[drag-active=true]:bg-primary/[0.02] data-[drag-active=true]:scale-[1.01]"
   >
     <!-- Grid Dot overlay in Dropzone -->
     <div class="absolute inset-0 opacity-15 pointer-events-none" style="background-image: radial-gradient(var(--grid-dot) 1px, transparent 1px); background-size: 16px 16px;"></div>
@@ -49,6 +49,7 @@
         aria-label="Split screen compare slider"
       />
     </div>
+
 
 
     <!-- Empty State / Dropzone UI -->

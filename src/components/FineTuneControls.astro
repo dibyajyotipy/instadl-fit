@@ -33,6 +33,81 @@
     />
   </div>
 
+  <!-- Orientation & Flips (available in all modes) -->
+  <div class="space-y-2 border-t border-hairline pt-4">
+    <span class="text-xs text-body font-medium block font-sans">Orientation & Mirrors</span>
+    <div class="flex gap-2">
+      <!-- Rotate Clockwise 90 -->
+      <button
+        type="button"
+        id="rotate-cw-btn"
+        class="flex-1 inline-flex items-center justify-center gap-1.5 py-2 px-3 text-xs font-medium rounded-lg bg-canvas-soft-2/50 border border-hairline hover:border-hairline-strong text-body hover:text-ink transition-all cursor-pointer select-none focus-visible:outline-none active:scale-[0.97]"
+        title="Rotate 90 degrees clockwise"
+        aria-label="Rotate 90 degrees clockwise"
+      >
+        <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+        </svg>
+        <span>Rotate 90°</span>
+      </button>
+
+      <!-- Flip Horizontal -->
+      <button
+        type="button"
+        id="flip-h-btn"
+        class="flex-1 inline-flex items-center justify-center gap-1.5 py-2 px-3 text-xs font-medium rounded-lg bg-canvas-soft-2/50 border border-hairline hover:border-hairline-strong text-body hover:text-ink transition-all cursor-pointer select-none focus-visible:outline-none active:scale-[0.97]"
+        title="Mirror horizontally"
+        aria-label="Mirror horizontally"
+      >
+        <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18M3 12h18M16.5 5.5l5 5-5 5M7.5 5.5l-5 5 5 5" />
+        </svg>
+        <span>Flip H</span>
+      </button>
+
+      <!-- Flip Vertical -->
+      <button
+        type="button"
+        id="flip-v-btn"
+        class="flex-1 inline-flex items-center justify-center gap-1.5 py-2 px-3 text-xs font-medium rounded-lg bg-canvas-soft-2/50 border border-hairline hover:border-hairline-strong text-body hover:text-ink transition-all cursor-pointer select-none focus-visible:outline-none active:scale-[0.97]"
+        title="Mirror vertically"
+        aria-label="Mirror vertically"
+      >
+        <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18M3 12h18M5.5 16.5l5 5 5-5M5.5 7.5l5-5 5 5" />
+        </svg>
+        <span>Flip V</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Position / Alignment (available in all modes) -->
+  <div class="space-y-2 border-t border-hairline pt-4">
+    <div class="flex items-center justify-between text-xs">
+      <span class="text-body font-medium font-sans">Image Alignment</span>
+      <span id="align-val" class="font-mono text-mute text-[10px]">Center / Center</span>
+    </div>
+    <div class="flex items-center gap-4">
+      <!-- 3x3 Grid Alignment Panel -->
+      <div class="grid grid-cols-3 gap-1.5 w-24 h-24 p-1.5 rounded-xl border border-hairline bg-canvas-soft-2/50 select-none" id="align-grid">
+        <button type="button" data-align-x="left" data-align-y="top" class="align-grid-btn aspect-square rounded-[6px] border border-transparent bg-canvas hover:bg-canvas-soft hover:border-hairline-strong/20 transition-all flex items-center justify-center cursor-pointer focus:outline-none" title="Top Left"><span class="w-1.5 h-1.5 rounded-full bg-neutral-400 align-dot"></span></button>
+        <button type="button" data-align-x="center" data-align-y="top" class="align-grid-btn aspect-square rounded-[6px] border border-transparent bg-canvas hover:bg-canvas-soft hover:border-hairline-strong/20 transition-all flex items-center justify-center cursor-pointer focus:outline-none" title="Top Center"><span class="w-1.5 h-1.5 rounded-full bg-neutral-400 align-dot"></span></button>
+        <button type="button" data-align-x="right" data-align-y="top" class="align-grid-btn aspect-square rounded-[6px] border border-transparent bg-canvas hover:bg-canvas-soft hover:border-hairline-strong/20 transition-all flex items-center justify-center cursor-pointer focus:outline-none" title="Top Right"><span class="w-1.5 h-1.5 rounded-full bg-neutral-400 align-dot"></span></button>
+        <button type="button" data-align-x="left" data-align-y="center" class="align-grid-btn aspect-square rounded-[6px] border border-transparent bg-canvas hover:bg-canvas-soft hover:border-hairline-strong/20 transition-all flex items-center justify-center cursor-pointer focus:outline-none" title="Middle Left"><span class="w-1.5 h-1.5 rounded-full bg-neutral-400 align-dot"></span></button>
+        <button type="button" data-align-x="center" data-align-y="center" class="align-grid-btn aspect-square rounded-[6px] border border-transparent bg-canvas hover:bg-canvas-soft hover:border-hairline-strong/20 transition-all flex items-center justify-center cursor-pointer focus:outline-none" title="Center"><span class="w-1.5 h-1.5 rounded-full bg-neutral-400 align-dot"></span></button>
+        <button type="button" data-align-x="right" data-align-y="center" class="align-grid-btn aspect-square rounded-[6px] border border-transparent bg-canvas hover:bg-canvas-soft hover:border-hairline-strong/20 transition-all flex items-center justify-center cursor-pointer focus:outline-none" title="Middle Right"><span class="w-1.5 h-1.5 rounded-full bg-neutral-400 align-dot"></span></button>
+        <button type="button" data-align-x="left" data-align-y="bottom" class="align-grid-btn aspect-square rounded-[6px] border border-transparent bg-canvas hover:bg-canvas-soft hover:border-hairline-strong/20 transition-all flex items-center justify-center cursor-pointer focus:outline-none" title="Bottom Left"><span class="w-1.5 h-1.5 rounded-full bg-neutral-400 align-dot"></span></button>
+        <button type="button" data-align-x="center" data-align-y="bottom" class="align-grid-btn aspect-square rounded-[6px] border border-transparent bg-canvas hover:bg-canvas-soft hover:border-hairline-strong/20 transition-all flex items-center justify-center cursor-pointer focus:outline-none" title="Bottom Center"><span class="w-1.5 h-1.5 rounded-full bg-neutral-400 align-dot"></span></button>
+        <button type="button" data-align-x="right" data-align-y="bottom" class="align-grid-btn aspect-square rounded-[6px] border border-transparent bg-canvas hover:bg-canvas-soft hover:border-hairline-strong/20 transition-all flex items-center justify-center cursor-pointer focus:outline-none" title="Bottom Right"><span class="w-1.5 h-1.5 rounded-full bg-neutral-400 align-dot"></span></button>
+      </div>
+
+      <div class="flex-1 text-xs text-mute space-y-1 select-none">
+        <p>Pin the image to any of the 9 alignment positions within the borders.</p>
+        <p class="text-[10px]">Useful when applying inner margins or scaling photos down.</p>
+      </div>
+    </div>
+  </div>
+
   <!-- Blur Controls (only visible when mode is 'blur') -->
   <div id="blur-controls-wrapper" class="space-y-4 transition-all duration-200">
     <!-- Blur Radius Slider -->

@@ -92,6 +92,8 @@ import Footer from "../components/Footer.astro";
               <span class="hidden md:inline">Split View</span>
             </button>
 
+
+
             <!-- Quick Export/Download Button (always accessible on mobile without tab switching) -->
             <button
               id="quick-export-btn"
@@ -110,7 +112,7 @@ import Footer from "../components/Footer.astro";
         <div class="grid grid-cols-1 lg:grid-cols-[64%_36%] gap-6 md:gap-8 items-start">
           
           <!-- Sticky Preview Studio (Left) -->
-          <div class="sticky top-[64px] lg:top-24 z-30 flex items-center justify-center bg-canvas-soft border border-hairline/60 rounded-2xl p-3 md:p-8 h-[38vh] min-h-[280px] max-h-[340px] sm:h-[45vh] sm:max-h-[400px] lg:h-auto lg:min-h-[600px] overflow-hidden relative shadow-[inset_0_2px_8px_rgba(9,9,11,0.03)]">
+          <div class="sticky top-[64px] lg:top-24 z-30 flex items-center justify-center bg-canvas-soft border border-hairline/60 rounded-2xl p-3 md:p-8 h-[38vh] min-h-[280px] max-h-[340px] sm:h-[45vh] sm:max-h-[400px] lg:h-[calc(100vh-180px)] lg:min-h-[580px] lg:max-h-[720px] overflow-hidden relative shadow-[inset_0_2px_8px_rgba(9,9,11,0.03)]">
             <!-- Decorative background dots inside the preview workspace -->
             <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,0,0,0.005)_0%,transparent_80%)] pointer-events-none"></div>
             <div class="absolute inset-0 opacity-[0.08]" style="background-image: radial-gradient(var(--grid-dot) 1px, transparent 1px); background-size: 16px 16px;"></div>
@@ -317,6 +319,14 @@ import Footer from "../components/Footer.astro";
   const shadowToggle = document.getElementById("shadow-toggle") as HTMLInputElement;
   const shadowToggleWrapper = document.getElementById("shadow-toggle-wrapper");
 
+  const rotateCwBtn = document.getElementById("rotate-cw-btn");
+  const flipHBtn = document.getElementById("flip-h-btn");
+  const flipVBtn = document.getElementById("flip-v-btn");
+  const alignGrid = document.getElementById("align-grid");
+  const alignVal = document.getElementById("align-val");
+  const alignGridButtons = document.querySelectorAll(".align-grid-btn");
+
+
   const gradientPresetsWrapper = document.getElementById("gradient-presets-wrapper");
   const gradientPresetButtons = document.querySelectorAll("#gradient-presets-group button");
 
@@ -361,10 +371,18 @@ import Footer from "../components/Footer.astro";
   let exportQuality: number = 0.90;
   let isSplitViewActive = false;
 
+  let rotationValue: number = 0;
+  let isFlippedH: boolean = false;
+  let isFlippedV: boolean = false;
+  let activeAlignX: "left" | "center" | "right" = "center";
+  let activeAlignY: "top" | "center" | "bottom" = "center";
+
   // Initialize
   function init() {
     setupEventListeners();
     updateControlsState();
+    updateTransformButtonsUI();
+    updateAlignGridUI();
   }
 
   // Set Event Listeners
@@ -466,6 +484,45 @@ import Footer from "../components/Footer.astro";
         triggerRender();
       });
     }
+
+    // Rotation & Flips
+    if (rotateCwBtn) {
+      rotateCwBtn.addEventListener("click", () => {
+        rotationValue = (rotationValue + 90) % 360;
+        triggerRender();
+      });
+    }
+
+    if (flipHBtn) {
+      flipHBtn.addEventListener("click", () => {
+        isFlippedH = !isFlippedH;
+        updateTransformButtonsUI();
+        triggerRender();
+      });
+    }
+
+    if (flipVBtn) {
+      flipVBtn.addEventListener("click", () => {
+        isFlippedV = !isFlippedV;
+        updateTransformButtonsUI();
+        triggerRender();
+      });
+    }
+
+    // Grid Alignment
+    alignGridButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const x = btn.getAttribute("data-align-x") as "left" | "center" | "right";
+        const y = btn.getAttribute("data-align-y") as "top" | "center" | "bottom";
+        if (x && y) {
+          activeAlignX = x;
+          activeAlignY = y;
+          updateAlignGridUI();
+          triggerRender();
+        }
+      });
+    });
+
 
     // 11. Gradient Preset Selectors
     gradientPresetButtons.forEach((btn) => {
@@ -580,6 +637,13 @@ import Footer from "../components/Footer.astro";
       activeCustomColor = e.detail.color;
       triggerRender();
     });
+
+    // 17. Window Resize Listener
+    window.addEventListener("resize", () => {
+      if (loadedImage) {
+        triggerRender();
+      }
+    });
   }
 
   // Switch tabs programmatically
@@ -667,6 +731,15 @@ import Footer from "../components/Footer.astro";
         document.dispatchEvent(new CustomEvent("image-loaded", {
           detail: { width: imgWidth, height: imgHeight }
         }));
+
+        // Reset transformation values on new image upload
+        rotationValue = 0;
+        isFlippedH = false;
+        isFlippedV = false;
+        activeAlignX = "center";
+        activeAlignY = "center";
+        updateTransformButtonsUI();
+        updateAlignGridUI();
 
         // Auto-fill filename input based on uploaded image name (removing extension)
         const nameWithoutExt = file.name.substring(0, file.name.lastIndexOf(".")) || file.name;
@@ -811,6 +884,15 @@ import Footer from "../components/Footer.astro";
         detail: { width: 1200, height: 800 }
       }));
 
+      // Reset transformations
+      rotationValue = 0;
+      isFlippedH = false;
+      isFlippedV = false;
+      activeAlignX = "center";
+      activeAlignY = "center";
+      updateTransformButtonsUI();
+      updateAlignGridUI();
+
       if (filenameInput) filenameInput.value = "instadl_fit_demo";
 
       // Display layouts
@@ -859,6 +941,11 @@ import Footer from "../components/Footer.astro";
       imageScale: scaleValue,
       gradientColors: activeGradientColors,
       customColor: activeCustomColor,
+      rotation: rotationValue,
+      flipH: isFlippedH,
+      flipV: isFlippedV,
+      alignX: activeAlignX,
+      alignY: activeAlignY,
     };
   }
 
@@ -868,9 +955,40 @@ import Footer from "../components/Footer.astro";
 
     const ratio = getRatioById(activeRatioId);
 
-    // Update aspect ratio styles of preview container dynamically
-    if (canvasFrame) {
-      canvasFrame.style.aspectRatio = `${ratio.width} / ${ratio.height}`;
+    // Update aspect ratio styles of preview container dynamically to fit parent container perfectly
+    if (canvasFrame && canvasFrame.parentElement) {
+      // Temporarily clear inline width/height and aspect ratio so the parent expands back to its full natural bounds
+      canvasFrame.style.width = "";
+      canvasFrame.style.height = "";
+      canvasFrame.style.aspectRatio = "";
+
+      const parent = canvasFrame.parentElement;
+      const parentRect = parent.getBoundingClientRect();
+      const parentW = parentRect.width;
+      const parentH = parentRect.height;
+
+      const targetRatio = ratio.width / ratio.height;
+      const parentRatio = parentW / parentH;
+
+      if (parentW > 0 && parentH > 0) {
+        let frameW = parentW;
+        let frameH = parentH;
+
+        if (targetRatio > parentRatio) {
+          // Image is wider than parent relative to height
+          frameW = parentW;
+          frameH = parentW / targetRatio;
+        } else {
+          // Image is taller than parent relative to width
+          frameH = parentH;
+          frameW = parentH * targetRatio;
+        }
+
+        // Apply explicit dimensions to prevent browser rendering overflow bugs
+        canvasFrame.style.width = `${Math.floor(frameW - 2)}px`;
+        canvasFrame.style.height = `${Math.floor(frameH - 2)}px`;
+        canvasFrame.style.aspectRatio = `${ratio.width} / ${ratio.height}`;
+      }
     }
 
     // Set active aspect ratio label text
@@ -1297,6 +1415,60 @@ import Footer from "../components/Footer.astro";
       }
     }
   }
+
+  // UI Updates Helpers
+  function updateTransformButtonsUI() {
+    if (flipHBtn) {
+      if (isFlippedH) {
+        flipHBtn.classList.remove("bg-canvas-soft-2/50", "text-body");
+        flipHBtn.classList.add("bg-neutral-950", "text-white", "border-neutral-950");
+      } else {
+        flipHBtn.classList.add("bg-canvas-soft-2/50", "text-body");
+        flipHBtn.classList.remove("bg-neutral-950", "text-white", "border-neutral-950");
+      }
+    }
+
+    if (flipVBtn) {
+      if (isFlippedV) {
+        flipVBtn.classList.remove("bg-canvas-soft-2/50", "text-body");
+        flipVBtn.classList.add("bg-neutral-950", "text-white", "border-neutral-950");
+      } else {
+        flipVBtn.classList.add("bg-canvas-soft-2/50", "text-body");
+        flipVBtn.classList.remove("bg-neutral-950", "text-white", "border-neutral-950");
+      }
+    }
+  }
+
+  function updateAlignGridUI() {
+    alignGridButtons.forEach((btn) => {
+      const x = btn.getAttribute("data-align-x");
+      const y = btn.getAttribute("data-align-y");
+      const dot = btn.querySelector(".align-dot");
+      
+      if (x === activeAlignX && y === activeAlignY) {
+        btn.classList.remove("bg-canvas", "border-transparent", "hover:bg-canvas-soft");
+        btn.classList.add("bg-neutral-950", "border-neutral-950");
+        if (dot) {
+          dot.classList.remove("bg-neutral-400");
+          dot.classList.add("bg-white", "scale-125");
+        }
+      } else {
+        btn.classList.add("bg-canvas", "border-transparent", "hover:bg-canvas-soft");
+        btn.classList.remove("bg-neutral-950", "border-neutral-950");
+        if (dot) {
+          dot.classList.add("bg-neutral-400");
+          dot.classList.remove("bg-white", "scale-125");
+        }
+      }
+    });
+
+    if (alignVal) {
+      const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
+      alignVal.textContent = `${capitalize(activeAlignX)} / ${capitalize(activeAlignY)}`;
+    }
+  }
+
+
 
   // UI Updates Helpers
   function updateRatioButtonsUI() {
