@@ -1,0 +1,57 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+import FeatureGrid from "../components/FeatureGrid.astro";
+import FaqSection from "../components/FaqSection.astro";
+import EditorApp from "../components/EditorApp.astro";
+---
+
+<Layout
+  title="Fix Instagram Profile Grid Crop Online | InstaDL"
+  description="Fix the Instagram profile grid crop. Prevent your vertical 4:5 posts from getting cut off in your 1:1 profile grid with our free local resizer."
+>
+  <EditorApp />
+  
+  <Hero
+    title="Fix Instagram Profile Grid Crop Online"
+    description="Prevent Instagram from cropping the top and bottom of your 4:5 vertical photos in your profile grid. Make your feed posts fit beautifully into both the feed and your 1:1 grid preview."
+  />
+
+  <FeatureGrid />
+
+  <section class="py-16 md:py-24 lg:py-32 border-t border-hairline bg-canvas">
+    <div class="mx-auto max-w-5xl px-6">
+      <div class="flex flex-col items-center text-center max-w-3xl mx-auto mb-16">
+        <h2 class="text-3xl md:text-5xl font-bold tracking-tight text-ink mb-6">
+          Mastering the Profile Grid Preview Crop
+        </h2>
+        <p class="text-base md:text-lg text-body leading-relaxed">
+          Instagram's feed lets you upload photos up to a 4:5 vertical ratio, which is perfect for capturing screen space. However, when users visit your profile grid, those posts are displayed as 1:1 squares cropped from the absolute center. If the focal point of your photo—like a face, product, or headline—is near the top or bottom of the frame, the profile view cuts it off, ruining your grid layout.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start border-t border-hairline pt-12">
+        <div>
+          <h3 class="text-xl font-bold text-ink mb-4">The 4:5 vs 1:1 Grid Dilemma</h3>
+          <p class="text-sm md:text-base text-body leading-relaxed mb-4">
+            When you post a 4:5 portrait image, Instagram crops the top 10% and bottom 10% when displaying the post on your profile tab. This is particularly problematic for fashion shots, full-body portraits, and infographic designs, as it often slices off heads, feet, or text elements.
+          </p>
+          <p class="text-sm md:text-base text-body leading-relaxed">
+            Using our padding tool, you can center-pad your layout into a 1:1 square canvas (with blur borders) so the entire photo fits in both views, or align your subject perfectly using our grid alignment tools.
+          </p>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold text-ink mb-4">How to Keep Your Profile Grid Consistent</h3>
+          <p class="text-sm md:text-base text-body leading-relaxed mb-4">
+            To solve the grid crop without making your feed post look tiny, you can use our local resizer to add side padding or top/bottom blurred margins. This fits your original composition into a perfect 1:1 square or 4:5 canvas.
+          </p>
+          <p class="text-sm md:text-base text-body leading-relaxed">
+            Adjust scale, alignment, and background blur settings instantly inside your browser runtime. The editor processes all files locally, so your high-resolution original images are never exposed to remote servers or compressed destructively.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <FaqSection />
+</Layout>

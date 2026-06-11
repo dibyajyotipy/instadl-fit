@@ -11,6 +11,9 @@ const {
   title = "InstaDL Fit — Fit Photos to Social Ratios without Cropping",
   description = "Instantly add smart blurred backgrounds or solid colors to fit any photo into Instagram, Reels, TikTok, and YouTube aspect ratios. 100% private, local browser processing.",
 } = Astro.props;
+
+// Dynamically generate canonical and social URLs based on current page path
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site || "https://instadl.online").href;
 ---
 
 <!doctype html>
@@ -27,18 +30,18 @@ const {
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="robots" content="index, follow" />
-    <link rel="canonical" href="https://instadl.online" />
+    <link rel="canonical" href={canonicalUrl} />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://instadl.online/" />
+    <meta property="og:url" content={canonicalUrl} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content="https://instadl.online/og-image.png" />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://instadl.online/" />
+    <meta property="twitter:url" content={canonicalUrl} />
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content="https://instadl.online/og-image.png" />
@@ -125,8 +128,9 @@ const {
         </a>
 
         <nav class="hidden md:flex items-center gap-6">
-          <a href="#features" class="text-sm text-body hover:text-ink transition-colors">Features</a>
-          <a href="#faq" class="text-sm text-body hover:text-ink transition-colors">FAQ</a>
+          <a href="/blog" class="text-sm text-body hover:text-ink transition-colors">Blog</a>
+          <a href="/#features" class="text-sm text-body hover:text-ink transition-colors">Features</a>
+          <a href="/#faq" class="text-sm text-body hover:text-ink transition-colors">FAQ</a>
           <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="text-sm text-body hover:text-ink transition-colors flex items-center gap-1">
             GitHub
             <svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"></path><path d="M10 14 21 3"></path></svg>

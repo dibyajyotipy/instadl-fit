@@ -1,0 +1,323 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site || "https://instadl.online").href;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": canonicalUrl
+  },
+  "headline": entry.data.title,
+  "description": entry.data.description,
+  "image": [
+    "https://instadl.online/og-image.png"
+  ],
+  "datePublished": entry.data.pubDate.toISOString(),
+  "dateModified": entry.data.pubDate.toISOString(),
+  "author": {
+    "@type": "Person",
+    "name": entry.data.authorName,
+    "jobTitle": entry.data.authorRole
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "InstaDL",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://instadl.online/favicon.svg"
+    }
+  }
+};
+---
+
+<Layout title={entry.data.title} description={entry.data.description}>
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  
+  <article class="article-container">
+    <div class="article-wrapper">
+      <header class="article-header">
+        <span class="article-meta">
+          Published on {entry.data.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })} • By {entry.data.authorName}
+        </span>
+        <h1 class="article-title">
+          {entry.data.title}
+        </h1>
+      </header>
+
+      <a href="/" class="cta-card">
+        <div class="cta-content">
+          <span class="cta-emoji">⚡</span>
+          <span class="cta-text">
+            Fix your image aspect ratios instantly, 100% locally and privately in your browser. <span class="cta-highlight">Launch Free Tool.</span>
+          </span>
+        </div>
+        <svg class="cta-arrow" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+        </svg>
+      </a>
+
+      <div class="article-content">
+        <Content />
+      </div>
+
+      {entry.data.authorBio && (
+        <div class="author-card">
+          <div class="author-avatar">
+            {entry.data.authorName.split(' ').map(n => n[0]).join('')}
+          </div>
+          <div class="author-info">
+            <div class="author-label">Author</div>
+            <h3 class="author-name">{entry.data.authorName}</h3>
+            <p class="author-role">{entry.data.authorRole}</p>
+            <p class="author-bio">{entry.data.authorBio}</p>
+          </div>
+        </div>
+      )}
+    </div>
+  </article>
+</Layout>
+
+<style>
+  .article-container {
+    padding-top: 4rem;
+    padding-bottom: 6rem;
+    background-color: var(--canvas);
+    border-top: 1px solid var(--hairline);
+  }
+
+  .article-wrapper {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 48rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .article-header {
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--hairline);
+    padding-bottom: 2rem;
+  }
+
+  .article-meta {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    color: var(--mute);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-family: var(--font-mono);
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+
+  .article-title {
+    font-size: 2.25rem;
+    line-height: 1.2;
+    font-weight: 800;
+    color: var(--ink);
+    letter-spacing: -0.025em;
+    margin: 0;
+    font-family: var(--font-sans);
+  }
+
+  @media (min-width: 768px) {
+    .article-title {
+      font-size: 3rem;
+    }
+  }
+
+  .cta-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    background-color: var(--canvas-soft-2);
+    border: 1px solid var(--hairline-strong);
+    border-radius: 12px;
+    text-decoration: none;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    margin-bottom: 2.5rem;
+  }
+
+  .cta-card:hover {
+    background-color: var(--canvas-soft);
+    border-color: var(--ink);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-level2);
+  }
+
+  .cta-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .cta-emoji {
+    font-size: 1.125rem;
+    line-height: 1.4;
+  }
+
+  .cta-text {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--body);
+    font-weight: 500;
+  }
+
+  .cta-highlight {
+    color: var(--ink);
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    white-space: nowrap;
+  }
+
+  .cta-arrow {
+    width: 1rem;
+    height: 1rem;
+    stroke: var(--ink);
+    flex-shrink: 0;
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .cta-card:hover .cta-arrow {
+    transform: translateX(4px);
+  }
+
+  .article-content :global(p) {
+    font-size: 1.125rem;
+    line-height: 1.85;
+    color: #18181b;
+    margin-top: 0;
+    margin-bottom: 1.75rem;
+  }
+
+  .article-content :global(h2) {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: var(--ink);
+    margin-top: 3rem;
+    margin-bottom: 1.25rem;
+    letter-spacing: -0.02em;
+    line-height: 1.3;
+  }
+
+  .article-content :global(h3) {
+    font-size: 1.375rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    letter-spacing: -0.01em;
+    line-height: 1.35;
+  }
+
+  .article-content :global(ul), .article-content :global(ol) {
+    margin-top: 0;
+    margin-bottom: 1.75rem;
+    padding-left: 1.75rem;
+  }
+
+  .article-content :global(li) {
+    font-size: 1.125rem;
+    line-height: 1.85;
+    color: #18181b;
+    margin-bottom: 0.75rem;
+  }
+
+  .article-content :global(li::marker) {
+    color: var(--mute);
+  }
+
+  .article-content :global(strong) {
+    color: var(--ink);
+    font-weight: 700;
+  }
+
+  .article-content :global(a) {
+    color: var(--link);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  .article-content :global(a:hover) {
+    color: var(--ink);
+  }
+
+  .author-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.25rem;
+    margin-top: 4rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--hairline);
+  }
+
+  .author-avatar {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 9999px;
+    background-color: var(--canvas-soft-2);
+    border: 1px solid var(--hairline-strong);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--ink);
+    flex-shrink: 0;
+  }
+
+  .author-info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .author-label {
+    font-size: 0.625rem;
+    font-weight: 700;
+    color: var(--mute);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-family: var(--font-mono);
+    margin-bottom: 0.25rem;
+  }
+
+  .author-name {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  .author-role {
+    font-size: 0.75rem;
+    color: var(--mute);
+    margin-top: 0.125rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .author-bio {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--body);
+    margin: 0;
+  }
+</style>
