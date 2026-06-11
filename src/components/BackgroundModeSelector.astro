@@ -7,21 +7,21 @@
       data-mode="blur"
       class="flex-1 text-center py-2 px-3 text-xs font-bold rounded-md cursor-pointer transition-all select-none focus-visible:outline-none bg-neutral-950 text-white dark:bg-white dark:text-neutral-950 shadow-md"
     >
-      Smart Blur
+      <span class="hidden sm:inline">Smart </span>Blur
     </button>
     <button
       type="button"
       data-mode="white"
       class="flex-1 text-center py-2 px-3 text-xs font-medium rounded-md cursor-pointer text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white transition-all select-none focus-visible:outline-none"
     >
-      Solid White
+      <span class="hidden sm:inline">Solid </span>White
     </button>
     <button
       type="button"
       data-mode="black"
       class="flex-1 text-center py-2 px-3 text-xs font-medium rounded-md cursor-pointer text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white transition-all select-none focus-visible:outline-none"
     >
-      Solid Black
+      <span class="hidden sm:inline">Solid </span>Black
     </button>
     <button
       type="button"
@@ -118,7 +118,7 @@
       </div>
 
       <!-- Hex & RGB/HSL inputs -->
-      <div class="flex-1 grid grid-cols-3 gap-1.5">
+      <div class="flex-1 grid grid-cols-1 sm:grid-cols-3 gap-2">
         <div class="relative flex items-center">
           <span class="absolute left-2 text-[9px] text-mute font-mono font-bold">HEX</span>
           <input

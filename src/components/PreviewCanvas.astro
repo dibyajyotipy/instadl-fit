@@ -1,13 +1,13 @@
 ---
 ---
-<div class="relative w-full flex flex-col items-center justify-center">
+<div class="relative w-full h-full max-h-full flex flex-col items-center justify-center">
   <!-- Interactive Canvas Frame / Dropzone -->
   <div
     id="canvas-frame"
     role="region"
     tabindex="0"
     aria-label="Image preview and upload dropzone"
-    class="relative w-full aspect-square max-h-[340px] sm:max-h-[420px] md:max-h-[min(600px,62vh)] border border-hairline/80 hover:border-hairline-strong bg-canvas-soft rounded-2xl overflow-hidden flex items-center justify-center shadow-level4 transition-all duration-300 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 select-none cursor-pointer data-[drag-active=true]:border-primary/40 data-[drag-active=true]:bg-primary/[0.02] data-[drag-active=true]:scale-[1.01]"
+    class="relative w-full max-h-full aspect-square border border-hairline/80 hover:border-hairline-strong bg-canvas-soft rounded-2xl overflow-hidden flex items-center justify-center shadow-level4 transition-all duration-300 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 select-none cursor-pointer data-[drag-active=true]:border-primary/40 data-[drag-active=true]:bg-primary/[0.02] data-[drag-active=true]:scale-[1.01]"
   >
     <!-- Grid Dot overlay in Dropzone -->
     <div class="absolute inset-0 opacity-15 pointer-events-none" style="background-image: radial-gradient(var(--grid-dot) 1px, transparent 1px); background-size: 16px 16px;"></div>
@@ -54,40 +54,40 @@
     <!-- Empty State / Dropzone UI -->
     <div
       id="canvas-empty-state"
-      class="absolute inset-0 flex flex-col items-center justify-center gap-5 z-30 p-6 text-center select-none"
+      class="absolute inset-0 flex flex-col items-center justify-center gap-3 sm:gap-5 z-30 p-4 sm:p-6 text-center select-none"
     >
       <!-- Premium gradient glow background for empty state -->
-      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-gradient-to-tr from-gradient-preview-start/15 to-gradient-develop-start/15 opacity-70 blur-[40px] rounded-full pointer-events-none animate-pulse duration-[4000ms]"></div>
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-36 h-36 sm:w-48 sm:h-48 bg-gradient-to-tr from-gradient-preview-start/15 to-gradient-develop-start/15 opacity-70 blur-[30px] sm:blur-[40px] rounded-full pointer-events-none animate-pulse duration-[4000ms]"></div>
       
       <!-- Premium Upload Icon Card -->
-      <div class="relative flex h-20 w-20 items-center justify-center rounded-2xl border border-hairline bg-canvas/80 backdrop-blur-md text-ink group-hover:scale-105 group-hover:border-hairline-strong transition-all duration-300 shadow-level3">
+      <div class="relative flex h-14 w-14 sm:h-20 sm:w-20 items-center justify-center rounded-2xl border border-hairline bg-canvas/80 backdrop-blur-md text-ink group-hover:scale-105 group-hover:border-hairline-strong transition-all duration-300 shadow-level3">
         <!-- Inner glow ring -->
         <div class="absolute inset-0 rounded-2xl bg-gradient-to-tr from-primary/5 to-primary/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-        <svg class="h-9 w-9 text-mute group-hover:text-ink transition-colors duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+        <svg class="h-7 w-7 sm:h-9 sm:w-9 text-mute group-hover:text-ink transition-colors duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
           <rect width="18" height="18" x="3" y="3" rx="2" ry="2"/>
           <circle cx="9" cy="9" r="2"/>
           <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/>
         </svg>
       </div>
 
-      <div class="space-y-2.5 max-w-sm relative z-10">
-        <p class="text-base font-semibold text-ink tracking-tight font-sans">
+      <div class="space-y-1.5 sm:space-y-2.5 max-w-sm relative z-10">
+        <p class="text-sm sm:text-base font-semibold text-ink tracking-tight font-sans">
           Drag & drop your photo here
         </p>
-        <p class="text-xs text-mute leading-normal font-sans">
+        <p class="text-[11px] sm:text-xs text-mute leading-normal font-sans">
           Or <span class="text-ink font-semibold underline decoration-wavy decoration-hairline-strong underline-offset-4 group-hover:text-primary transition-colors">browse from your device</span>
         </p>
-        <p class="text-[10px] font-mono text-mute bg-canvas-soft border border-hairline/60 px-2.5 py-1 rounded-md inline-block mt-1 select-none">
+        <p class="text-[9px] sm:text-[10px] font-mono text-mute bg-canvas-soft border border-hairline/60 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-md inline-block mt-0.5 sm:mt-1 select-none">
           JPEG • PNG • WebP (Max 25MB)
         </p>
       </div>
 
       <!-- Action buttons helper inside empty state -->
-      <div class="flex items-center gap-3 mt-2 pointer-events-auto relative z-20">
+      <div class="flex items-center gap-2.5 mt-1 sm:mt-2 pointer-events-auto relative z-20">
         <button
           type="button"
           id="hero-upload-btn"
-          class="inline-flex items-center justify-center gap-2 bg-primary text-on-primary hover:opacity-90 text-xs font-semibold px-5 py-2.5 rounded-pill transition-all cursor-pointer shadow-level2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary active:scale-95"
+          class="inline-flex items-center justify-center gap-2 bg-primary text-on-primary hover:opacity-90 text-xs font-semibold px-4 py-2 sm:px-5 sm:py-2.5 rounded-pill transition-all cursor-pointer shadow-level2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary active:scale-95"
         >
           <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5" />
@@ -97,7 +97,7 @@
         <button
           type="button"
           id="hero-demo-btn"
-          class="inline-flex items-center justify-center gap-2 bg-canvas hover:bg-canvas-soft border border-hairline text-ink text-xs font-semibold px-5 py-2.5 rounded-pill transition-all cursor-pointer shadow-level1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 active:scale-95"
+          class="inline-flex items-center justify-center gap-2 bg-canvas hover:bg-canvas-soft border border-hairline text-ink text-xs font-semibold px-4 py-2 sm:px-5 sm:py-2.5 rounded-pill transition-all cursor-pointer shadow-level1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 active:scale-95"
         >
           <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 21l8.982-11.795c.57-.75.024-1.838-.916-1.838h-5.43l1.543-6.19a.496.496 0 00-.735-.515L4 12.336c-.57.75-.024 1.838.916 1.838h5.43z" />

@@ -17,7 +17,7 @@ import Footer from "../components/Footer.astro";
   description="Use our free Instagram No Crop Tool to fit full photos on Instagram without cropping. Easily add white borders or add blur background to images online."
 >
   <!-- Core App Section -->
-  <section id="tool" class="py-8 md:py-12 bg-canvas relative">
+  <section id="tool" class="py-8 md:py-12 bg-canvas relative z-20">
     <div class="mx-auto max-w-[1360px] px-4 sm:px-6 lg:px-8">
       
       <!-- Unified Workspace Container -->
@@ -40,19 +40,20 @@ import Footer from "../components/Footer.astro";
             <!-- Change Photo button (only visible when image is loaded) -->
             <button
               id="change-photo-btn"
-              class="hidden inline-flex items-center justify-center gap-1.5 h-8.5 px-3 rounded-lg text-xs font-medium text-body hover:text-ink bg-canvas-soft border border-hairline hover:border-hairline-strong transition-all duration-150 cursor-pointer select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 active:scale-[0.98]"
+              class="hidden inline-flex items-center justify-center gap-1.5 h-8.5 w-8.5 md:w-auto md:px-3 rounded-lg text-xs font-medium text-body hover:text-ink bg-canvas-soft border border-hairline hover:border-hairline-strong transition-all duration-150 cursor-pointer select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 active:scale-[0.98]"
               aria-label="Upload a different photo"
+              title="Upload a different photo"
             >
               <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5" />
               </svg>
-              <span>Change Photo</span>
+              <span class="hidden md:inline">Change Photo</span>
             </button>
 
-            <!-- Keyboard Shortcuts help button -->
+            <!-- Keyboard Shortcuts help button (hidden on mobile since there is no keyboard) -->
             <button
               id="shortcuts-help-btn"
-              class="inline-flex items-center justify-center h-8.5 w-8.5 rounded-lg text-mute hover:text-ink bg-canvas-soft border border-hairline hover:border-hairline-strong transition-all duration-150 cursor-pointer select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 active:scale-[0.98]"
+              class="hidden sm:inline-flex items-center justify-center h-8.5 w-8.5 rounded-lg text-mute hover:text-ink bg-canvas-soft border border-hairline hover:border-hairline-strong transition-all duration-150 cursor-pointer select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 active:scale-[0.98]"
               title="Show keyboard shortcuts help"
               aria-label="Keyboard shortcuts guide"
             >
@@ -66,27 +67,41 @@ import Footer from "../components/Footer.astro";
             <!-- Compare Action Button -->
             <button
               id="compare-btn"
-              class="inline-flex items-center justify-center gap-1.5 h-8.5 px-3 rounded-lg text-xs font-medium text-body hover:text-ink bg-canvas-soft border border-hairline hover:border-hairline-strong transition-all duration-150 cursor-pointer select-none pointer-events-none opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 active:scale-[0.98]"
+              class="inline-flex items-center justify-center gap-1.5 h-8.5 w-8.5 md:w-auto md:px-3 rounded-lg text-xs font-medium text-body hover:text-ink bg-canvas-soft border border-hairline hover:border-hairline-strong transition-all duration-150 cursor-pointer select-none pointer-events-none opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 active:scale-[0.98]"
               aria-label="Hold to view original photo"
+              title="Hold to view original photo"
             >
               <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                 <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
               </svg>
-              <span>Compare</span>
+              <span class="hidden md:inline">Compare</span>
             </button>
 
             <!-- Split Screen Compare Toggle Button -->
             <button
               id="compare-split-btn"
-              class="inline-flex items-center justify-center gap-1.5 h-8.5 px-3 rounded-lg text-xs font-medium text-body hover:text-ink bg-canvas-soft border border-hairline hover:border-hairline-strong transition-all duration-150 cursor-pointer select-none pointer-events-none opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 active:scale-[0.98]"
+              class="inline-flex items-center justify-center gap-1.5 h-8.5 w-8.5 md:w-auto md:px-3 rounded-lg text-xs font-medium text-body hover:text-ink bg-canvas-soft border border-hairline hover:border-hairline-strong transition-all duration-150 cursor-pointer select-none pointer-events-none opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 active:scale-[0.98]"
               aria-label="Toggle split-screen comparison slider"
+              title="Toggle split-screen comparison slider"
             >
               <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <rect width="18" height="18" x="3" y="3" rx="2" />
                 <line x1="12" y1="3" x2="12" y2="21" />
               </svg>
-              <span>Split View</span>
+              <span class="hidden md:inline">Split View</span>
+            </button>
+
+            <!-- Quick Export/Download Button (always accessible on mobile without tab switching) -->
+            <button
+              id="quick-export-btn"
+              class="hidden inline-flex items-center justify-center h-8.5 w-8.5 rounded-lg text-white bg-primary hover:opacity-90 transition-all duration-150 cursor-pointer select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 active:scale-[0.98]"
+              title="Quick Export Image"
+              aria-label="Quick export image"
+            >
+              <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+              </svg>
             </button>
           </div>
         </div>
@@ -95,7 +110,7 @@ import Footer from "../components/Footer.astro";
         <div class="grid grid-cols-1 lg:grid-cols-[64%_36%] gap-6 md:gap-8 items-start">
           
           <!-- Sticky Preview Studio (Left) -->
-          <div class="lg:sticky lg:top-24 flex items-center justify-center bg-canvas-soft-2/30 border border-hairline/60 rounded-2xl p-4 md:p-8 min-h-[360px] lg:min-h-[600px] overflow-hidden relative shadow-[inset_0_2px_8px_rgba(9,9,11,0.03)]">
+          <div class="sticky top-[64px] lg:top-24 z-30 flex items-center justify-center bg-canvas-soft border border-hairline/60 rounded-2xl p-3 md:p-8 h-[38vh] min-h-[280px] max-h-[340px] sm:h-[45vh] sm:max-h-[400px] lg:h-auto lg:min-h-[600px] overflow-hidden relative shadow-[inset_0_2px_8px_rgba(9,9,11,0.03)]">
             <!-- Decorative background dots inside the preview workspace -->
             <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,0,0,0.005)_0%,transparent_80%)] pointer-events-none"></div>
             <div class="absolute inset-0 opacity-[0.08]" style="background-image: radial-gradient(var(--grid-dot) 1px, transparent 1px); background-size: 16px 16px;"></div>
@@ -321,6 +336,7 @@ import Footer from "../components/Footer.astro";
 
   // Keyboard Shortcuts elements
   const shortcutsHelpBtn = document.getElementById("shortcuts-help-btn");
+  const quickExportBtn = document.getElementById("quick-export-btn");
   const shortcutsModal = document.getElementById("shortcuts-modal");
   const shortcutsModalCard = document.getElementById("shortcuts-modal-card");
   const closeShortcutsBtn = document.getElementById("close-shortcuts-btn");
@@ -521,6 +537,10 @@ import Footer from "../components/Footer.astro";
       exportBtn.addEventListener("click", triggerDownload);
     }
 
+    if (quickExportBtn) {
+      quickExportBtn.addEventListener("click", triggerDownload);
+    }
+
     // Copy to Clipboard trigger
     if (copyClipboardBtn) {
       copyClipboardBtn.addEventListener("click", triggerCopy);
@@ -675,6 +695,9 @@ import Footer from "../components/Footer.astro";
         const changePhotoBtn = document.getElementById("change-photo-btn");
         if (changePhotoBtn) changePhotoBtn.classList.remove("hidden");
 
+        const quickExportBtn = document.getElementById("quick-export-btn");
+        if (quickExportBtn) quickExportBtn.classList.remove("hidden");
+
         if (exportBtn) exportBtn.disabled = false;
         if (copyClipboardBtn) copyClipboardBtn.disabled = false;
 
@@ -803,6 +826,9 @@ import Footer from "../components/Footer.astro";
       
       const changePhotoBtn = document.getElementById("change-photo-btn");
       if (changePhotoBtn) changePhotoBtn.classList.remove("hidden");
+
+      const quickExportBtn = document.getElementById("quick-export-btn");
+      if (quickExportBtn) quickExportBtn.classList.remove("hidden");
 
       if (exportBtn) exportBtn.disabled = false;
       if (copyClipboardBtn) copyClipboardBtn.disabled = false;
