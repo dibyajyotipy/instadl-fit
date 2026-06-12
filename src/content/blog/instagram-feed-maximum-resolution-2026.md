@@ -11,7 +11,7 @@ authorBio: "Marcus Thorne is an award-winning travel photographer with over a de
 
 A common source of confusion and frustration for digital artists, photographers, and commercial brands is asset degradation upon publishing. You capture a high-definition photograph, confirm sharp detailing on your professional workstation monitor, upload the file to Instagram, and find the live feed result looks pixelated, soft, and riddled with digital noise blocks. 
 
-This artifacting is the direct output of Instagram's automated backend optimization pipeline.
+This artifacting is the direct output of Instagram's automated backend optimization pipeline. This is particularly common on API uploading flows. If you use automation platforms, you can [troubleshoot aspect ratio errors on Later and Buffer](/blog/fix-aspect-ratio-not-supported-buffer-later) to understand why payloads get rejected.
 
 Instagram handles massive global file ingress every single second. To minimize server bandwidth strains and load feeds instantly across mobile networks, their infrastructure routes every uploaded image through an aggressive server-side compression script. If your file is poorly scaled, unoptimized, or too large, the system scales it down using destructive downsampling rules, destroying fine crisp details.
 
@@ -19,7 +19,7 @@ Instagram handles massive global file ingress every single second. To minimize s
 
 ## The Master Matrix: Dimensions and Scale Math
 
-To keep Instagram's server compression from ruining your images, you must deliver files that perfectly match what its system expects. When your upload dimensions match the platform's exact native processing targets, the server-side scaling engine doesn't have to compress or alter your image structure aggressively, preserving your original crisp details.
+To keep Instagram's server compression from ruining your images, you must deliver files that perfectly match what its system expects. When your upload dimensions match the platform's exact native processing targets, the server-side scaling engine doesn't have to compress or alter your image structure aggressively, preserving your original crisp details. If you want to quickly [fit full size photos on Instagram](/fit-full-photo-instagram) using the maximum resolution matrix, use our border and blur tool to bypass auto-crop filters.
 
 Use the data matrix below to configure your resolution outputs:
 
@@ -29,6 +29,8 @@ Use the data matrix below to configure your resolution outputs:
 | **Standard Social Square** | $1080 \times 1080\text{ pixels}$ | 1:1 Square | 30 MB (Uncompressed) |
 | **Classic Horizontal Deck** | $1080 \times 566\text{ pixels}$ | 1.91:1 Landscape | 30 MB (Uncompressed) |
 | **Stories & Reels** | $1080 \times 1920\text{ pixels}$ | 9:16 Vertical | 30 MB (Uncompressed) |
+
+For widescreen camera captures, read our [DSLR landscape to vertical Reel conversion workflow](/blog/convert-dslr-landscape-to-instagram-reel) to learn how to prepare vertical video assets.
 
 ### The Math Behind Pixel Density Scales
 
@@ -58,6 +60,8 @@ To ensure your images remain razor-sharp when moving from your editing software 
 4.  Set **Resample** to **Bicubic Sharper (best for reduction)**.
 5.  Check **Convert to sRGB** and **Embed Color Profile**.
 
+If your subject is off-center, you will also want to make sure it doesn't get cut off in grid previews; utilize our [Instagram profile grid fixer](/instagram-3-4-grid-fix) to inspect and fix the 1:1 preview.
+
 ---
 
 ## Tactical Implementation Strategy for Creators
@@ -65,7 +69,7 @@ To ensure your images remain razor-sharp when moving from your editing software 
 To control your visual presentation quality completely, you should handle all image scaling tasks yourself *before* uploading your files. Never let the social media application handle your image scaling for you.
 
 ### Step 1: Pre-Process Files with Client-Side Math
-By utilizing client-side rendering engines (like our homepage workspace tool) that run entirely within your local browser sandbox, you can adjust your image properties instantly without exposing your source files to remote network nodes. Scale your focal contents down so the maximum width bounding box measures precisely 1080 pixels, and pad any leftover spaces with a smooth blur background.
+By utilizing client-side rendering engines (like our [Instagram No Crop Tool on the homepage](/) ) that run entirely within your local browser sandbox, you can adjust your image properties instantly without exposing your source files to remote network nodes. Scale your focal contents down so the maximum width bounding box measures precisely 1080 pixels, and pad any leftover spaces with a smooth blur background.
 
 ### Step 2: Convert and Verify the Color Profile
 Instagram's application rendering environment relies heavily on standard display color spaces (sRGB). When exporting finished compositions, always verify your color profile configuration is set to sRGB. Exporting assets with wide printing color gamuts like Adobe RGB causes the mobile application interface to read color values incorrectly, leaving your images looking dull, washed out, and flat on user screens.

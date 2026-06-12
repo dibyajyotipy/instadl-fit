@@ -1,6 +1,8 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
+import RelatedTools from '../../components/RelatedTools.astro';
+import RelatedArticles from '../../components/RelatedArticles.astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -88,6 +90,11 @@ const jsonLd = {
           </div>
         </div>
       )}
+    </div>
+
+    <div class="mt-16">
+      <RelatedTools title="Try Our Free Resizing Tools" limit={3} />
+      <RelatedArticles currentSlug={entry.slug} title="Continue Reading Guides" limit={3} />
     </div>
   </article>
 </Layout>

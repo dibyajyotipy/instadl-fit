@@ -1,0 +1,604 @@
+---
+/**
+ * AspectRatioCalculator.astro
+ * Interactive client-side aspect ratio calculator styled for InstaDL.
+ */
+---
+
+<section class="py-12 md:py-20 bg-canvas relative overflow-hidden">
+  <div class="mx-auto max-w-5xl px-6 relative z-10">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      
+      <!-- Left Column: Inputs & Presets -->
+      <div class="lg:col-span-7 space-y-6">
+        <div class="glass-card rounded-2xl p-6 md:p-8 shadow-level3 bg-canvas-soft/80 backdrop-blur-md border border-hairline">
+          <h2 class="text-xl font-bold text-ink mb-2">Calculate Dimensions</h2>
+          <p class="text-xs text-body mb-6">Enter your image dimensions in pixels or select one of the creator presets below.</p>
+          
+          <!-- Presets Grid -->
+          <div class="mb-6">
+            <span class="block text-[10px] font-mono uppercase tracking-wider text-mute mb-3">Popular Instagram Presets</span>
+            <div class="flex flex-wrap gap-2">
+              <button 
+                type="button" 
+                class="preset-btn px-3 py-1.5 rounded-lg border border-hairline bg-canvas-soft text-[11px] font-mono text-body hover:border-ink hover:text-ink transition-colors cursor-pointer"
+                data-width="1080" 
+                data-height="1080"
+              >
+                1:1 Square Post
+              </button>
+              <button 
+                type="button" 
+                class="preset-btn px-3 py-1.5 rounded-lg border border-hairline bg-canvas-soft text-[11px] font-mono text-body hover:border-ink hover:text-ink transition-colors cursor-pointer"
+                data-width="1080" 
+                data-height="1350"
+              >
+                4:5 Portrait Post
+              </button>
+              <button 
+                type="button" 
+                class="preset-btn px-3 py-1.5 rounded-lg border border-hairline bg-canvas-soft text-[11px] font-mono text-body hover:border-ink hover:text-ink transition-colors cursor-pointer"
+                data-width="1080" 
+                data-height="1920"
+              >
+                9:16 Story / Reel
+              </button>
+              <button 
+                type="button" 
+                class="preset-btn px-3 py-1.5 rounded-lg border border-hairline bg-canvas-soft text-[11px] font-mono text-body hover:border-ink hover:text-ink transition-colors cursor-pointer"
+                data-width="1080" 
+                data-height="566"
+              >
+                1.91:1 Landscape Post
+              </button>
+              <button 
+                type="button" 
+                class="preset-btn px-3 py-1.5 rounded-lg border border-hairline bg-canvas-soft text-[11px] font-mono text-body hover:border-ink hover:text-ink transition-colors cursor-pointer"
+                data-width="320" 
+                data-height="320"
+              >
+                1:1 Profile Pic
+              </button>
+            </div>
+          </div>
+          
+          <!-- Inputs Row -->
+          <div class="grid grid-cols-1 md:grid-cols-11 gap-4 items-center mb-6">
+            <!-- Width Input -->
+            <div class="md:col-span-5 space-y-1.5">
+              <label for="input-width" class="block text-xs font-semibold text-body">Width (px)</label>
+              <div class="relative flex items-center">
+                <button 
+                  type="button" 
+                  id="btn-width-dec" 
+                  class="absolute left-2 text-mute hover:text-ink transition-colors text-xs font-bold w-6.5 h-6.5 flex items-center justify-center bg-canvas-soft rounded border border-hairline cursor-pointer select-none"
+                  aria-label="Decrease width by 10 pixels"
+                >-</button>
+                <input 
+                  type="number" 
+                  id="input-width" 
+                  value="1080" 
+                  min="1" 
+                  max="10000"
+                  class="w-full text-center px-8 py-3 rounded-lg border border-hairline bg-canvas-soft-2 text-sm font-mono text-ink font-semibold focus:outline-none focus:border-hairline-strong transition-all focus:ring-1 focus:ring-hairline-strong"
+                  aria-label="Image width in pixels"
+                />
+                <button 
+                  type="button" 
+                  id="btn-width-inc" 
+                  class="absolute right-2 text-mute hover:text-ink transition-colors text-xs font-bold w-6.5 h-6.5 flex items-center justify-center bg-canvas-soft rounded border border-hairline cursor-pointer select-none"
+                  aria-label="Increase width by 10 pixels"
+                >+</button>
+              </div>
+            </div>
+
+            <!-- Ratio Lock Button -->
+            <div class="md:col-span-1 flex justify-center pt-4 md:pt-0">
+              <button 
+                type="button" 
+                id="btn-lock" 
+                class="p-2.5 rounded-lg border border-hairline bg-canvas-soft text-body hover:border-hairline-strong hover:text-ink transition-colors cursor-pointer relative group flex items-center justify-center"
+                aria-label="Lock aspect ratio"
+                aria-pressed="false"
+              >
+                <!-- Unlocked Icon -->
+                <svg id="icon-unlocked" class="h-4.5 w-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5V6.75a4.5 4.5 0 1 1 9 0v3.75M3.75 21.75h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H3.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
+                </svg>
+                <!-- Locked Icon (Hidden by default) -->
+                <svg id="icon-locked" class="h-4.5 w-4.5 hidden text-link" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
+                </svg>
+                <!-- Tooltip -->
+                <span class="absolute bottom-full mb-2 hidden group-hover:block bg-ink text-canvas text-[9px] font-mono px-2 py-1 rounded shadow-md whitespace-nowrap z-20">Lock Aspect Ratio</span>
+              </button>
+            </div>
+
+            <!-- Height Input -->
+            <div class="md:col-span-5 space-y-1.5">
+              <label for="input-height" class="block text-xs font-semibold text-body">Height (px)</label>
+              <div class="relative flex items-center">
+                <button 
+                  type="button" 
+                  id="btn-height-dec" 
+                  class="absolute left-2 text-mute hover:text-ink transition-colors text-xs font-bold w-6.5 h-6.5 flex items-center justify-center bg-canvas-soft rounded border border-hairline cursor-pointer select-none"
+                  aria-label="Decrease height by 10 pixels"
+                >-</button>
+                <input 
+                  type="number" 
+                  id="input-height" 
+                  value="1350" 
+                  min="1" 
+                  max="10000"
+                  class="w-full text-center px-8 py-3 rounded-lg border border-hairline bg-canvas-soft-2 text-sm font-mono text-ink font-semibold focus:outline-none focus:border-hairline-strong transition-all focus:ring-1 focus:ring-hairline-strong"
+                  aria-label="Image height in pixels"
+                />
+                <button 
+                  type="button" 
+                  id="btn-height-inc" 
+                  class="absolute right-2 text-mute hover:text-ink transition-colors text-xs font-bold w-6.5 h-6.5 flex items-center justify-center bg-canvas-soft rounded border border-hairline cursor-pointer select-none"
+                  aria-label="Increase height by 10 pixels"
+                >+</button>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Calculate Button -->
+          <button 
+            type="button" 
+            id="btn-calculate" 
+            class="w-full py-3.5 rounded-xl bg-ink text-on-primary font-semibold text-sm hover:shadow-level3 active:scale-[0.99] transition-all cursor-pointer flex items-center justify-center gap-2 group"
+          >
+            Calculate Aspect Ratio
+            <svg class="h-4 w-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Quick Examples/Info list -->
+        <div class="glass-card rounded-xl p-5 border border-hairline bg-canvas-soft/40">
+          <h3 class="text-xs font-bold text-ink uppercase tracking-wider mb-3 font-mono">Common Ratio Examples</h3>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
+            <div class="bg-canvas-soft border border-hairline/60 rounded-lg p-2.5 text-center">
+              <span class="block text-ink font-bold font-mono">1:1 Square</span>
+              <span class="text-[10px] text-mute font-mono">1080 × 1080</span>
+            </div>
+            <div class="bg-canvas-soft border border-hairline/60 rounded-lg p-2.5 text-center">
+              <span class="block text-ink font-bold font-mono">4:5 Portrait</span>
+              <span class="text-[10px] text-mute font-mono">1080 × 1350</span>
+            </div>
+            <div class="bg-canvas-soft border border-hairline/60 rounded-lg p-2.5 text-center">
+              <span class="block text-ink font-bold font-mono">9:16 Story/Reel</span>
+              <span class="text-[10px] text-mute font-mono">1080 × 1920</span>
+            </div>
+            <div class="bg-canvas-soft border border-hairline/60 rounded-lg p-2.5 text-center">
+              <span class="block text-ink font-bold font-mono">1.91:1 Landscape</span>
+              <span class="text-[10px] text-mute font-mono">1080 × 566</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Right Column: Visualizer & Live Output -->
+      <div class="lg:col-span-5 space-y-6">
+        <div class="glass-card rounded-2xl p-6 shadow-level3 bg-canvas-soft border border-hairline flex flex-col items-center">
+          <div class="w-full flex justify-between items-center mb-4 pb-3 border-b border-hairline">
+            <span class="text-xs font-mono uppercase tracking-wider text-mute">Live Mockup Preview</span>
+            <span id="preview-aspect-text" class="text-xs font-mono font-bold text-link">4:5</span>
+          </div>
+
+          <!-- Dynamic Aspect Ratio Preview Box Container -->
+          <div class="w-full h-[320px] bg-canvas-soft-2 rounded-xl flex items-center justify-center p-4 overflow-hidden relative border border-hairline/50">
+            <!-- Grid Background Overlay -->
+            <div class="absolute inset-0 bg-[radial-gradient(#e4e4e7_1px,transparent_1px)] [background-size:16px_16px] opacity-60"></div>
+            
+            <!-- Scaled Mockup Frame -->
+            <div id="mockup-frame" class="max-w-full max-h-full shadow-level3 rounded-lg overflow-hidden border border-hairline-strong/30 bg-white relative transition-all duration-300 flex flex-col justify-between" style="aspect-ratio: 4/5;">
+              
+              <!-- Mockup UI: Header (for Post mockups) -->
+              <div id="mockup-header" class="flex items-center justify-between px-3 py-2 bg-white border-b border-hairline text-[10px] text-ink font-semibold w-full z-10 shrink-0">
+                <div class="flex items-center gap-1.5">
+                  <div class="h-4.5 w-4.5 rounded-full bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 flex items-center justify-center p-[1px]">
+                    <div class="h-full w-full bg-white rounded-full flex items-center justify-center">
+                      <div class="h-3.5 w-3.5 bg-gray-200 rounded-full"></div>
+                    </div>
+                  </div>
+                  <span>your_name</span>
+                </div>
+                <svg class="h-3 w-3 text-body" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M12 12h.01M12 6h.01M12 18h.01" /></svg>
+              </div>
+
+              <!-- Mockup UI: Story/Reel Top Progress Bar (for Story mockup) -->
+              <div id="mockup-story-bars" class="absolute top-2 left-0 right-0 px-2 flex gap-1 z-10 shrink-0 hidden">
+                <div class="h-[2px] bg-white/70 rounded-full flex-1"></div>
+                <div class="h-[2px] bg-white/30 rounded-full flex-1"></div>
+              </div>
+
+              <!-- Mockup Content: Center Image Frame -->
+              <div class="grow flex-1 relative flex items-center justify-center overflow-hidden bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 min-h-0">
+                <!-- Silhouette / Aspect Ratio Visual Graphic -->
+                <div class="absolute inset-0 flex flex-col items-center justify-center p-4 text-center z-10 select-none">
+                  <svg class="h-10 w-10 text-hairline-strong/40 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375 0 11-.75 0 .375 0 01.75 0z" />
+                  </svg>
+                  <span id="mockup-res-display" class="font-mono text-[10px] font-bold text-mute leading-none">1080 x 1350</span>
+                  <span id="mockup-type-display" class="text-[9px] text-mute/70 mt-0.5">Portrait Post</span>
+                </div>
+                
+                <!-- Instagram Reels Overlay (Icons on the right side) -->
+                <div id="mockup-reels-overlay" class="absolute right-2 bottom-6 flex flex-col items-center gap-3 text-white z-10 hidden">
+                  <div class="flex flex-col items-center"><svg class="h-4.5 w-4.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg><span class="text-[8px]">Likes</span></div>
+                  <div class="flex flex-col items-center"><svg class="h-4.5 w-4.5" fill="currentColor" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg><span class="text-[8px]">Comments</span></div>
+                  <div class="flex flex-col items-center"><svg class="h-4.5 w-4.5" fill="currentColor" viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg><span class="text-[8px]">Share</span></div>
+                </div>
+              </div>
+
+              <!-- Mockup UI: Footer (for Post mockups) -->
+              <div id="mockup-footer" class="p-3 bg-white border-t border-hairline w-full z-10 shrink-0">
+                <div class="flex items-center gap-3 mb-1.5">
+                  <svg class="h-4.5 w-4.5 text-ink" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" /></svg>
+                  <svg class="h-4.5 w-4.5 text-ink" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48L4.5 20.25l3.773-1.51c1.11.34 2.292.51 3.727.51Z" /></svg>
+                  <svg class="h-4.5 w-4.5 text-ink" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" /></svg>
+                </div>
+                <div class="h-1.5 w-16 bg-gray-200 rounded-full mb-1"></div>
+                <div class="h-1.5 w-24 bg-gray-100 rounded-full"></div>
+              </div>
+
+            </div>
+          </div>
+          
+          <!-- Results Grid -->
+          <div class="w-full grid grid-cols-3 gap-3 my-5">
+            <!-- Simplified -->
+            <div class="bg-canvas-soft-2 border border-hairline/60 rounded-xl p-3 flex flex-col justify-center text-center">
+              <span class="block text-[9px] font-mono uppercase tracking-wider text-mute mb-1">Simplified Ratio</span>
+              <span id="result-simplified" class="font-mono text-base font-bold text-ink tabular-nums">4:5</span>
+            </div>
+            
+            <!-- Decimal -->
+            <div class="bg-canvas-soft-2 border border-hairline/60 rounded-xl p-3 flex flex-col justify-center text-center">
+              <span class="block text-[9px] font-mono uppercase tracking-wider text-mute mb-1">Decimal Ratio</span>
+              <span id="result-decimal" class="font-mono text-base font-bold text-ink tabular-nums">0.80</span>
+            </div>
+
+            <!-- Format -->
+            <div class="bg-canvas-soft-2 border border-hairline/60 rounded-xl p-3 flex flex-col justify-center text-center font-sans">
+              <span class="block text-[9px] font-mono uppercase tracking-wider text-mute mb-1">Closest Format</span>
+              <span id="result-closest" class="text-xs font-semibold text-ink line-clamp-2">Portrait Post</span>
+            </div>
+          </div>
+
+          <!-- Analysis Feedback Box -->
+          <div id="result-status-card" class="w-full rounded-xl border p-4 flex gap-3 text-xs border-emerald-100 bg-emerald-50/40 text-emerald-800 transition-all duration-300">
+            <!-- Status Icon -->
+            <div class="shrink-0 mt-0.5" id="status-icon-container">
+              <svg class="h-4.5 w-4.5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <!-- Status Text -->
+            <div>
+              <h4 id="status-title" class="font-bold text-ink mb-1 text-xs">Perfect Aspect Ratio</h4>
+              <p id="status-desc" class="text-body text-[11px] leading-relaxed">This width and height match Instagram's recommended portrait post format exactly. It will display at full scale in the home feed without cropping.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+  // Greatest Common Divisor
+  function gcd(a: number, b: number): number {
+    return b ? gcd(b, a % b) : a;
+  }
+
+  // Fraction approximation
+  function floatToFraction(val: number, tolerance = 0.005) {
+    let h1 = 1, h2 = 0, k1 = 0, k2 = 1;
+    let b = val;
+    let limit = 0;
+    do {
+      let a = Math.floor(b);
+      let aux = h1; h1 = a * h1 + h2; h2 = aux;
+      aux = k1; k1 = a * k1 + k2; k2 = aux;
+      b = 1 / (b - a);
+      limit++;
+    } while (Math.abs(val - h1 / k1) > val * tolerance && limit < 15);
+    return { num: h1, den: k1 };
+  }
+
+  // DOM elements
+  const widthInput = document.getElementById('input-width') as HTMLInputElement;
+  const heightInput = document.getElementById('input-height') as HTMLInputElement;
+  const lockBtn = document.getElementById('btn-lock') as HTMLButtonElement;
+  const iconUnlocked = document.getElementById('icon-unlocked') as HTMLElement;
+  const iconLocked = document.getElementById('icon-locked') as HTMLElement;
+  
+  const widthDec = document.getElementById('btn-width-dec') as HTMLButtonElement;
+  const widthInc = document.getElementById('btn-width-inc') as HTMLButtonElement;
+  const heightDec = document.getElementById('btn-height-dec') as HTMLButtonElement;
+  const heightInc = document.getElementById('btn-height-inc') as HTMLButtonElement;
+  const calculateBtn = document.getElementById('btn-calculate') as HTMLButtonElement;
+  
+  const presetButtons = document.querySelectorAll('.preset-btn');
+  
+  // Outputs
+  const previewText = document.getElementById('preview-aspect-text') as HTMLElement;
+  const mockupFrame = document.getElementById('mockup-frame') as HTMLElement;
+  const mockupHeader = document.getElementById('mockup-header') as HTMLElement;
+  const mockupFooter = document.getElementById('mockup-footer') as HTMLElement;
+  const mockupStoryBars = document.getElementById('mockup-story-bars') as HTMLElement;
+  const mockupReelsOverlay = document.getElementById('mockup-reels-overlay') as HTMLElement;
+  const mockupResDisplay = document.getElementById('mockup-res-display') as HTMLElement;
+  const mockupTypeDisplay = document.getElementById('mockup-type-display') as HTMLElement;
+  
+  const resultSimplified = document.getElementById('result-simplified') as HTMLElement;
+  const resultDecimal = document.getElementById('result-decimal') as HTMLElement;
+  const resultClosest = document.getElementById('result-closest') as HTMLElement;
+  
+  const statusCard = document.getElementById('result-status-card') as HTMLElement;
+  const statusIconContainer = document.getElementById('status-icon-container') as HTMLElement;
+  const statusTitle = document.getElementById('status-title') as HTMLElement;
+  const statusDesc = document.getElementById('status-desc') as HTMLElement;
+
+  // State
+  let isLocked = false;
+  let lockedRatio = 1080 / 1350; // default 4:5
+
+  // Initialize
+  function init() {
+    if (!widthInput || !heightInput) return;
+    
+    isLocked = false;
+    lockedRatio = Number(widthInput.value) / Number(heightInput.value);
+    
+    // Listeners
+    widthInput.addEventListener('input', () => handleInput('width'));
+    heightInput.addEventListener('input', () => handleInput('height'));
+    
+    lockBtn.addEventListener('click', toggleLock);
+    
+    widthDec.addEventListener('click', () => adjustValue('width', -10));
+    widthInc.addEventListener('click', () => adjustValue('width', 10));
+    heightDec.addEventListener('click', () => adjustValue('height', -10));
+    heightInc.addEventListener('click', () => adjustValue('height', 10));
+    
+    calculateBtn.addEventListener('click', () => {
+      calculate();
+      // Visual feedback: brief highlight animation on results
+      const resultsContainer = resultSimplified.parentElement?.parentElement;
+      if (resultsContainer) {
+        resultsContainer.classList.add('ring-2', 'ring-link/30', 'scale-[1.01]');
+        setTimeout(() => {
+          resultsContainer.classList.remove('ring-2', 'ring-link/30', 'scale-[1.01]');
+        }, 300);
+      }
+    });
+
+    presetButtons.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const target = e.currentTarget as HTMLButtonElement;
+        const w = target.getAttribute('data-width');
+        const h = target.getAttribute('data-height');
+        if (w && h) {
+          widthInput.value = w;
+          heightInput.value = h;
+          // Temporarily bypass lock to set preset
+          const previousLock = isLocked;
+          isLocked = false;
+          calculate();
+          isLocked = previousLock;
+          if (isLocked) {
+            lockedRatio = Number(w) / Number(h);
+          }
+        }
+      });
+    });
+
+    calculate();
+  }
+
+  function toggleLock() {
+    isLocked = !isLocked;
+    lockBtn.setAttribute('aria-pressed', String(isLocked));
+    if (isLocked) {
+      iconUnlocked.classList.add('hidden');
+      iconLocked.classList.remove('hidden');
+      lockBtn.classList.add('border-link/50', 'bg-link/5');
+      const w = Number(widthInput.value);
+      const h = Number(heightInput.value);
+      lockedRatio = h !== 0 ? w / h : 1;
+    } else {
+      iconUnlocked.classList.remove('hidden');
+      iconLocked.classList.add('hidden');
+      lockBtn.classList.remove('border-link/50', 'bg-link/5');
+    }
+  }
+
+  function adjustValue(field: 'width' | 'height', delta: number) {
+    const input = field === 'width' ? widthInput : heightInput;
+    let val = Number(input.value);
+    val = Math.max(1, val + delta);
+    input.value = String(val);
+    handleInput(field);
+  }
+
+  function handleInput(field: 'width' | 'height') {
+    const w = Number(widthInput.value);
+    const h = Number(heightInput.value);
+
+    if (w <= 0 || h <= 0 || isNaN(w) || isNaN(h)) return;
+
+    if (isLocked) {
+      if (field === 'width') {
+        const newHeight = Math.round(w / lockedRatio);
+        heightInput.value = String(Math.max(1, newHeight));
+      } else {
+        const newWidth = Math.round(h * lockedRatio);
+        widthInput.value = String(Math.max(1, newWidth));
+      }
+    }
+    calculate();
+  }
+
+  function calculate() {
+    const w = Math.round(Number(widthInput.value));
+    const h = Math.round(Number(heightInput.value));
+
+    if (w <= 0 || h <= 0 || isNaN(w) || isNaN(h)) {
+      if (resultSimplified) resultSimplified.innerText = "- : -";
+      if (resultDecimal) resultDecimal.innerText = "-";
+      if (resultClosest) resultClosest.innerText = "-";
+      return;
+    }
+
+    const ratio = w / h;
+    
+    // 1. Calculate simplified ratio
+    const commonDivisor = gcd(w, h);
+    let simpW = w / commonDivisor;
+    let simpH = h / commonDivisor;
+    
+    let displayRatioStr = `${simpW}:${simpH}`;
+    if (simpW > 50 || simpH > 50) {
+      const approx = floatToFraction(ratio);
+      displayRatioStr = `~ ${approx.num}:${approx.den}`;
+    }
+    
+    if (resultSimplified) resultSimplified.innerText = displayRatioStr;
+
+    // 2. Decimal ratio
+    if (resultDecimal) resultDecimal.innerText = ratio.toFixed(2);
+
+    // 3. Closest Instagram Format
+    const formats = [
+      { name: "Story / Reel (9:16)", ratio: 9/16, text: "9:16", w: 1080, h: 1920, type: "story" },
+      { name: "Portrait Post (4:5)", ratio: 4/5, text: "4:5", w: 1080, h: 1350, type: "portrait" },
+      { name: "Square Post (1:1)", ratio: 1/1, text: "1:1", w: 1080, h: 1080, type: "square" },
+      { name: "Landscape Post (1.91:1)", ratio: 1080/566, text: "1.91:1", w: 1080, h: 566, type: "landscape" }
+    ];
+
+    let closest = formats[0];
+    let minDiff = Math.abs(ratio - closest.ratio);
+    for (let i = 1; i < formats.length; i++) {
+      const diff = Math.abs(ratio - formats[i].ratio);
+      if (diff < minDiff) {
+        minDiff = diff;
+        closest = formats[i];
+      }
+    }
+
+    if (resultClosest) resultClosest.innerText = closest.name.split(" (")[0];
+    if (previewText) previewText.innerText = displayRatioStr.replace("~ ", "");
+    
+    // Update Mockup UI
+    if (mockupResDisplay) mockupResDisplay.innerText = `${w} x ${h}`;
+    if (mockupTypeDisplay) mockupTypeDisplay.innerText = closest.name.split(" (")[0];
+    
+    let displayRatio = ratio;
+    if (ratio < 0.35) displayRatio = 0.35;
+    if (ratio > 2.5) displayRatio = 2.5;
+    if (mockupFrame) mockupFrame.style.aspectRatio = `${displayRatio}`;
+
+    if (closest.type === "story") {
+      if (mockupHeader) mockupHeader.classList.add('hidden');
+      if (mockupFooter) mockupFooter.classList.add('hidden');
+      if (mockupStoryBars) mockupStoryBars.classList.remove('hidden');
+      if (mockupReelsOverlay) mockupReelsOverlay.classList.remove('hidden');
+      if (mockupFrame) {
+        mockupFrame.classList.add('bg-black');
+        mockupFrame.classList.remove('bg-white');
+      }
+    } else {
+      if (mockupHeader) mockupHeader.classList.remove('hidden');
+      if (mockupFooter) mockupFooter.classList.remove('hidden');
+      if (mockupStoryBars) mockupStoryBars.classList.add('hidden');
+      if (mockupReelsOverlay) mockupReelsOverlay.classList.add('hidden');
+      if (mockupFrame) {
+        mockupFrame.classList.remove('bg-black');
+        mockupFrame.classList.add('bg-white');
+      }
+    }
+
+    // Determine compatibility
+    const isPerfectRatio = minDiff < 0.03;
+    const isUnderWidthLimit = w < 320;
+    
+    if (statusCard && statusIconContainer && statusTitle && statusDesc) {
+      statusCard.className = "w-full rounded-xl border p-4 flex gap-3 text-xs transition-all duration-300";
+      
+      if (isPerfectRatio) {
+        if (isUnderWidthLimit) {
+          statusCard.classList.add('border-yellow-200', 'bg-yellow-50/40', 'text-yellow-800');
+          statusIconContainer.innerHTML = `
+            <svg class="h-4.5 w-4.5 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
+          `;
+          statusTitle.innerText = "Low Resolution Warning";
+          statusDesc.innerText = `The aspect ratio is a perfect match for ${closest.name.split(" (")[0]}, but the width (${w}px) is below Instagram's minimum of 320px. The image will appear pixelated when uploaded. We recommend exporting at least 1080px wide.`;
+        } else {
+          statusCard.classList.add('border-emerald-100', 'bg-emerald-50/40', 'text-emerald-800');
+          statusIconContainer.innerHTML = `
+            <svg class="h-4.5 w-4.5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          `;
+          statusTitle.innerText = "Perfect Aspect Ratio";
+          
+          let desc = `This matches Instagram's standard ${closest.name.split(" (")[0]} format. It will display perfectly in the app without any automatic cropping.`;
+          if (w > 1920 || h > 1920) {
+            desc += ` Note: Your image is high resolution (${w}x${h}px). Instagram will automatically compress it to ${closest.w}x${closest.h}px while keeping the ratio.`;
+          } else if (w < 1080) {
+            desc += ` Note: Instagram's optimal width is 1080px. Your width is ${w}px, which is acceptable but might not look as crisp on high-density screens.`;
+          }
+          statusDesc.innerText = desc;
+        }
+      } else {
+        statusCard.classList.add('border-red-200', 'bg-red-50/40', 'text-red-800');
+        statusIconContainer.innerHTML = `
+          <svg class="h-4.5 w-4.5 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2.25m9-2.25a9 9 0 11-18 0 9 9 0 0118 0zm-9 7.5h.008v.008H12v-.008z" />
+          </svg>
+        `;
+        statusTitle.innerText = "Auto-Crop Warning";
+        
+        let cropDirection = ratio > closest.ratio ? "sides" : "top and bottom";
+        if (closest.type === "story") {
+          cropDirection = ratio > 9/16 ? "sides" : "top and bottom";
+        } else if (ratio > 1.91) {
+          cropDirection = "sides";
+        } else if (ratio < 0.8) {
+          cropDirection = "top and bottom";
+        }
+        
+        statusDesc.innerText = `Instagram does not support this exact ratio (${displayRatioStr.replace("~ ", "")}). When uploaded, Instagram will automatically crop the ${cropDirection} to fit the closest format: ${closest.name.split(" (")[0]}. To prevent this, use our "No Crop" borders tool!`;
+      }
+    }
+  }
+
+  // Run on page load
+  document.addEventListener('astro:page-load', init);
+  if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    init();
+  } else {
+    document.addEventListener('DOMContentLoaded', init);
+  }
+</script>
+
+<style>
+  /* Fix standard number input arrows */
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+</style>

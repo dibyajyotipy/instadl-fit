@@ -1,0 +1,835 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { GOOGLE_FORM_URL } from "../config";
+
+const title = "Build the Next InstaDL Tool | InstaDL Fit";
+const description = "Suggest Instagram, creator, image editing, and social media tool ideas. Help shape the future of InstaDL Fit and earn contributor recognition if your idea gets built.";
+
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site || "https://instadl.online").href;
+
+// WebPage Schema for search engines
+const webpageSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": title,
+  "description": description,
+  "url": canonicalUrl,
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "InstaDL Fit",
+    "url": "https://instadl.online"
+  }
+};
+---
+
+<Layout title={title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(webpageSchema)} />
+
+  <!-- Global Overrides for Dark Premium Aesthetic on this route -->
+  <style is:global>
+    body {
+      background-color: #09090b !important;
+      color: #f4f4f5 !important;
+    }
+    header {
+      background-color: rgba(9, 9, 11, 0.8) !important;
+      border-color: rgba(63, 63, 70, 0.3) !important;
+    }
+    header a, header span {
+      color: #f4f4f5 !important;
+    }
+    header svg {
+      color: #f4f4f5 !important;
+    }
+    header .bg-hairline-strong {
+      background-color: rgba(63, 63, 70, 0.5) !important;
+      color: #f4f4f5 !important;
+    }
+    footer {
+      background-color: #09090b !important;
+      border-color: rgba(63, 63, 70, 0.3) !important;
+      color: #a1a1aa !important;
+    }
+    footer a, footer span {
+      color: #e4e4e7 !important;
+    }
+    footer a:hover {
+      color: #ffffff !important;
+    }
+    footer svg {
+      color: #e4e4e7 !important;
+    }
+    footer .border-t {
+      border-color: rgba(63, 63, 70, 0.3) !important;
+    }
+    footer .bg-hairline-strong {
+      background-color: rgba(63, 63, 70, 0.5) !important;
+      color: #f4f4f5 !important;
+    }
+  </style>
+
+  <!-- Page-specific styles for advanced startup animations -->
+  <style>
+    /* Floating Background Keyframes */
+    @keyframes floatSlow {
+      0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+      }
+      50% {
+        transform: translateY(-15px) rotate(1.5deg);
+      }
+    }
+    @keyframes floatDelayed {
+      0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+      }
+      50% {
+        transform: translateY(18px) rotate(-2deg);
+      }
+    }
+    @keyframes floatReverse {
+      0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+      }
+      50% {
+        transform: translateY(-12px) rotate(-1.5deg);
+      }
+    }
+
+    .animate-float-slow {
+      animation: floatSlow 7s ease-in-out infinite;
+    }
+    .animate-float-delayed {
+      animation: floatDelayed 9s ease-in-out infinite;
+      animation-delay: 1.5s;
+    }
+    .animate-float-reverse {
+      animation: floatReverse 8s ease-in-out infinite;
+      animation-delay: 0.5s;
+    }
+
+    /* Bounce Keyframe for modal rocket */
+    @keyframes bounceSlow {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-6px);
+      }
+    }
+    .animate-bounce-slow {
+      animation: bounceSlow 2s ease-in-out infinite;
+    }
+
+    /* Scroll Reveal Initial State */
+    .roadmap-card {
+      opacity: 0;
+      transform: translateY(28px) scale(0.97);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                  transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                  border-color 0.3s ease,
+                  background-color 0.3s ease,
+                  box-shadow 0.3s ease;
+    }
+
+    .roadmap-card.reveal {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    /* Reduced Motion Fallbacks */
+    @media (prefers-reduced-motion: reduce) {
+      .animate-float-slow,
+      .animate-float-delayed,
+      .animate-float-reverse,
+      .animate-bounce-slow {
+        animation: none !important;
+        transform: none !important;
+      }
+      .roadmap-card {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+      }
+      .reward-card {
+        transform: none !important;
+        transition: none !important;
+      }
+      .reward-card:hover {
+        transform: none !important;
+      }
+      #spotlight-glow {
+        display: none !important;
+      }
+      #submit-transition-overlay {
+        transition: none !important;
+      }
+      #submit-transition-overlay .transform {
+        transition: none !important;
+        transform: none !important;
+      }
+    }
+  </style>
+
+  <div class="relative min-h-screen overflow-hidden bg-[#09090b] text-zinc-100 font-sans antialiased selection:bg-white selection:text-black">
+    <!-- Subtle Background Ambient Blurs -->
+    <div class="absolute inset-0 pointer-events-none select-none z-0">
+      <div class="absolute top-[-10%] left-[10%] w-[500px] h-[500px] rounded-full blur-[150px] bg-violet-600/10"></div>
+      <div class="absolute top-[40%] right-[-10%] w-[600px] h-[600px] rounded-full blur-[180px] bg-cyan-500/5"></div>
+      <div class="absolute bottom-[-10%] left-[20%] w-[500px] h-[500px] rounded-full blur-[150px] bg-rose-500/5"></div>
+    </div>
+
+    <div class="relative z-10">
+      <!-- 1. Hero Section -->
+      <section id="hero-section" class="relative pt-24 pb-16 md:pt-32 md:pb-24 border-b border-white/[0.06] overflow-hidden">
+        
+        <!-- Mouse-follow spotlight glow effect -->
+        <div id="spotlight-glow" class="absolute pointer-events-none select-none z-0 w-[500px] h-[500px] rounded-full blur-[130px] bg-gradient-to-tr from-indigo-500/8 via-violet-500/5 to-cyan-500/5 transition-opacity duration-500 opacity-0"></div>
+
+        <!-- Floating Background Cards -->
+        <div class="absolute inset-0 pointer-events-none select-none z-0 overflow-hidden">
+          <!-- Card 1 -->
+          <div class="hidden sm:block absolute top-[15%] left-[2%] md:left-[5%] lg:left-[8%] w-[180px] md:w-[210px] p-5 rounded-xl border border-white/[0.06] bg-zinc-950/40 backdrop-blur-md shadow-2xl animate-float-slow opacity-25 md:opacity-60">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-[9px] font-mono text-zinc-500">IDEA #204</span>
+              <span class="flex h-1.5 w-1.5 rounded-full bg-violet-400"></span>
+            </div>
+            <h4 class="text-xs font-semibold text-white mb-1">Seamless Panorama</h4>
+            <p class="text-[10px] text-zinc-400 leading-normal">Split a wide image into multiple post slides.</p>
+            <div class="mt-2.5 text-[9px] text-violet-400/70 font-mono">Suggested by @alex_d</div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="hidden sm:block absolute top-[35%] right-[2%] md:right-[5%] lg:right-[8%] w-[180px] md:w-[210px] p-5 rounded-xl border border-white/[0.06] bg-zinc-950/40 backdrop-blur-md shadow-2xl animate-float-delayed opacity-20 md:opacity-50">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-[9px] font-mono text-zinc-500">IDEA #209</span>
+              <span class="flex h-1.5 w-1.5 rounded-full bg-cyan-400"></span>
+            </div>
+            <h4 class="text-xs font-semibold text-white mb-1">Auto Story Padding</h4>
+            <p class="text-[10px] text-zinc-400 leading-normal">Add blurred margins to 16:9 photos for 9:16 posts.</p>
+            <div class="mt-2.5 text-[9px] text-cyan-400/70 font-mono">Suggested by @sarah_k</div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="hidden sm:block absolute bottom-[8%] left-[4%] md:left-[8%] lg:left-[10%] w-[180px] md:w-[210px] p-5 rounded-xl border border-white/[0.06] bg-zinc-950/40 backdrop-blur-md shadow-2xl animate-float-reverse opacity-20 md:opacity-40">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-[9px] font-mono text-zinc-500">IDEA #215</span>
+              <span class="flex h-1.5 w-1.5 rounded-full bg-rose-400"></span>
+            </div>
+            <h4 class="text-xs font-semibold text-white mb-1">Reel Grid Preview</h4>
+            <p class="text-[10px] text-zinc-400 leading-normal">Visualize reel covers inside your profile feed.</p>
+            <div class="mt-2.5 text-[9px] text-rose-400/70 font-mono">Suggested by @marcus_v</div>
+          </div>
+        </div>
+
+        <div class="relative z-10 mx-auto max-w-4xl px-6 text-center space-y-8">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/[0.02] hover:bg-white/[0.05] transition-colors text-[10px] font-mono text-zinc-300 uppercase tracking-wider">
+            <span class="flex h-2 w-2 rounded-full bg-cyan-400 animate-pulse"></span>
+            Co-Build InstaDL
+          </div>
+          
+          <h1 class="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight text-white leading-tight text-balance flex flex-col items-center gap-3">
+            <span class="text-transparent bg-clip-text bg-gradient-to-b from-white to-zinc-400">Build the Next InstaDL Tool</span>
+            <span class="text-2xl sm:text-3xl md:text-4xl font-bold min-h-[36px] sm:min-h-[40px] md:min-h-[48px] flex items-center justify-center">
+              <span id="typewriter-text" class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-indigo-400 to-violet-400"></span><span id="typewriter-cursor" class="text-cyan-400 animate-pulse ml-0.5">|</span>
+            </span>
+          </h1>
+          
+          <p class="text-sm sm:text-base md:text-lg text-zinc-400 max-w-2xl mx-auto text-pretty leading-relaxed">
+            Have an idea that would help creators, photographers, or social media managers? Submit it to the InstaDL roadmap. If we build your idea, you'll receive contributor recognition and may qualify for special rewards.
+          </p>
+
+          <!-- Live Community Counter -->
+          <div class="grid grid-cols-3 gap-3 sm:gap-4 max-w-md mx-auto pt-2 pb-4">
+            <div class="bg-white/[0.01] border border-white/[0.06] rounded-xl p-3 text-center hover:border-white/10 transition-colors">
+              <div class="text-xl sm:text-2xl font-black text-white font-mono" data-target="37">0</div>
+              <div class="text-[9px] sm:text-[10px] font-mono text-zinc-500 uppercase tracking-wider mt-0.5">Ideas Submitted</div>
+            </div>
+            <div class="bg-white/[0.01] border border-white/[0.06] rounded-xl p-3 text-center hover:border-white/10 transition-colors">
+              <div class="text-xl sm:text-2xl font-black text-indigo-400 font-mono" data-target="1">0</div>
+              <div class="text-[9px] sm:text-[10px] font-mono text-zinc-500 uppercase tracking-wider mt-0.5">In Development</div>
+            </div>
+            <div class="bg-white/[0.01] border border-white/[0.06] rounded-xl p-3 text-center hover:border-white/10 transition-colors">
+              <div class="text-xl sm:text-2xl font-black text-emerald-400 font-mono" data-target="5">0</div>
+              <div class="text-[9px] sm:text-[10px] font-mono text-zinc-500 uppercase tracking-wider mt-0.5">Tools Shipped</div>
+            </div>
+          </div>
+          
+          <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
+            <a
+              href={GOOGLE_FORM_URL}
+              class="submit-idea-trigger w-full sm:w-auto inline-flex items-center justify-center gap-2 py-3.5 px-6 text-xs font-bold font-mono tracking-wider uppercase rounded-lg bg-white hover:bg-zinc-200 text-black hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer select-none focus:outline-none focus:ring-2 focus:ring-white shadow-lg shadow-white/5"
+            >
+              <span>Submit an Idea</span>
+              <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+              </svg>
+            </a>
+            <a
+              href="#roadmap"
+              class="w-full sm:w-auto inline-flex items-center justify-center py-3.5 px-6 text-xs font-bold font-mono tracking-wider uppercase rounded-lg border border-white/10 hover:border-white/20 bg-white/[0.02] hover:bg-white/[0.06] text-zinc-300 hover:text-white hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer select-none focus:outline-none focus:ring-2 focus:ring-white/40"
+            >
+              <span>View Roadmap</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. Why Suggest a Tool? Section -->
+      <section class="py-16 md:py-24 border-b border-white/[0.06]">
+        <div class="mx-auto max-w-5xl px-6">
+          <div class="text-center max-w-2xl mx-auto mb-16">
+            <p class="text-[10px] font-mono font-bold tracking-widest text-zinc-400 uppercase mb-2">Collaboration Benefits</p>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Why Suggest a Tool?</h2>
+          </div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Card 1 -->
+            <div class="group relative bg-zinc-900/[0.15] hover:bg-zinc-900/[0.3] border border-white/[0.06] hover:border-white/[0.15] rounded-2xl p-6 space-y-4 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_15px_30px_rgba(0,0,0,0.4)] overflow-hidden">
+              <div class="absolute inset-0 bg-gradient-to-br from-violet-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+              <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-white/[0.02] group-hover:bg-white/[0.06] text-white border border-white/10 group-hover:scale-110 transition-all duration-300">
+                <svg class="h-5 w-5 text-zinc-300 group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+              </div>
+              <h3 class="text-sm font-semibold text-white">Solve Real Problems</h3>
+              <p class="text-xs text-zinc-400 leading-relaxed">
+                Help us discover creator pain points and workflows that deserve better tools.
+              </p>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="group relative bg-zinc-900/[0.15] hover:bg-zinc-900/[0.3] border border-white/[0.06] hover:border-white/[0.15] rounded-2xl p-6 space-y-4 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_15px_30px_rgba(0,0,0,0.4)] overflow-hidden">
+              <div class="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+              <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-white/[0.02] group-hover:bg-white/[0.06] text-white border border-white/10 group-hover:scale-110 transition-all duration-300">
+                <svg class="h-5 w-5 text-zinc-300 group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 002 2h2a2 2 0 002-2z" />
+                </svg>
+              </div>
+              <h3 class="text-sm font-semibold text-white">Influence the Roadmap</h3>
+              <p class="text-xs text-zinc-400 leading-relaxed">
+                Popular and high-impact ideas are prioritized for development.
+              </p>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="group relative bg-zinc-900/[0.15] hover:bg-zinc-900/[0.3] border border-white/[0.06] hover:border-white/[0.15] rounded-2xl p-6 space-y-4 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_15px_30px_rgba(0,0,0,0.4)] overflow-hidden">
+              <div class="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+              <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-white/[0.02] group-hover:bg-white/[0.06] text-white border border-white/10 group-hover:scale-110 transition-all duration-300">
+                <svg class="h-5 w-5 text-zinc-300 group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                </svg>
+              </div>
+              <h3 class="text-sm font-semibold text-white">Get Recognized</h3>
+              <p class="text-xs text-zinc-400 leading-relaxed">
+                Contributors whose ideas are shipped may receive public recognition and future rewards.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. How It Works Section -->
+      <section class="py-16 md:py-24 border-b border-white/[0.06] bg-white/[0.005]">
+        <div class="mx-auto max-w-5xl px-6">
+          <div class="text-center max-w-2xl mx-auto mb-16">
+            <p class="text-[10px] font-mono font-bold tracking-widest text-zinc-400 uppercase mb-2">Workflow Process</p>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-white">How It Works</h2>
+          </div>
+          
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 relative">
+            <!-- Dotted connecting line for desktop -->
+            <div class="hidden lg:block absolute top-4 left-8 right-8 h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent z-0"></div>
+
+            <!-- Step 1 -->
+            <div class="space-y-3 relative group z-10">
+              <div class="flex h-8 w-8 items-center justify-center rounded-full bg-zinc-950 border border-white/10 text-white text-xs font-mono font-bold group-hover:border-indigo-400 group-hover:text-indigo-400 transition-colors shadow-lg shadow-black/80">1</div>
+              <h3 class="text-sm font-semibold text-white group-hover:text-indigo-300 transition-colors">Submit Your Idea</h3>
+              <p class="text-[11px] text-zinc-400 leading-relaxed">
+                Tell us: the problem, who it helps, and your ideal solution.
+              </p>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="space-y-3 relative group z-10">
+              <div class="flex h-8 w-8 items-center justify-center rounded-full bg-zinc-950 border border-white/10 text-white text-xs font-mono font-bold group-hover:border-indigo-400 group-hover:text-indigo-400 transition-colors shadow-lg shadow-black/80">2</div>
+              <h3 class="text-sm font-semibold text-white group-hover:text-indigo-300 transition-colors">Review Process</h3>
+              <p class="text-[11px] text-zinc-400 leading-relaxed">
+                We evaluate: user value, search demand, technical feasibility, and creator usefulness.
+              </p>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="space-y-3 relative group z-10">
+              <div class="flex h-8 w-8 items-center justify-center rounded-full bg-zinc-950 border border-white/10 text-white text-xs font-mono font-bold group-hover:border-indigo-400 group-hover:text-indigo-400 transition-colors shadow-lg shadow-black/80">3</div>
+              <h3 class="text-sm font-semibold text-white group-hover:text-indigo-300 transition-colors">Roadmap Placement</h3>
+              <p class="text-[11px] text-zinc-400 leading-relaxed">
+                Approved ideas move into: Under Review, Planned, or In Development.
+              </p>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="space-y-3 relative group z-10">
+              <div class="flex h-8 w-8 items-center justify-center rounded-full bg-zinc-950 border border-white/10 text-white text-xs font-mono font-bold group-hover:border-indigo-400 group-hover:text-indigo-400 transition-colors shadow-lg shadow-black/80">4</div>
+              <h3 class="text-sm font-semibold text-white group-hover:text-indigo-300 transition-colors">Launch & Recognition</h3>
+              <p class="text-[11px] text-zinc-400 leading-relaxed">
+                If your idea launches, earn credit, community badges, early feature access, and future rewards.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. Community Roadmap Section -->
+      <section id="roadmap" class="py-16 md:py-24 border-b border-white/[0.06] scroll-mt-20">
+        <div class="mx-auto max-w-5xl px-6">
+          <div class="text-center max-w-2xl mx-auto mb-16">
+            <p class="text-[10px] font-mono font-bold tracking-widest text-zinc-400 uppercase mb-2">Product Board</p>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Community Roadmap</h2>
+            <p class="text-xs text-zinc-400 mt-2">Follow the progress of current community suggestions and updates.</p>
+          </div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+            <!-- Column 1: Under Review -->
+            <div class="space-y-4">
+              <div class="flex items-center justify-between border-b border-white/[0.08] pb-2.5">
+                <span class="font-mono text-[10px] font-bold text-zinc-300 uppercase tracking-wider">Under Review</span>
+                <span class="text-[9px] font-mono bg-zinc-800/80 text-zinc-400 px-2 py-0.5 rounded-full border border-white/5">3 Ideas</span>
+              </div>
+              <div class="space-y-4">
+                <!-- Card 1.1 -->
+                <div class="roadmap-card bg-zinc-900/[0.15] hover:bg-zinc-900/[0.3] border border-white/[0.06] hover:border-white/[0.18] rounded-xl p-5 space-y-3 hover:shadow-[0_10px_30px_rgba(0,0,0,0.4)] transition-all duration-300 relative overflow-hidden group">
+                  <div class="absolute inset-0 bg-gradient-to-r from-amber-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+                  <span class="inline-flex text-[9px] font-mono font-semibold text-amber-400 bg-amber-500/10 border border-amber-500/20 px-2 py-0.5 rounded">Evaluating</span>
+                  <h4 class="text-sm font-semibold text-white group-hover:text-amber-300 transition-colors">AI Caption Generator</h4>
+                  <p class="text-xs text-zinc-400 leading-relaxed">Auto-generate creative Instagram captions based on visual styles.</p>
+                </div>
+                <!-- Card 1.2 -->
+                <div class="roadmap-card bg-zinc-900/[0.15] hover:bg-zinc-900/[0.3] border border-white/[0.06] hover:border-white/[0.18] rounded-xl p-5 space-y-3 hover:shadow-[0_10px_30px_rgba(0,0,0,0.4)] transition-all duration-300 relative overflow-hidden group">
+                  <div class="absolute inset-0 bg-gradient-to-r from-amber-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+                  <span class="inline-flex text-[9px] font-mono font-semibold text-amber-400 bg-amber-500/10 border border-amber-500/20 px-2 py-0.5 rounded">Evaluating</span>
+                  <h4 class="text-sm font-semibold text-white group-hover:text-amber-300 transition-colors">Instagram Story Scheduler</h4>
+                  <p class="text-xs text-zinc-400 leading-relaxed">Draft and map reminders to publish your formatted stories on time.</p>
+                </div>
+                <!-- Card 1.3 -->
+                <div class="roadmap-card bg-zinc-900/[0.15] hover:bg-zinc-900/[0.3] border border-white/[0.06] hover:border-white/[0.18] rounded-xl p-5 space-y-3 hover:shadow-[0_10px_30px_rgba(0,0,0,0.4)] transition-all duration-300 relative overflow-hidden group">
+                  <div class="absolute inset-0 bg-gradient-to-r from-amber-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+                  <span class="inline-flex text-[9px] font-mono font-semibold text-amber-400 bg-amber-500/10 border border-amber-500/20 px-2 py-0.5 rounded">Evaluating</span>
+                  <h4 class="text-sm font-semibold text-white group-hover:text-amber-300 transition-colors">Hashtag Research Tool</h4>
+                  <p class="text-xs text-zinc-400 leading-relaxed">Analyze trending hashtags that match the topic and ratio of your photo.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Column 2: Planned -->
+            <div class="space-y-4">
+              <div class="flex items-center justify-between border-b border-white/[0.08] pb-2.5">
+                <span class="font-mono text-[10px] font-bold text-zinc-300 uppercase tracking-wider">Planned</span>
+                <span class="text-[9px] font-mono bg-zinc-800/80 text-zinc-400 px-2 py-0.5 rounded-full border border-white/5">3 Ideas</span>
+              </div>
+              <div class="space-y-4">
+                <!-- Card 2.1 -->
+                <div class="roadmap-card bg-zinc-900/[0.15] hover:bg-zinc-900/[0.3] border border-white/[0.06] hover:border-white/[0.18] rounded-xl p-5 space-y-3 hover:shadow-[0_10px_30px_rgba(0,0,0,0.4)] transition-all duration-300 relative overflow-hidden group">
+                  <div class="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+                  <span class="inline-flex text-[9px] font-mono font-semibold text-blue-400 bg-blue-500/10 border border-blue-500/20 px-2 py-0.5 rounded">Approved</span>
+                  <h4 class="text-sm font-semibold text-white group-hover:text-blue-300 transition-colors">Instagram Story Resizer</h4>
+                  <p class="text-xs text-zinc-400 leading-relaxed">Pad widescreen horizontal images to 9:16 portrait frames.</p>
+                </div>
+                <!-- Card 2.2 -->
+                <div class="roadmap-card bg-zinc-900/[0.15] hover:bg-zinc-900/[0.3] border border-white/[0.06] hover:border-white/[0.18] rounded-xl p-5 space-y-3 hover:shadow-[0_10px_30px_rgba(0,0,0,0.4)] transition-all duration-300 relative overflow-hidden group">
+                  <div class="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+                  <span class="inline-flex text-[9px] font-mono font-semibold text-blue-400 bg-blue-500/10 border border-blue-500/20 px-2 py-0.5 rounded">Approved</span>
+                  <h4 class="text-sm font-semibold text-white group-hover:text-blue-300 transition-colors">Reel Cover Maker</h4>
+                  <p class="text-xs text-zinc-400 leading-relaxed">Design cover cards that look great in both 9:16 and 1:1 grids.</p>
+                </div>
+                <!-- Card 2.3 -->
+                <div class="roadmap-card bg-zinc-900/[0.15] hover:bg-zinc-900/[0.3] border border-white/[0.06] hover:border-white/[0.18] rounded-xl p-5 space-y-3 hover:shadow-[0_10px_30px_rgba(0,0,0,0.4)] transition-all duration-300 relative overflow-hidden group">
+                  <div class="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+                  <span class="inline-flex text-[9px] font-mono font-semibold text-blue-400 bg-blue-500/10 border border-blue-500/20 px-2 py-0.5 rounded">Approved</span>
+                  <h4 class="text-sm font-semibold text-white group-hover:text-blue-300 transition-colors">Carousel Splitter</h4>
+                  <p class="text-xs text-zinc-400 leading-relaxed">Slice seamless panoramic images into standard square slides.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Column 3: Recently Shipped -->
+            <div class="space-y-4">
+              <div class="flex items-center justify-between border-b border-white/[0.08] pb-2.5">
+                <span class="font-mono text-[10px] font-bold text-zinc-300 uppercase tracking-wider">Recently Shipped</span>
+                <span class="text-[9px] font-mono bg-zinc-800/80 text-zinc-400 px-2 py-0.5 rounded-full border border-white/5">3 Shipped</span>
+              </div>
+              <div class="space-y-4">
+                <!-- Card 3.1 -->
+                <div class="roadmap-card bg-zinc-900/[0.15] hover:bg-zinc-900/[0.3] border border-white/[0.06] hover:border-white/[0.18] rounded-xl p-5 space-y-3 hover:shadow-[0_10px_30px_rgba(0,0,0,0.4)] transition-all duration-300 relative overflow-hidden group">
+                  <div class="absolute inset-0 bg-gradient-to-r from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+                  <span class="inline-flex text-[9px] font-mono font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded">Released</span>
+                  <h4 class="text-sm font-semibold text-white group-hover:text-emerald-300 transition-colors">Aspect Ratio Calculator</h4>
+                  <p class="text-xs text-zinc-400 leading-relaxed">Instantly verify dimensions for feed posts, reels, and avatars.</p>
+                </div>
+                <!-- Card 3.2 -->
+                <div class="roadmap-card bg-zinc-900/[0.15] hover:bg-zinc-900/[0.3] border border-white/[0.06] hover:border-white/[0.18] rounded-xl p-5 space-y-3 hover:shadow-[0_10px_30px_rgba(0,0,0,0.4)] transition-all duration-300 relative overflow-hidden group">
+                  <div class="absolute inset-0 bg-gradient-to-r from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+                  <span class="inline-flex text-[9px] font-mono font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded">Released</span>
+                  <h4 class="text-sm font-semibold text-white group-hover:text-emerald-300 transition-colors">Fit Full Photo Tool</h4>
+                  <p class="text-xs text-zinc-400 leading-relaxed">Resize raw photos into Instagram's default dimensions.</p>
+                </div>
+                <!-- Card 3.3 -->
+                <div class="roadmap-card bg-zinc-900/[0.15] hover:bg-zinc-900/[0.3] border border-white/[0.06] hover:border-white/[0.18] rounded-xl p-5 space-y-3 hover:shadow-[0_10px_30px_rgba(0,0,0,0.4)] transition-all duration-300 relative overflow-hidden group">
+                  <div class="absolute inset-0 bg-gradient-to-r from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+                  <span class="inline-flex text-[9px] font-mono font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded">Released</span>
+                  <h4 class="text-sm font-semibold text-white group-hover:text-emerald-300 transition-colors">No Crop Square Blur</h4>
+                  <p class="text-xs text-zinc-400 leading-relaxed">Add blurred borders to square-fit landscape/portrait photos.</p>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. Contributor Rewards Section -->
+      <section class="py-16 md:py-24 border-b border-white/[0.06]">
+        <div class="mx-auto max-w-5xl px-6">
+          <div class="text-center max-w-2xl mx-auto mb-16">
+            <p class="text-[10px] font-mono font-bold tracking-widest text-zinc-400 uppercase mb-2">Rewards Program</p>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-white">What Can You Earn?</h2>
+            <p class="text-xs text-zinc-400 mt-2">Get recognized for helping shape the tools other creators use daily.</p>
+          </div>
+          
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Reward 1 -->
+            <div class="reward-card group relative bg-zinc-900/[0.15] hover:bg-zinc-900/[0.35] border border-white/[0.06] hover:border-white/[0.15] rounded-2xl p-6 transition-all duration-500 hover:-translate-y-2 hover:scale-[1.02] hover:shadow-[0_20px_40px_rgba(0,0,0,0.6),0_0_40px_rgba(99,102,241,0.05)] overflow-hidden">
+              <div class="absolute inset-0 bg-gradient-to-br from-indigo-500/5 via-transparent to-violet-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+              <div class="relative z-10 space-y-4">
+                <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-white/[0.02] group-hover:bg-white/[0.06] border border-white/[0.08] text-xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+                  <span>🏆</span>
+                </div>
+                <h3 class="text-base font-semibold text-white tracking-tight">Contributor Credit</h3>
+                <p class="text-xs text-zinc-400 leading-relaxed">
+                  Get your name or creative nickname credited directly on the tool page when it launches.
+                </p>
+              </div>
+            </div>
+
+            <!-- Reward 2 -->
+            <div class="reward-card group relative bg-zinc-900/[0.15] hover:bg-zinc-900/[0.35] border border-white/[0.06] hover:border-white/[0.15] rounded-2xl p-6 transition-all duration-500 hover:-translate-y-2 hover:scale-[1.02] hover:shadow-[0_20px_40px_rgba(0,0,0,0.6),0_0_40px_rgba(99,102,241,0.05)] overflow-hidden">
+              <div class="absolute inset-0 bg-gradient-to-br from-indigo-500/5 via-transparent to-violet-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+              <div class="relative z-10 space-y-4">
+                <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-white/[0.02] group-hover:bg-white/[0.06] border border-white/[0.08] text-xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+                  <span>🎖️</span>
+                </div>
+                <h3 class="text-base font-semibold text-white tracking-tight">Featured Contributor</h3>
+                <p class="text-xs text-zinc-400 leading-relaxed">
+                  Earn a community contributor badge next to your submissions inside the platform lists.
+                </p>
+              </div>
+            </div>
+
+            <!-- Reward 3 -->
+            <div class="reward-card group relative bg-zinc-900/[0.15] hover:bg-zinc-900/[0.35] border border-white/[0.06] hover:border-white/[0.15] rounded-2xl p-6 transition-all duration-500 hover:-translate-y-2 hover:scale-[1.02] hover:shadow-[0_20px_40px_rgba(0,0,0,0.6),0_0_40px_rgba(99,102,241,0.05)] overflow-hidden">
+              <div class="absolute inset-0 bg-gradient-to-br from-indigo-500/5 via-transparent to-violet-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+              <div class="relative z-10 space-y-4">
+                <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-white/[0.02] group-hover:bg-white/[0.06] border border-white/[0.08] text-xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+                  <span>⚡</span>
+                </div>
+                <h3 class="text-base font-semibold text-white tracking-tight">Early Access</h3>
+                <p class="text-xs text-zinc-400 leading-relaxed">
+                  Be the first to beta-test new, unreleased image utilities before they are public.
+                </p>
+              </div>
+            </div>
+
+            <!-- Reward 4 -->
+            <div class="reward-card group relative bg-zinc-900/[0.15] hover:bg-zinc-900/[0.35] border border-white/[0.06] hover:border-white/[0.15] rounded-2xl p-6 transition-all duration-500 hover:-translate-y-2 hover:scale-[1.02] hover:shadow-[0_20px_40px_rgba(0,0,0,0.6),0_0_40px_rgba(99,102,241,0.05)] overflow-hidden">
+              <div class="absolute inset-0 bg-gradient-to-br from-indigo-500/5 via-transparent to-violet-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+              <div class="relative z-10 space-y-4">
+                <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-white/[0.02] group-hover:bg-white/[0.06] border border-white/[0.08] text-xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+                  <span>🎁</span>
+                </div>
+                <h3 class="text-base font-semibold text-white tracking-tight">Future Rewards</h3>
+                <p class="text-xs text-zinc-400 leading-relaxed">
+                  As InstaDL Fit expands, additional ecosystem perks and rewards may become available.
+                </p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Legal Disclaimer Notice -->
+          <div class="mt-8 text-center">
+            <p class="text-[10px] text-zinc-500 font-mono italic max-w-lg mx-auto leading-relaxed">
+              * Note: Rewards are provided at our sole discretion and are not guaranteed. We do not offer direct monetary rewards for roadmap suggestions.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. Suggestion CTA Section -->
+      <section class="py-20 md:py-28 relative overflow-hidden">
+        <!-- Accent Glow -->
+        <div class="absolute inset-0 pointer-events-none opacity-25 select-none z-0">
+          <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] rounded-full blur-[120px] bg-gradient-to-tr from-cyan-500/15 via-indigo-500/10 to-violet-600/15"></div>
+        </div>
+        
+        <div class="mx-auto max-w-4xl px-6 relative z-10">
+          <div class="bg-zinc-900/[0.15] border border-white/[0.06] rounded-3xl p-8 md:p-16 text-center space-y-6 relative overflow-hidden">
+            <!-- Subtle internal glow -->
+            <div class="absolute inset-0 bg-gradient-to-r from-cyan-500/5 via-transparent to-violet-500/5 pointer-events-none"></div>
+            
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">Got a Great Idea?</h2>
+            <p class="text-xs sm:text-sm text-zinc-400 max-w-md mx-auto leading-relaxed text-pretty">
+              Tell us what tool would make your workflow easier and help shape the future of InstaDL Fit.
+            </p>
+            <div class="pt-4 flex justify-center">
+              <a
+                href={GOOGLE_FORM_URL}
+                class="submit-idea-trigger w-full sm:w-auto inline-flex items-center justify-center gap-2 py-3.5 px-8 text-xs font-bold font-mono tracking-wider uppercase rounded-lg bg-white hover:bg-zinc-200 text-black transition-all cursor-pointer select-none focus:outline-none focus:ring-2 focus:ring-white active:scale-[0.98] shadow-2xl hover:shadow-white/10"
+              >
+                <span>Submit Your Idea</span>
+                <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+    </div>
+  </div>
+
+  <!-- Transition Overlay Modal -->
+  <div id="submit-transition-overlay" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-500">
+    <div class="relative max-w-sm w-full mx-4 p-8 rounded-2xl border border-white/10 bg-zinc-950/80 shadow-2xl text-center space-y-4 transform scale-90 transition-transform duration-500">
+      <div class="absolute inset-0 bg-gradient-to-br from-indigo-500/10 via-transparent to-violet-500/10 rounded-2xl pointer-events-none"></div>
+      
+      <div class="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-white/[0.02] border border-white/10 text-3xl animate-bounce-slow">
+        🚀
+      </div>
+      
+      <h3 class="text-lg font-bold text-white tracking-tight leading-snug">
+        Your next idea could become the next InstaDL tool
+      </h3>
+      
+      <p class="text-xs text-zinc-400">
+        Redirecting to the suggestion board...
+      </p>
+      
+      <!-- Progress Bar -->
+      <div class="h-1 w-full bg-white/5 rounded-full overflow-hidden">
+        <div id="transition-progress" class="h-full w-0 bg-gradient-to-r from-cyan-400 to-indigo-500 transition-all duration-[800ms] ease-out"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Client-side script handling typewriter, mouse spotlights, scroll reveal, and stats count-up -->
+  <script is:inline>
+    document.addEventListener("DOMContentLoaded", () => {
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // 1. Typewriter Animation
+      const phrases = [
+        "Your Idea Could Be Next",
+        "Instagram Story Resizer",
+        "Reel Cover Maker",
+        "Carousel Splitter"
+      ];
+      let phraseIndex = 0;
+      let characterIndex = 0;
+      let isDeleting = false;
+      const typewriterEl = document.getElementById("typewriter-text");
+      const typingSpeed = 90;
+      const deletingSpeed = 45;
+      const delayBetweenPhrases = 2500;
+
+      function type() {
+        if (!typewriterEl) return;
+        const currentPhrase = phrases[phraseIndex];
+        
+        if (isDeleting) {
+          typewriterEl.textContent = currentPhrase.substring(0, characterIndex - 1);
+          characterIndex--;
+        } else {
+          typewriterEl.textContent = currentPhrase.substring(0, characterIndex + 1);
+          characterIndex++;
+        }
+
+        let speed = isDeleting ? deletingSpeed : typingSpeed;
+
+        if (!isDeleting && characterIndex === currentPhrase.length) {
+          speed = delayBetweenPhrases;
+          isDeleting = true;
+        } else if (isDeleting && characterIndex === 0) {
+          isDeleting = false;
+          phraseIndex = (phraseIndex + 1) % phrases.length;
+          speed = 500; // brief pause before starting new phrase
+        }
+
+        setTimeout(type, speed);
+      }
+
+      if (prefersReducedMotion) {
+        if (typewriterEl) {
+          typewriterEl.textContent = phrases[0];
+          const cursor = document.getElementById("typewriter-cursor");
+          if (cursor) cursor.style.display = 'none';
+        }
+      } else {
+        setTimeout(type, 800);
+      }
+
+      // 2. Mouse Follow Spotlight Glow Effect
+      const heroSection = document.getElementById("hero-section");
+      const spotlight = document.getElementById("spotlight-glow");
+
+      if (heroSection && spotlight && !prefersReducedMotion) {
+        let activeFrame = null;
+        
+        heroSection.addEventListener("mousemove", (e) => {
+          if (activeFrame) {
+            cancelAnimationFrame(activeFrame);
+          }
+          
+          activeFrame = requestAnimationFrame(() => {
+            const rect = heroSection.getBoundingClientRect();
+            const x = e.clientX - rect.left - 250; // center the 500px circle
+            const y = e.clientY - rect.top - 250;
+            spotlight.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+            spotlight.style.opacity = "1";
+          });
+        });
+        
+        heroSection.addEventListener("mouseleave", () => {
+          if (activeFrame) {
+            cancelAnimationFrame(activeFrame);
+          }
+          spotlight.style.opacity = "0";
+        });
+      }
+
+      // 3. Staggered Scroll Reveal for Roadmap Cards
+      const roadmapCards = document.querySelectorAll(".roadmap-card");
+      if (roadmapCards.length > 0) {
+        if (prefersReducedMotion) {
+          roadmapCards.forEach(card => card.classList.add("reveal"));
+        } else {
+          const observerOptions = {
+            root: null,
+            rootMargin: "0px 0px -80px 0px",
+            threshold: 0.1
+          };
+
+          const observer = new IntersectionObserver((entries, observer) => {
+            const intersecting = entries.filter(entry => entry.isIntersecting);
+            intersecting.forEach((entry, index) => {
+              const card = entry.target;
+              setTimeout(() => {
+                card.classList.add("reveal");
+              }, index * 120); // 120ms staggered delay
+              observer.unobserve(card);
+            });
+          }, observerOptions);
+
+          roadmapCards.forEach(card => {
+            observer.observe(card);
+          });
+        }
+      }
+
+      // 4. Live Stats Count Up
+      const stats = document.querySelectorAll("[data-target]");
+      if (stats.length > 0) {
+        const runCountUp = () => {
+          stats.forEach(stat => {
+            const target = +stat.getAttribute("data-target");
+            const duration = 1200; // 1.2s count up animation
+            const stepTime = 16;
+            const steps = duration / stepTime;
+            const stepValue = target / steps;
+            let current = 0;
+
+            const update = () => {
+              current += stepValue;
+              if (current >= target) {
+                stat.textContent = target;
+              } else {
+                stat.textContent = Math.floor(current);
+                requestAnimationFrame(update);
+              }
+            };
+            
+            if (prefersReducedMotion) {
+              stat.textContent = target;
+            } else {
+              update();
+            }
+          });
+        };
+
+        // Trigger count-up when visible
+        const statsContainer = stats[0].parentElement.parentElement;
+        if (statsContainer) {
+          const observer = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting) {
+              runCountUp();
+              observer.disconnect();
+            }
+          }, { threshold: 0.1 });
+          observer.observe(statsContainer);
+        } else {
+          runCountUp();
+        }
+      }
+
+      // 5. Submit Transition Overlay Handler
+      const overlay = document.getElementById("submit-transition-overlay");
+      const progressBar = document.getElementById("transition-progress");
+      const submitTriggers = document.querySelectorAll(".submit-idea-trigger");
+
+      submitTriggers.forEach(trigger => {
+        trigger.addEventListener("click", (e) => {
+          e.preventDefault();
+          const targetUrl = trigger.getAttribute("href");
+
+          if (overlay && progressBar) {
+            // Show overlay
+            overlay.classList.remove("pointer-events-none");
+            overlay.classList.add("opacity-100");
+            const card = overlay.querySelector(".transform");
+            if (card) {
+              card.classList.remove("scale-90");
+              card.classList.add("scale-100");
+            }
+
+            // Animate progress bar
+            setTimeout(() => {
+              progressBar.style.width = "100%";
+            }, 50);
+
+            // Open URL and reset after 900ms
+            setTimeout(() => {
+              window.open(targetUrl, "_blank", "noopener,noreferrer");
+              
+              // Fade overlay out slowly so they return to a clean page
+              setTimeout(() => {
+                overlay.classList.add("pointer-events-none");
+                overlay.classList.remove("opacity-100");
+                if (card) {
+                  card.classList.remove("scale-100");
+                  card.classList.add("scale-90");
+                }
+                progressBar.style.width = "0%";
+              }, 400);
+            }, 900);
+          } else {
+            window.open(targetUrl, "_blank", "noopener,noreferrer");
+          }
+        });
+      });
+    });
+  </script>
+</Layout>

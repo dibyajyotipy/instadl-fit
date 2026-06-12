@@ -1,0 +1,73 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const title = "Privacy Policy — InstaDL Fit";
+const description = "Learn how InstaDL Fit protects your privacy. Our tools process all image resizing, padding, and formatting 100% locally in your browser.";
+const lastUpdated = "June 12, 2026";
+---
+
+<Layout title={title} description={description}>
+  <div class="border-t border-hairline py-16 md:py-24 bg-canvas min-h-screen">
+    <div class="mx-auto max-w-3xl px-6">
+      <!-- Page Header -->
+      <header class="mb-12 border-b border-hairline pb-8">
+        <p class="text-[10px] font-mono font-bold tracking-widest text-mute uppercase mb-2">Legal Info</p>
+        <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-ink mb-4">Privacy Policy</h1>
+        <p class="text-xs text-mute font-mono">Last Updated: {lastUpdated}</p>
+      </header>
+
+      <!-- Policy Content -->
+      <div class="space-y-8 text-sm sm:text-base leading-relaxed text-body">
+        <section class="space-y-3">
+          <h2 class="text-base font-bold text-ink font-mono uppercase tracking-wide">1. Privacy-First Philosophy</h2>
+          <p>
+            At InstaDL Fit, we prioritize the confidentiality of your creative work. Our tools are designed to operate strictly as client-side applications. This means all file parsing, aspect ratio adjustments, canvas painting, rendering, and export procedures occur within your web browser on your own machine.
+          </p>
+        </section>
+
+        <section class="space-y-3">
+          <h2 class="text-base font-bold text-ink font-mono uppercase tracking-wide">2. No Server Uploads</h2>
+          <p>
+            Unlike standard converter websites, we do not host or run any server-side image processing logic. Your images are never transmitted over the internet to remote servers. Because your files never leave your device, your private photographs are fully insulated from web exposure or storage risks.
+          </p>
+        </section>
+
+        <section class="space-y-3">
+          <h2 class="text-base font-bold text-ink font-mono uppercase tracking-wide">3. Zero Data Retention</h2>
+          <p>
+            We do not save, collect, or log your images or their content metadata. As soon as you refresh the web page, close the browser tab, or choose a new photo, all raw pixels and session variables are wiped clean from the client memory space.
+          </p>
+        </section>
+
+        <section class="space-y-3">
+          <h2 class="text-base font-bold text-ink font-mono uppercase tracking-wide">4. Analytics & Usage Metrics</h2>
+          <p>
+            We may use privacy-compliant web analytics utilities (like Google Analytics) to assess visitor traffic volume and usage patterns. These platforms collect anonymous variables such as browser types, pages visited, and geographical locations. No uploaded images, filenames, or coordinates are ever shared or transmitted to analytics databases.
+          </p>
+        </section>
+
+        <section class="space-y-3">
+          <h2 class="text-base font-bold text-ink font-mono uppercase tracking-wide">5. Cookie Usage</h2>
+          <p>
+            Our site utilizes basic cookies and browser local storage elements to save your visual workspace settings (like preferred background colors or recently selected social sizes). You can adjust your browser settings to restrict cookies, but please note that some dashboard variables may reset between visits.
+          </p>
+        </section>
+
+        <section class="space-y-3">
+          <h2 class="text-base font-bold text-ink font-mono uppercase tracking-wide">6. Your Rights</h2>
+          <p>
+            Under frameworks like GDPR and CCPA, individuals hold specific rights concerning their personal data. Because our tools operate 100% locally and we do not capture, process, or hold any personal data, we have no directories to search or wipe on your behalf.
+          </p>
+        </section>
+
+        <section class="space-y-3">
+          <h2 class="text-base font-bold text-ink font-mono uppercase tracking-wide">7. Contact Information</h2>
+          <p>
+            For privacy inquiries or technical questions regarding client-side processing, you can contact support via email:
+            <a href="mailto:support@instadl.online" class="text-link hover:underline font-mono">support@instadl.online</a>.
+          </p>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

@@ -1,0 +1,58 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const title = "Disclaimer — InstaDL Fit";
+const description = "Read the official legal disclaimer for InstaDL Fit. Learn about trademark ownership and third-party platform policies.";
+const lastUpdated = "June 12, 2026";
+---
+
+<Layout title={title} description={description}>
+  <div class="border-t border-hairline py-16 md:py-24 bg-canvas min-h-screen">
+    <div class="mx-auto max-w-3xl px-6">
+      <!-- Page Header -->
+      <header class="mb-12 border-b border-hairline pb-8">
+        <p class="text-[10px] font-mono font-bold tracking-widest text-mute uppercase mb-2">Legal Info</p>
+        <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-ink mb-4">Disclaimer</h1>
+        <p class="text-xs text-mute font-mono">Last Updated: {lastUpdated}</p>
+      </header>
+
+      <!-- Disclaimer Content -->
+      <div class="space-y-8 text-sm sm:text-base leading-relaxed text-body">
+        <section class="space-y-3">
+          <h2 class="text-base font-bold text-ink font-mono uppercase tracking-wide">1. Non-Affiliation Disclaimer</h2>
+          <p>
+            InstaDL Fit is an independent, browser-based media formatting web application. We are <strong>not affiliated, associated, authorized, endorsed by, or in any way officially connected</strong> with Instagram, Meta Platforms, Inc., or any of their subsidiaries or affiliates.
+          </p>
+        </section>
+
+        <section class="space-y-3">
+          <h2 class="text-base font-bold text-ink font-mono uppercase tracking-wide">2. Trademark Notice</h2>
+          <p>
+            "Instagram", "Reels", "Stories", "Meta", and other related marks or symbols are registered trademarks of Meta Platforms, Inc. and their respective owners. The use of these trademarks on this website is solely for descriptive and formatting reference purposes, indicating the target resolution requirements. Use of these names does not imply any connection, endorsement, or business relationship.
+          </p>
+        </section>
+
+        <section class="space-y-3">
+          <h2 class="text-base font-bold text-ink font-mono uppercase tracking-wide">3. Educational & Convenience Purpose</h2>
+          <p>
+            The software utilities provided on instadl.online are designed solely to assist creators in padding and arranging image canvases to fit standard layout frames. All software execution is done on the client-side. The tools are provided for convenience, testing, and educational purposes.
+          </p>
+        </section>
+
+        <section class="space-y-3">
+          <h2 class="text-base font-bold text-ink font-mono uppercase tracking-wide">4. Third-Party Platform Policies</h2>
+          <p>
+            We make no guarantees regarding the performance, compatibility, or upload algorithms of third-party platforms (including Instagram, Buffer, Later, or Meta Business Suite). These platforms may update their cropping, compression, or aspect ratio policies at any time, which might alter how your exported files display.
+          </p>
+        </section>
+
+        <section class="space-y-3">
+          <h2 class="text-base font-bold text-ink font-mono uppercase tracking-wide">5. "As-Is" Provision</h2>
+          <p>
+            All tools and calculations are provided "as-is" without any warranty of accuracy, correctness, or reliability. Users are advised to preview their exports before publishing them to online platforms.
+          </p>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

@@ -2,6 +2,7 @@
 ---
 <footer class="border-t border-hairline bg-canvas pt-12 pb-28 md:py-16 text-xs text-body relative z-10">
   <div class="mx-auto max-w-7xl px-6 grid grid-cols-1 md:grid-cols-12 gap-8">
+    <!-- Column 1: Brand & Trust -->
     <div class="md:col-span-4 flex flex-col items-start gap-4">
       <div class="flex items-center gap-2">
         <svg class="h-4 w-4 text-ink" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -16,34 +17,89 @@
       <p class="text-[10px] text-mute leading-relaxed">
         Fit photos to social media sizes without cropping. 100% private, local browser processing.
       </p>
+
+      <!-- Trust Badges -->
+      <div class="flex flex-col gap-2 w-full pt-4 border-t border-hairline mt-2">
+        <span class="font-mono text-[10px] font-bold text-ink uppercase tracking-wider">Trust & Privacy</span>
+        <div class="flex flex-col gap-2 text-[10px] font-mono text-mute">
+          <div class="flex items-center gap-1.5">
+            <svg class="h-3.5 w-3.5 text-mute" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
+            <span>Privacy First</span>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <svg class="h-3.5 w-3.5 text-mute" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+              <line x1="8" y1="21" x2="16" y2="21"></line>
+              <line x1="12" y1="17" x2="12" y2="21"></line>
+            </svg>
+            <span>Runs Locally in Browser</span>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <svg class="h-3.5 w-3.5 text-mute" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22.61 16.95A5 5 0 0 0 18 10h-1.26a8 8 0 0 0-7.05-6"></path>
+              <path d="M5 5a8 8 0 0 0 4 15h9a5 5 0 0 0 1.7-.3"></path>
+              <line x1="2" y1="2" x2="22" y2="22"></line>
+            </svg>
+            <span>No Uploads to Server</span>
+          </div>
+        </div>
+      </div>
+
       <p class="text-[10px] text-mute mt-2">
         © {new Date().getFullYear()} instadl.online. All rights reserved.
       </p>
     </div>
 
-    <div class="md:col-span-5 flex flex-col gap-3">
+    <!-- Column 2: Tools Directory -->
+    <div class="md:col-span-3 flex flex-col gap-3">
       <span class="font-mono text-[10px] font-bold text-ink uppercase tracking-wider">Free Social Optimization Tools</span>
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[10px] font-mono">
+      <div class="flex flex-col gap-2 text-[10px] font-mono">
         <a href="/fit-full-photo-instagram" class="text-mute hover:text-ink transition-colors">Fit Full Photo on Instagram</a>
-        <a href="/convert-landscape-to-portrait" class="text-mute hover:text-ink transition-colors">Convert Landscape to Portrait</a>
         <a href="/no-crop-square-blur" class="text-mute hover:text-ink transition-colors">No Crop Square Blur Tool</a>
+        <a href="/convert-landscape-to-portrait" class="text-mute hover:text-ink transition-colors">Convert Landscape to Portrait</a>
         <a href="/instagram-3-4-grid-fix" class="text-mute hover:text-ink transition-colors">Fix 3:4 Profile Grid Crop</a>
+        <a href="/instagram-aspect-ratio-calculator" class="text-mute hover:text-ink transition-colors">Aspect Ratio Calculator</a>
       </div>
     </div>
 
-    <div class="md:col-span-3 flex flex-col gap-3 md:items-end">
-      <span class="font-mono text-[10px] font-bold text-ink uppercase tracking-wider">Navigation</span>
-      <div class="flex flex-col md:items-end gap-2 text-[10px] font-mono">
-        <div class="flex items-center gap-1.5 text-mute">
-          <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
-          All Systems Operational
+    <!-- Column 3: Popular Guides -->
+    <div class="md:col-span-3 flex flex-col gap-3">
+      <span class="font-mono text-[10px] font-bold text-ink uppercase tracking-wider">Popular Guides</span>
+      <div class="flex flex-col gap-2 text-[10px] font-mono">
+        <a href="/blog/how-to-resize-photos-instagram" class="text-mute hover:text-ink transition-colors">How to Resize Photos for Instagram</a>
+        <a href="/blog/instagram-feed-maximum-resolution-2026" class="text-mute hover:text-ink transition-colors">Instagram Feed Maximum Resolution 2026</a>
+        <a href="/blog/convert-dslr-landscape-to-instagram-reel" class="text-mute hover:text-ink transition-colors">Convert DSLR Landscape to Reels</a>
+        <a href="/blog/fix-aspect-ratio-not-supported-buffer-later" class="text-mute hover:text-ink transition-colors">Fix Aspect Ratio Not Supported in Buffer/Later</a>
+      </div>
+    </div>
+
+    <!-- Column 4: Navigation & Legal Links -->
+    <div class="md:col-span-2 flex flex-col gap-6 md:items-end">
+      <!-- Navigation -->
+      <div class="flex flex-col md:items-end gap-3 w-full">
+        <span class="font-mono text-[10px] font-bold text-ink uppercase tracking-wider">Navigation</span>
+        <div class="flex flex-col md:items-end gap-2 text-[10px] font-mono">
+          <a href="/#tools" class="text-mute hover:text-ink transition-colors">Tools</a>
+          <a href="/blog" class="text-mute hover:text-ink transition-colors">Blog</a>
+          <a href="/#faq" class="text-mute hover:text-ink transition-colors">FAQ</a>
+          <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="text-mute hover:text-ink transition-colors flex items-center gap-1">
+            GitHub
+            <svg class="h-2.5 w-2.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6"></path><path d="M10 14 21 3"></path></svg>
+          </a>
         </div>
-        <a href="/#features" class="text-mute hover:text-ink transition-colors">Features</a>
-        <a href="/#faq" class="text-mute hover:text-ink transition-colors">FAQ</a>
-        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="text-mute hover:text-ink transition-colors flex items-center gap-1">
-          GitHub
-          <svg class="h-2.5 w-2.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6"></path><path d="M10 14 21 3"></path></svg>
-        </a>
+      </div>
+
+      <!-- Legal Section -->
+      <div class="flex flex-col md:items-end gap-3 w-full pt-4 border-t border-hairline mt-2">
+        <span class="font-mono text-[10px] font-bold text-ink uppercase tracking-wider">Legal</span>
+        <div class="flex flex-col md:items-end gap-2 text-[10px] font-mono">
+          <a href="/privacy-policy" class="text-mute hover:text-ink transition-colors">Privacy Policy</a>
+          <a href="/terms-of-service" class="text-mute hover:text-ink transition-colors">Terms of Service</a>
+          <a href="/disclaimer" class="text-mute hover:text-ink transition-colors">Disclaimer</a>
+          <a href="/suggest-a-tool" class="text-mute hover:text-ink transition-colors">Build the Next Tool</a>
+        </div>
       </div>
     </div>
   </div>

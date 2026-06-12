@@ -1,0 +1,233 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+import RelatedTools from "../components/RelatedTools.astro";
+import AspectRatioCalculator from "../components/AspectRatioCalculator.astro";
+
+// FAQ Data for rendering and JSON-LD schema
+const faqs = [
+  {
+    question: "What is the best Instagram aspect ratio?",
+    answer: "The best Instagram aspect ratio is 4:5 (1080 × 1350 px) for feed posts. Since most users browse on mobile devices, a 4:5 portrait post occupies the maximum vertical screen space, making it much more engaging than a square (1:1) or landscape (1.91:1) image. For Stories and Reels, the optimal aspect ratio is 9:16 (1080 × 1920 px)."
+  },
+  {
+    question: "What size should Instagram posts be?",
+    answer: "The ideal size for Instagram posts depends on the layout format: 1080 × 1080 pixels for square posts (1:1 aspect ratio), 1080 × 1350 pixels for portrait posts (4:5 aspect ratio), and 1080 × 566 pixels for landscape posts (1.91:1 aspect ratio). Providing a width of at least 1080 pixels ensures that your images look sharp on all screen sizes."
+  },
+  {
+    question: "What is the Instagram Reel aspect ratio?",
+    answer: "Instagram Reels use an aspect ratio of 9:16, which translates to the recommended resolution of 1080 × 1920 pixels. This full-screen vertical size is also shared by Instagram Stories, TikTok videos, and YouTube Shorts. Keep key elements (like text and faces) within the center 4:5 area so they don't get cut off in standard feed layouts."
+  },
+  {
+    question: "What aspect ratios does Instagram support?",
+    answer: "Instagram officially supports four main aspect ratios: 1:1 (Square) for feed posts and profile icons, 4:5 (Portrait) for feed posts, 1.91:1 (Landscape) for feed posts, and 9:16 (Vertical) for Stories, Reels, and Live streams. Any images outside of these aspect ratios will be automatically cropped by Instagram when uploading."
+  },
+  {
+    question: "Can I upload landscape photos to Instagram?",
+    answer: "Yes, you can upload landscape photos to Instagram. The official supported landscape aspect ratio is 1.91:1 (1080 × 566 pixels). However, if your landscape photo is wider (e.g. 16:9 or 21:9), Instagram will crop the sides to fit 1.91:1. To prevent this, you can use our 'No Crop' resizer tools to add top and bottom borders and fit the full landscape shot inside a 4:5 or 1:1 canvas."
+  }
+];
+
+// JSON-LD Schemas
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+
+const webPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Instagram Aspect Ratio Calculator",
+  "description": "Calculate Instagram aspect ratios instantly. Find dimensions for posts, reels, stories, profile photos, and more with our free Instagram Aspect Ratio Calculator.",
+  "url": "https://instadl.online/instagram-aspect-ratio-calculator",
+  "breadcrumb": {
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://instadl.online/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Instagram Aspect Ratio Calculator",
+        "item": "https://instadl.online/instagram-aspect-ratio-calculator"
+      }
+    ]
+  }
+};
+---
+
+<Layout
+  title="Instagram Aspect Ratio Calculator (Free Tool)"
+  description="Calculate Instagram aspect ratios instantly. Find dimensions for posts, reels, stories, profile photos, and more with our free Instagram Aspect Ratio Calculator."
+>
+  <!-- JSON-LD Schemas -->
+  <script type="application/ld+json" set:html={JSON.stringify(webPageSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <Hero
+    title="Instagram Aspect Ratio Calculator"
+    description="Calculate Instagram aspect ratios instantly and find the correct dimensions for posts, stories, reels, and profile images."
+  />
+
+  <!-- Interactive Calculator Component -->
+  <AspectRatioCalculator />
+
+  <!-- Instagram Dimensions Reference Table -->
+  <section class="py-16 border-t border-hairline bg-canvas">
+    <div class="mx-auto max-w-4xl px-6">
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <p class="text-xs font-mono font-medium tracking-widest text-mute uppercase mb-3">Sizing Reference</p>
+        <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-ink mb-4">
+          Instagram Dimensions Cheat Sheet
+        </h2>
+        <p class="text-sm text-body leading-relaxed">
+          Quickly check recommended resolutions, aspect ratios, and crop styles for all major Instagram content types.
+        </p>
+      </div>
+
+      <div class="overflow-x-auto rounded-xl border border-hairline shadow-level2 bg-canvas-soft">
+        <table class="w-full text-left border-collapse text-xs md:text-sm font-sans">
+          <thead>
+            <tr class="border-b border-hairline bg-canvas-soft-2 text-[10px] md:text-xs font-mono uppercase tracking-wider text-mute">
+              <th class="p-4 font-semibold">Format Type</th>
+              <th class="p-4 font-semibold">Aspect Ratio</th>
+              <th class="p-4 font-semibold">Ideal Dimensions</th>
+              <th class="p-4 font-semibold">Feed Behavior</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-hairline">
+            <tr class="hover:bg-canvas-soft-2/30 transition-colors">
+              <td class="p-4 font-semibold text-ink flex items-center gap-2">
+                <span class="inline-block w-2.5 h-2.5 bg-indigo-500 rounded-sm"></span>
+                Square Post
+              </td>
+              <td class="p-4 font-mono text-body">1:1</td>
+              <td class="p-4 font-mono text-body font-medium">1080 × 1080 px</td>
+              <td class="p-4 text-mute text-xs">Standard square format. Appears perfectly inside the profile grid.</td>
+            </tr>
+            <tr class="hover:bg-canvas-soft-2/30 transition-colors">
+              <td class="p-4 font-semibold text-ink flex items-center gap-2">
+                <span class="inline-block w-2.5 h-2.5 bg-violet-500 rounded-sm"></span>
+                Portrait Post
+              </td>
+              <td class="p-4 font-mono text-body">4:5</td>
+              <td class="p-4 font-mono text-body font-medium">1080 × 1350 px</td>
+              <td class="p-4 text-mute text-xs">Vertical format. Occupies maximum space in feed. Top/bottom 10% is cropped in profile grid.</td>
+            </tr>
+            <tr class="hover:bg-canvas-soft-2/30 transition-colors">
+              <td class="p-4 font-semibold text-ink flex items-center gap-2">
+                <span class="inline-block w-2.5 h-2.5 bg-cyan-500 rounded-sm"></span>
+                Landscape Post
+              </td>
+              <td class="p-4 font-mono text-body">1.91:1</td>
+              <td class="p-4 font-mono text-body font-medium">1080 × 566 px</td>
+              <td class="p-4 text-mute text-xs">Horizontal wide format. Displays with side cropping on profile grid.</td>
+            </tr>
+            <tr class="hover:bg-canvas-soft-2/30 transition-colors">
+              <td class="p-4 font-semibold text-ink flex items-center gap-2">
+                <span class="inline-block w-2.5 h-2.5 bg-pink-500 rounded-sm"></span>
+                Story
+              </td>
+              <td class="p-4 font-mono text-body">9:16</td>
+              <td class="p-4 font-mono text-body font-medium">1080 × 1920 px</td>
+              <td class="p-4 text-mute text-xs">Full-screen vertical. Expires in 24 hours unless added to profile Highlights.</td>
+            </tr>
+            <tr class="hover:bg-canvas-soft-2/30 transition-colors">
+              <td class="p-4 font-semibold text-ink flex items-center gap-2">
+                <span class="inline-block w-2.5 h-2.5 bg-emerald-500 rounded-sm"></span>
+                Reel
+              </td>
+              <td class="p-4 font-mono text-body">9:16</td>
+              <td class="p-4 font-mono text-body font-medium">1080 × 1920 px</td>
+              <td class="p-4 text-mute text-xs">Full-screen vertical video. Feed display is cropped to 4:5; profile grid is cropped to 1:1.</td>
+            </tr>
+            <tr class="hover:bg-canvas-soft-2/30 transition-colors">
+              <td class="p-4 font-semibold text-ink flex items-center gap-2">
+                <span class="inline-block w-2.5 h-2.5 bg-amber-500 rounded-sm"></span>
+                Profile Picture
+              </td>
+              <td class="p-4 font-mono text-body">1:1</td>
+              <td class="p-4 font-mono text-body font-medium">320 × 320 px</td>
+              <td class="p-4 text-mute text-xs">Displays as a circular image. Always upload square high quality photos.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Accordion FAQ Section -->
+  <section class="py-16 md:py-24 border-t border-hairline bg-canvas relative overflow-hidden">
+    <div class="mx-auto max-w-4xl px-6 relative z-10">
+      
+      <!-- Section Header -->
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-hairline bg-canvas-soft-2 text-[10px] font-mono text-ink mb-4">
+          <span class="flex h-1.5 w-1.5 rounded-full bg-gradient-preview-end animate-pulse"></span>
+          Aspect Ratio & Crop FAQ
+        </div>
+        <h2 class="text-3xl font-bold tracking-tight text-ink mb-4">
+          Frequently Asked Questions
+        </h2>
+        <p class="text-sm text-body leading-relaxed">
+          Everything creators, managers, and photographers need to know about Instagram photo dimensions and feed layout behavior.
+        </p>
+      </div>
+
+      <!-- Accordion List -->
+      <div class="space-y-4 max-w-3xl mx-auto">
+        {faqs.map((faq, idx) => (
+          <details class="faq-item group glass-card rounded-lg overflow-hidden border border-hairline transition-all">
+            <summary class="flex items-center justify-between p-5 text-sm font-semibold text-ink cursor-pointer select-none list-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:outline-none rounded-md">
+              <span>{faq.question}</span>
+              <svg class="h-4 w-4 text-mute transition-transform duration-300 group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m6 9 6 6 6-6"/>
+              </svg>
+            </summary>
+            <div class="px-5 pb-5 pt-1 text-xs md:text-sm text-body leading-relaxed border-t border-hairline/30 bg-canvas-soft/30">
+              <p>{faq.answer}</p>
+            </div>
+          </details>
+        ))}
+      </div>
+
+    </div>
+    
+    <!-- Backdrop Glow -->
+    <div class="absolute bottom-0 right-0 z-0 pointer-events-none opacity-10 translate-y-1/3 translate-x-1/4">
+      <div class="w-[500px] h-[500px] rounded-full blur-[120px] bg-gradient-to-tr from-cyan/20 to-indigo/35"></div>
+    </div>
+  </section>
+
+  <!-- Related Tools Section -->
+  <RelatedTools title="More Free Creator Tools" />
+</Layout>
+
+<style>
+  /* Remove list-style from details summary to hide the native arrow */
+  details > summary::-webkit-details-marker {
+    display: none;
+  }
+  details > summary {
+    list-style: none;
+  }
+
+  /* Smooth details open/close support */
+  .faq-item[open] {
+    border-color: var(--color-hairline-strong);
+    background-color: var(--color-canvas-soft-2);
+    box-shadow: var(--shadow-level3);
+  }
+</style>

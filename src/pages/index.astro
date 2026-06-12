@@ -2,6 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import Hero from "../components/Hero.astro";
 import FeatureGrid from "../components/FeatureGrid.astro";
+import RelatedTools from "../components/RelatedTools.astro";
 import SeoContent from "../components/SeoContent.astro";
 import FaqSection from "../components/FaqSection.astro";
 import EditorApp from "../components/EditorApp.astro";
@@ -14,6 +15,7 @@ import EditorApp from "../components/EditorApp.astro";
   <EditorApp />
   <Hero />
   <FeatureGrid />
+  <RelatedTools id="tools" title="Free Social Optimization Tools" limit={5} />
   <SeoContent />
   <FaqSection />
 </Layout>
