@@ -44,6 +44,13 @@
   --shadow-level3: var(--shadow-3);
   --shadow-level4: var(--shadow-4);
   --shadow-level5: var(--shadow-5);
+
+  /* Custom Animations */
+  --animate-shine: shine 1.2s ease-in-out;
+  @keyframes shine {
+    0% { left: -100%; }
+    100% { left: 100%; }
+  }
 }
 
 /* Base Styles */

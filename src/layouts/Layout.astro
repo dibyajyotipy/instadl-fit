@@ -37,7 +37,7 @@ const organizationSchema = isHome ? {
   "url": "https://instadl.online",
   "logo": "https://instadl.online/favicon.svg",
   "sameAs": [
-    "https://github.com"
+    "https://github.com/dibyajyotipy/instadl-fit"
   ]
 } : null;
 
@@ -152,19 +152,78 @@ const breadcrumbSchema = pathSegments.length > 0 ? {
           </span>
         </a>
 
-        <nav class="hidden md:flex items-center gap-6">
-          <a href="/#tools" class="text-sm text-body hover:text-ink transition-colors">Tools</a>
-          <a href="/blog" class="text-sm text-body hover:text-ink transition-colors">Blog</a>
-          <a href="/#faq" class="text-sm text-body hover:text-ink transition-colors">FAQ</a>
-          <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="text-sm text-body hover:text-ink transition-colors flex items-center gap-1">
-            GitHub
-            <svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"></path><path d="M10 14 21 3"></path></svg>
+        <div class="flex items-center gap-2 sm:gap-4 md:gap-6">
+          <nav class="hidden md:flex items-center gap-6">
+            <a href="/#tools" class="text-sm text-body hover:text-ink transition-colors">Tools</a>
+            <a href="/blog" class="text-sm text-body hover:text-ink transition-colors">Blog</a>
+            <a href="/#faq" class="text-sm text-body hover:text-ink transition-colors">FAQ</a>
+            <a href="https://github.com/dibyajyotipy/instadl-fit" target="_blank" rel="noopener noreferrer" class="text-sm text-body hover:text-ink transition-colors flex items-center gap-1">
+              GitHub
+              <svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"></path><path d="M10 14 21 3"></path></svg>
+            </a>
+          </nav>
+
+          <a
+            href="/suggest-a-tool"
+            class="relative inline-flex items-center gap-1 px-2.5 py-1.5 sm:gap-1.5 sm:px-4 sm:py-2 text-[11px] sm:text-xs font-semibold text-white rounded-full bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 hover:from-indigo-500 hover:via-purple-500 hover:to-pink-500 transition-all duration-300 shadow-[0_2px_8px_rgba(99,102,241,0.25)] hover:shadow-[0_4px_16px_rgba(236,72,153,0.45)] hover:-translate-y-0.5 active:translate-y-0 active:scale-95 overflow-hidden group whitespace-nowrap"
+          >
+            <!-- Glowing background transition -->
+            <span class="absolute inset-0 w-full h-full bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out"></span>
+            
+            <!-- Shimmer effect -->
+            <span class="absolute top-0 -inset-full h-full w-1/2 z-5 block transform -skew-x-12 bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:animate-shine"></span>
+
+            <!-- Content -->
+            <span class="relative z-10 flex items-center gap-1 sm:gap-1.5">
+              <svg class="h-3.5 w-3.5 text-white transition-transform duration-500 group-hover:rotate-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
+                <path d="m5 3 1 2.5L8.5 6 6 7 5 9.5 4 7 1.5 6 4 5.5z"/>
+                <path d="m19 17 1 2.5 2.5.5-2.5 1-1 2.5-1-2.5-2.5-1 2.5-1z"/>
+              </svg>
+              <span>Build Next Tool</span>
+            </span>
           </a>
-        </nav>
+
+          <!-- Mobile Menu Button -->
+          <button
+            id="mobile-menu-button"
+            type="button"
+            class="md:hidden inline-flex items-center justify-center p-1.5 rounded-lg text-body hover:text-ink hover:bg-canvas-soft-2 focus:outline-none focus:ring-2 focus:ring-hairline-strong transition-colors cursor-pointer"
+            aria-controls="mobile-menu"
+            aria-expanded="false"
+          >
+            <span class="sr-only">Open main menu</span>
+            <svg id="hamburger-icon" class="h-5.5 w-5.5 block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="4" x2="20" y1="12" y2="12" />
+              <line x1="4" x2="20" y1="6" y2="6" />
+              <line x1="4" x2="20" y1="18" y2="18" />
+            </svg>
+            <svg id="close-icon" class="h-5.5 w-5.5 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" x2="6" y1="6" y2="18" />
+              <line x1="6" x2="18" y1="6" y2="18" />
+            </svg>
+          </button>
+        </div>
 
         <!-- App defaults strictly to Light Theme -->
       </div>
     </header>
+
+    <!-- Mobile Menu Drawer -->
+    <div
+      id="mobile-menu"
+      class="hidden md:hidden fixed inset-x-0 top-[64px] z-45 w-full border-b border-hairline bg-canvas/95 backdrop-blur-md transition-all duration-300 ease-in-out origin-top scale-y-95 opacity-0"
+    >
+      <div class="px-4 pt-2 pb-6 space-y-2.5 shadow-lg">
+        <a href="/#tools" class="mobile-nav-link block px-3 py-2 rounded-lg text-sm font-semibold text-body hover:text-ink hover:bg-canvas-soft-2 transition-all">Tools</a>
+        <a href="/blog" class="mobile-nav-link block px-3 py-2 rounded-lg text-sm font-semibold text-body hover:text-ink hover:bg-canvas-soft-2 transition-all">Blog</a>
+        <a href="/#faq" class="mobile-nav-link block px-3 py-2 rounded-lg text-sm font-semibold text-body hover:text-ink hover:bg-canvas-soft-2 transition-all">FAQ</a>
+        <a href="https://github.com/dibyajyotipy/instadl-fit" target="_blank" rel="noopener noreferrer" class="mobile-nav-link flex items-center justify-between px-3 py-2 rounded-lg text-sm font-semibold text-body hover:text-ink hover:bg-canvas-soft-2 transition-all">
+          <span>GitHub</span>
+          <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"></path><path d="M10 14 21 3"></path></svg>
+        </a>
+      </div>
+    </div>
 
     <main class="min-h-[calc(100vh-4rem-12rem)]">
       <slot />
@@ -173,9 +232,55 @@ const breadcrumbSchema = pathSegments.length > 0 ? {
     <Footer />
 
     <script>
+      // Service Worker registration
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
           navigator.serviceWorker.register('/sw.js').catch(() => {});
+        });
+      }
+
+      // Mobile Menu Toggle Logic
+      const menuButton = document.getElementById('mobile-menu-button');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const hamburgerIcon = document.getElementById('hamburger-icon');
+      const closeIcon = document.getElementById('close-icon');
+      const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+      if (menuButton && mobileMenu && hamburgerIcon && closeIcon) {
+        const toggleMenu = () => {
+          const isHidden = mobileMenu.classList.contains('hidden');
+          if (isHidden) {
+            mobileMenu.classList.remove('hidden');
+            requestAnimationFrame(() => {
+              mobileMenu.classList.remove('scale-y-95', 'opacity-0');
+              mobileMenu.classList.add('scale-y-100', 'opacity-100');
+            });
+            hamburgerIcon.classList.add('hidden');
+            closeIcon.classList.remove('hidden');
+            menuButton.setAttribute('aria-expanded', 'true');
+          } else {
+            mobileMenu.classList.remove('scale-y-100', 'opacity-100');
+            mobileMenu.classList.add('scale-y-95', 'opacity-0');
+            hamburgerIcon.classList.remove('hidden');
+            closeIcon.classList.add('hidden');
+            menuButton.setAttribute('aria-expanded', 'false');
+            
+            setTimeout(() => {
+              if (menuButton.getAttribute('aria-expanded') === 'false') {
+                mobileMenu.classList.add('hidden');
+              }
+            }, 300);
+          }
+        };
+
+        menuButton.addEventListener('click', toggleMenu);
+
+        mobileNavLinks.forEach(link => {
+          link.addEventListener('click', () => {
+            if (!mobileMenu.classList.contains('hidden')) {
+              toggleMenu();
+            }
+          });
         });
       }
     </script>
